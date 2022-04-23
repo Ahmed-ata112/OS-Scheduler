@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Apr 23 14:37:18 2022
+# Make data base, printed on Sat Apr 23 20:15:09 2022
 
 # Variables
 
@@ -53,7 +53,7 @@ SNAP_DATA = /var/snap/code/94
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:49491
+JOURNAL_STREAM = 8:37587
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -81,7 +81,7 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 _ = /snap/code/94/usr/share/code/code
 # environment
-MANAGERPID = 1686
+MANAGERPID = 1675
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -97,7 +97,7 @@ NO_PROXY = 127.0.0.1
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/1938,unix/my-loly:/tmp/.ICE-unix/1938
+SESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/1921,unix/my-loly:/tmp/.ICE-unix/1921
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -115,7 +115,7 @@ DISABLE_WAYLAND = 1
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = ee6d3788a211458f8f707dff70057911
+INVOCATION_ID = 304b395d753c4752a9d1aa6a384c3cd0
 # environment
 GDK_PIXBUF_MODULEDIR = /snap/code/94/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
@@ -127,7 +127,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 3461
+GIO_LAUNCHED_DESKTOP_FILE_PID = 3690
 # automatic
 %F = $(notdir $%)
 # environment
@@ -141,7 +141,7 @@ PWD = /home/ahmedatta/Stud/OS/Repos/OSproject
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1900
+SSH_AGENT_PID = 1881
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -195,7 +195,7 @@ SHLVL = 0
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-806e3023-846c-49b8-bc6c-67d461413333.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-1dcc1965-24fa-4281-973a-96eccd6650ba.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -277,9 +277,12 @@ LC_ADDRESS = en_US.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 3800
+VSCODE_PID = 3738
 # variable set hash-table stats:
 # Load=134/1024=13%, Rehash=0, Collisions=25/156=16%
+ 
+make: *** No rule to make target 'all'.  Stop.
+
 
 # Pattern-specific Variable Values
 
@@ -287,14 +290,11 @@ VSCODE_PID = 3800
 
 # Directories
 
-# . (device 66307, inode 1841474): 11 files, no impossibilities.
+# . (device 66307, inode 1841474): 12 files, no impossibilities.
 
-# 11 files, no impossibilities in 1 directories.
+# 12 files, no impossibilities in 1 directories.
 
 # Implicit Rules
- 
-make: *** No rule to make target 'all'.  Stop.
-
 
 # No implicit rules.
 
@@ -342,12 +342,12 @@ GNUmakefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 19 / storage = 186 B / avg = 9 B
-# current buf: size = 8162 B / used = 186 B / count = 19 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 20 / storage = 193 B / avg = 9 B
+# current buf: size = 8162 B / used = 193 B / count = 20 / avg = 9 B
 
-# strcache performance: lookups = 22 / hit rate = 13%
+# strcache performance: lookups = 23 / hit rate = 13%
 # hash-table stats:
-# Load=19/8192=0%, Rehash=0, Collisions=1/22=5%
-# Finished Make data base on Sat Apr 23 14:37:18 2022
+# Load=20/8192=0%, Rehash=0, Collisions=1/23=4%
+# Finished Make data base on Sat Apr 23 20:15:09 2022
 
  
