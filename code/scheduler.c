@@ -33,6 +33,12 @@ uint64_t process_hash(const void *item, uint64_t seed0, uint64_t seed1)
 
 // TODO init this in the main of the scheduler
 struct hashmap *process_table;
+int process_msgqueue;
+
+// when process generator tells us that there is no more to come
+// set this to false
+
+bool more_processes_coming = true;
 
 int main(int argc, char *argv[])
 {
@@ -46,4 +52,15 @@ int main(int argc, char *argv[])
 
 void RR()
 {
+    /**
+     * i loop all the time
+     * till a variable tells me that there is no more proccesses comming
+     * this is when i quit
+     * All the processes that in the circular queue are in the process_table
+     * when finished -> u delete from both
+     *
+     */
+
+    
+
 }
