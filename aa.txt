@@ -22,7 +22,7 @@ Process Generator
 
 ----------------------------------------------------------------
 
-/
+
 
 -----------------------------------------------------------------
 Scheduler
@@ -80,9 +80,9 @@ circular Queue
 
 
 process Generator + output -> fady
-HPF -> sarah
+HPF + HashMap-> sarah
 SRTN -> Hany
-RR -> RR
+RR -> atta 
 
 
 
