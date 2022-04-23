@@ -33,7 +33,7 @@ uint64_t process_hash(const void *item, uint64_t seed0, uint64_t seed1)
 
 // TODO init this in the main of the scheduler
 struct hashmap *process_table;
-
+int process_msgqueue;
 int main(int argc, char *argv[])
 {
     initClk();
