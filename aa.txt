@@ -80,13 +80,9 @@ circular Queue
 
 
 process Generator + output -> fady
-HPF + HashMap-> sarah
-SRTN -> Hany
-RR -> atta 
-
-
-
-
+HPF  + HashMap-> sarah
+SRTN  -> Hany
+RR    -> atta 
 
 
 
@@ -97,5 +93,9 @@ Ques:
     2- should the scheduler sleep if there is no current processes??
     3- (arrival, runtime, PR ) -> Static variables -> should be in the 
             PCB or another independent Table
-
     4- why two way communication of the scheduler and the processes??
+
+
+
+
+
