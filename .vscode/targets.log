@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Apr 23 00:36:35 2022
+# Make data base, printed on Sat Apr 23 14:37:18 2022
 
 # Variables
 
@@ -36,6 +34,8 @@ VSCODE_LOG_NATIVE = false
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
 IM_CONFIG_PHASE = 1
+# environment
+PLATFORMIO_IDE = 2.4.3
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
 # environment
@@ -53,7 +53,7 @@ SNAP_DATA = /var/snap/code/94
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:49288
+JOURNAL_STREAM = 8:49491
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -67,6 +67,8 @@ MAKEFILE_LIST :=
 # environment
 GIO_LAUNCHED_DESKTOP_FILE = /var/lib/snapd/desktop/applications/code_code.desktop
 # environment
+QT_IM_MODULE = ibus
+# environment
 USERNAME = ahmedatta
 # environment
 MAKELEVEL := 0
@@ -79,7 +81,7 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 _ = /snap/code/94/usr/share/code/code
 # environment
-MANAGERPID = 1706
+MANAGERPID = 1686
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -91,11 +93,11 @@ GSETTINGS_SCHEMA_DIR = /snap/code/94/usr/share/glib-2.0/schemas
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/ahmedatta/.local/bin:/home/ahmedatta/bin:/home/ahmedatta/.local/bin:/home/ahmedatta/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:QT_QPA_PLATFORMTHEME=gtk2
+NO_PROXY = 127.0.0.1
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/1952,unix/my-loly:/tmp/.ICE-unix/1952
+SESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/1938,unix/my-loly:/tmp/.ICE-unix/1938
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -113,7 +115,7 @@ DISABLE_WAYLAND = 1
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = d17c226bd5094e6bbb7a60e8320bcf41
+INVOCATION_ID = ee6d3788a211458f8f707dff70057911
 # environment
 GDK_PIXBUF_MODULEDIR = /snap/code/94/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
@@ -125,7 +127,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 8899
+GIO_LAUNCHED_DESKTOP_FILE_PID = 3461
 # automatic
 %F = $(notdir $%)
 # environment
@@ -139,7 +141,7 @@ PWD = /home/ahmedatta/Stud/OS/Repos/OSproject
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1914
+SSH_AGENT_PID = 1900
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -178,12 +180,14 @@ GNOME_DESKTOP_SESSION_ID = this-is-deprecated
 LC_TIME = en_US.UTF-8
 # environment
 SNAP_REAL_HOME = /home/ahmedatta
+# environment
+PLATFORMIO_PATH = /home/ahmedatta/.platformio/python3/bin:/home/ahmedatta/.local/bin:/home/ahmedatta/bin:/home/ahmedatta/.local/bin:/home/ahmedatta/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:QT_QPA_PLATFORMTHEME=gtk2
 # default
 MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # environment
-QT_IM_MODULE = ibus
+PATH = /home/ahmedatta/.local/bin:/home/ahmedatta/bin:/home/ahmedatta/.local/bin:/home/ahmedatta/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:QT_QPA_PLATFORMTHEME=gtk2
 # environment
 SNAP_USER_DATA = /home/ahmedatta/snap/code/94
 # environment
@@ -191,7 +195,7 @@ SHLVL = 0
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-06d17ce8-f504-4a20-be22-8eb2cb04ab7b.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-806e3023-846c-49b8-bc6c-67d461413333.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -243,6 +247,8 @@ LC_NUMERIC = en_US.UTF-8
 # automatic
 <F = $(notdir $<)
 # environment
+PLATFORMIO_CALLER = vscode
+# environment
 LC_MEASUREMENT = en_US.UTF-8
 # environment
 SNAP_NAME = code
@@ -271,9 +277,9 @@ LC_ADDRESS = en_US.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 8947
+VSCODE_PID = 3800
 # variable set hash-table stats:
-# Load=130/1024=13%, Rehash=0, Collisions=23/152=15%
+# Load=134/1024=13%, Rehash=0, Collisions=25/156=16%
 
 # Pattern-specific Variable Values
 
@@ -281,18 +287,20 @@ VSCODE_PID = 8947
 
 # Directories
 
-# . (device 66307, inode 1841474): 10 files, no impossibilities.
+# . (device 66307, inode 1841474): 11 files, no impossibilities.
 
-# 10 files, no impossibilities in 1 directories.
+# 11 files, no impossibilities in 1 directories.
 
 # Implicit Rules
+ 
+make: *** No rule to make target 'all'.  Stop.
+
 
 # No implicit rules.
 
 # Files
 
 # Not a target:
- 
 all:
 #  Command line target.
 #  Implicit rule search has been done.
@@ -334,12 +342,12 @@ GNUmakefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 18 / storage = 177 B / avg = 9 B
-# current buf: size = 8162 B / used = 177 B / count = 18 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 19 / storage = 186 B / avg = 9 B
+# current buf: size = 8162 B / used = 186 B / count = 19 / avg = 9 B
 
-# strcache performance: lookups = 21 / hit rate = 14%
+# strcache performance: lookups = 22 / hit rate = 13%
 # hash-table stats:
-# Load=18/8192=0%, Rehash=0, Collisions=1/21=5%
-# Finished Make data base on Sat Apr 23 00:36:35 2022
+# Load=19/8192=0%, Rehash=0, Collisions=1/22=5%
+# Finished Make data base on Sat Apr 23 14:37:18 2022
 
  

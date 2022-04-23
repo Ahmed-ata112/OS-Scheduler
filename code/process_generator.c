@@ -10,6 +10,7 @@ int main(int argc, char * argv[])
     // 2. Ask the user for the chosen scheduling algorithm and its parameters, if there are any.
     // 3. Initiate and create the scheduler and clock processes.
     // 4. Use this function after creating the clock process to initialize clock
+
     initClk();
     // To get time use this
     int x = getClk();
@@ -18,6 +19,9 @@ int main(int argc, char * argv[])
     // 5. Create a data structure for processes and provide it with its parameters.
     // 6. Send the information to the scheduler at the appropriate time.
     // 7. Clear clock resources
+
+
+    
     destroyClk(true);
 }
 
