@@ -1,5 +1,7 @@
 #include "headers.h"
 #include "hashmap.h"
+#include "circular_queue.h"
+
 struct PCB
 {
     int pid;
@@ -60,7 +62,9 @@ void RR()
      * when finished -> u delete from both
      *
      */
-
-    
-
+    struct c_queue RRqueue;
+    while (circular_is_empty(&RRqueue) || more_processes_coming)
+    {
+        /* code */
+    }
 }

@@ -14,7 +14,7 @@ struct c_queue
 };
 
 // Function to create Circular queue
-void enQueue(c_queue *q, int value)
+void circular_enQueue(struct c_queue *q, int value)
 {
     struct cq_node *temp = (struct cq_node *)malloc(sizeof(struct cq_node));
     ;
@@ -29,7 +29,7 @@ void enQueue(c_queue *q, int value)
 }
 
 // Function to delete element from Circular c_queue
-int deQueue(c_queue *q)
+int circular_deQueue(struct c_queue *q)
 {
     if (q->front == NULL)
     {
@@ -56,6 +56,22 @@ int deQueue(c_queue *q)
     }
 
     return value;
+}
+
+void circular_advance_queue(struct c_queue *q)
+{
+    // Queue is empty
+    if (q->front == NULL)
+    {
+        return;
+    }
+    q->rear = q->front;
+    q->front = q->front->next;
+}
+
+bool inline circular_is_empty(struct c_queue *q)
+{
+    return q->front == NULL;
 }
 
 // Function displaying the elements of Circular c_queue
