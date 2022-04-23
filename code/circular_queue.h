@@ -1,23 +1,20 @@
 #include <stdlib.h>
 #include <stdio.h> //if you don't use scanf/printf change this include
 #include <limits.h>
+
 // Structure of a Node
-struct cq_node
-{
+struct cq_node {
     int data;
     struct cq_node *next;
 };
 
-struct c_queue
-{
+struct c_queue {
     struct cq_node *front, *rear;
 };
 
 // Function to create Circular queue
-void circular_enQueue(struct c_queue *q, int value)
-{
-    struct cq_node *temp = (struct cq_node *)malloc(sizeof(struct cq_node));
-    ;
+void circular_enQueue(struct c_queue *q, int value) {
+    struct cq_node *temp = (struct cq_node *) malloc(sizeof(struct cq_node));;
     temp->data = value;
     if (q->front == NULL)
         q->front = temp;
@@ -29,24 +26,20 @@ void circular_enQueue(struct c_queue *q, int value)
 }
 
 // Function to delete element from Circular c_queue
-int circular_deQueue(struct c_queue *q)
-{
-    if (q->front == NULL)
-    {
+int circular_deQueue(struct c_queue *q) {
+    if (q->front == NULL) {
         printf("c_queue is empty");
         return INT_MIN;
     }
 
     // If this is the last node to be deleted
     int value; // Value to be dequeued
-    if (q->front == q->rear)
-    {
+    if (q->front == q->rear) {
         value = q->front->data;
         free(q->front);
         q->front = NULL;
         q->rear = NULL;
-    }
-    else // There are more than one nodes
+    } else // There are more than one nodes
     {
         struct cq_node *temp = q->front;
         value = temp->data;
@@ -58,29 +51,24 @@ int circular_deQueue(struct c_queue *q)
     return value;
 }
 
-void circular_advance_queue(struct c_queue *q)
-{
+void circular_advance_queue(struct c_queue *q) {
     // Queue is empty
-    if (q->front == NULL)
-    {
+    if (q->front == NULL) {
         return;
     }
     q->rear = q->front;
     q->front = q->front->next;
 }
 
-bool inline circular_is_empty(struct c_queue *q)
-{
+short circular_is_empty(struct c_queue *q) {
     return q->front == NULL;
 }
 
 // Function displaying the elements of Circular c_queue
-void displayQueue(struct c_queue *q)
-{
+void displayQueue(struct c_queue *q) {
     struct cq_node *temp = q->front;
     printf("\nElements in Circular Queue are: ");
-    while (temp->next != q->front)
-    {
+    while (temp->next != q->front) {
         printf("%d ", temp->data);
         temp = temp->next;
     }
