@@ -3,10 +3,11 @@
 /* Modify this file as needed*/
 int remainingtime;
 
+
 int main(int agrc, char *argv[]) {
     initClk();
 
-    //TODO it needs to get the remaining time from somewhere
+    int msg_id = msgget(getpid(), IPC_CREAT | 0666);
     //remainingtime = ??;
     printf("in Process.c\n");
     //

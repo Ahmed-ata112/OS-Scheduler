@@ -1,7 +1,7 @@
 #include "headers.h"
 
 void clearResources(int);
-
+int process_msg_queue;
 int main(int argc, char *argv[]) {
     signal(SIGINT, clearResources);
     // TODO Initialization
@@ -29,20 +29,38 @@ int main(int argc, char *argv[]) {
      * TODO: Change THESE
      * @brief just for debugging
      */
+    int sch_pid = fork();
+    if(sch_pid == 0){
+        execl("./scheduler.out","./scheduler.out",NULL);
+    }
 
     int key_id = ftok("keyfile", 65);
-    int process_msg_queue = msgget(key_id, 0666 | IPC_CREAT);
+     process_msg_queue = msgget(key_id, 0666 | IPC_CREAT);
     struct chosen_algorithm coming;
     coming.algo = 1; //RR
     coming.arg = 3;
-    coming.mtype = 1;
+    coming.mtype = ALGO_TYPE;
     msgsnd(process_msg_queue, &coming, sizeof(coming) - sizeof(coming.mtype),
            !IPC_NOWAIT);
 
-
+    // I will send some Process to simulate this
+    struct process_struct pp;
+    for (int i = 0; i < 3; ++i) {
+        pp.mtype =PROC_TYPE;
+        pp.runtime=4;
+        pp.priority=2;
+        pp.arrival=-1;
+        pp.id =i;
+        msgsnd(process_msg_queue, &pp, sizeof(pp) - sizeof(pp.mtype),
+               !IPC_NOWAIT);
+        sleep(5);
+    }
+    kill(sch_pid,SIGUSR1); //
+    sleep(10);
     destroyClk(true);
 }
 
 void clearResources(int signum) {
     //TODO Clears all resources in case of interruption
+    msgctl(process_msg_queue,IPC_RMID,0);
 }

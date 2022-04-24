@@ -82,6 +82,16 @@ struct chosen_algorithm {
     short algo; // 1 for RR
     int arg; // quantum of RR algorithm
 };
+#define PROC_TYPE 1
+#define ALGO_TYPE 2
+#define TIME_TYPE 3
+
+struct process_scheduler {
+    long mtype; // TIME_TYPE
+    int remaining_time;
+
+};
+
 
 
 
