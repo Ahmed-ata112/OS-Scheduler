@@ -1,3 +1,4 @@
+#include <unistd.h>
 #include "circular_queue.h"
 
 int main(int argc, char **argv)
@@ -23,5 +24,9 @@ int main(int argc, char **argv)
     displayQueue(&qq);
     circular_advance_queue(&qq);
     displayQueue(&qq);
+
+
+    execl("./p.out","./p.out",NULL);
+
     return 0;
 }

@@ -23,7 +23,7 @@ struct PCB {
 int process_compare(const void *a, const void *b, void *udata) {
     const struct PCB *process_a = a;
     const struct PCB *process_b = b;
-    return (process_a->id == process_b->id ? 0 : 1);
+    return (process_a->id - process_b->id);
 }
 
 bool process_iter(const void *item, void *udata) {
@@ -36,7 +36,7 @@ bool process_iter(const void *item, void *udata) {
 
 uint64_t process_hash(const void *item, uint64_t seed0, uint64_t seed1) {
     const struct PCB *process = item;
-    return hashmap_murmur(&process->pid, process->pid, seed0, seed1);
+    return hashmap_murmur(&process->id, sizeof(process->id), seed0, seed1);
 }
 
 // TODO init this in the main of the scheduler
@@ -67,12 +67,14 @@ void RR() {
      *
      */
     struct c_queue RRqueue;
+    int quantum = 3;
+    bool started = false;
     // if the Queue is empty then check if there is no more processes that will come
     while (circular_is_empty(&RRqueue) == false || more_processes_coming) {
 
+        // First check if any process has come
         struct msqid_ds buf;
         int num_messages;
-
         msgctl(process_msg_queue, IPC_STAT, &buf);
         num_messages = buf.msg_qnum;
         while (num_messages > 0) {
@@ -88,17 +90,25 @@ void RR() {
             pcb.priority = coming_process.priority;
             pcb.arrival_time = coming_process.arrival;
             pcb.remaining_time = coming_process.runtime; // at the beginning
+
             hashmap_set(process_table, &pcb); // this copies the content of the struct
             circular_enQueue(&RRqueue, coming_process.id); // add this process to the end of the Queue
             num_messages--;
         }
 
+        if (started == 0) {
+            int pid = fork();
+            if (pid == 0) {
+                //child
+                execl("./p.out", "./p.out", NULL);
+            } else {
+                //parent take the pid to the hashmap
 
-
-
-
-
+            }
+        }
 
 
     }
+
+
 }

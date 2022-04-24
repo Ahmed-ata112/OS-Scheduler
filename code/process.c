@@ -9,7 +9,7 @@ int main(int agrc, char * argv[])
     
     //TODO it needs to get the remaining time from somewhere
     //remainingtime = ??;
-
+    printf("in Process.c\n");
     //
     while (remainingtime > 0)
     {
