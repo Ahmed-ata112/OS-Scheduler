@@ -22,8 +22,7 @@ typedef short bool;
 int *shmaddr; //
 //===============================
 
-int getClk()
-{
+int getClk() {
     return *shmaddr;
 }
 
@@ -31,17 +30,15 @@ int getClk()
  * All process call this function at the beginning to establish communication between them and the clock module.
  * Again, remember that the clock is only emulation!
  */
-void initClk()
-{
+void initClk() {
     int shmid = shmget(SHKEY, 4, 0444);
-    while ((int)shmid == -1)
-    {
+    while ((int) shmid == -1) {
         // Make sure that the clock exists
         printf("Wait! The clock not initialized yet!\n");
         sleep(1);
         shmid = shmget(SHKEY, 4, 0444);
     }
-    shmaddr = (int *)shmat(shmid, (void *)0, 0);
+    shmaddr = (int *) shmat(shmid, (void *) 0, 0);
 }
 
 /*
@@ -52,11 +49,9 @@ void initClk()
  *                      It terminates the whole system and releases resources.
  */
 
-void destroyClk(bool terminateAll)
-{
+void destroyClk(bool terminateAll) {
     shmdt(shmaddr);
-    if (terminateAll)
-    {
+    if (terminateAll) {
         /**
          * @note Atta
          * this is because the parent( process generator ) and all the children share
@@ -66,3 +61,40 @@ void destroyClk(bool terminateAll)
         killpg(getpgrp(), SIGINT);
     }
 }
+
+/**
+ * @brief this is the struct that should be sent from the process_generator to the scheduler
+ *  @note msgsend and ,sgresv are the same except the size
+ *  size = sizeof(process_struct) - sizeof(mtype)
+ *  @note mtype for coming processes = 1
+ */
+
+struct process_struct {
+    long mtype; // 1
+    int id;
+    int arrival;
+    int runtime;
+    int priority;
+};
+
+struct chosen_algorithm {
+    long mtype; // 2
+    short algo; // 1 for RR
+    int arg; // quantum of RR algorithm
+};
+#define PROC_TYPE 1
+#define ALGO_TYPE 2
+#define TIME_TYPE 3
+
+struct process_scheduler {
+    long mtype; // TIME_TYPE
+    int remaining_time;
+
+};
+
+
+
+
+
+
+

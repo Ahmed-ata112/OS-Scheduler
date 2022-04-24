@@ -273,7 +273,7 @@ SUFFIXES :=
 # environment
 SNAP_REEXEC = 
 # environment
-CHROME_DESKTOP = code-url-handler.desktop
+CHROME_DESKTOP = code-url-set_no_more_processes_comming.desktop
 # environment
 WINDOWPATH = 2
 # default
