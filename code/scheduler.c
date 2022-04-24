@@ -48,9 +48,14 @@ int process_msg_queue;
 
 bool more_processes_coming = true;
 
+void set_no_more_processes_coming(int signum) {
+    more_processes_coming = false;
+}
+
 int main(int argc, char *argv[]) {
     initClk();
-
+    //process Gen sends a SIGUSR1 to sch to tell than no more processes are coming
+    signal(SIGUSR1, set_no_more_processes_coming);
     // TODO implement the scheduler :)
     // upon termination release the clock resources.
 
@@ -104,7 +109,7 @@ void RR() {
 
         if (!circular_is_empty(&RRqueue)) {
 
-           current_pcb = hashmap_get(process_table, &(pcb_s) {.id = RRqueue.front->data});
+            current_pcb = hashmap_get(process_table, &(pcb_s) {.id = RRqueue.front->data});
             if (current_pcb->pid == 0) { // if current process never started before
                 int pid = fork();
                 if (pid == 0) {
