@@ -57,6 +57,7 @@ int main(int argc, char *argv[]) {
     }
     kill(sch_pid,SIGUSR1); //
     sleep(40);
+    
     destroyClk(true);
 }
 
