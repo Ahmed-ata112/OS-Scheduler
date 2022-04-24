@@ -66,15 +66,22 @@ void destroyClk(bool terminateAll) {
  * @brief this is the struct that should be sent from the process_generator to the scheduler
  *  @note msgsend and ,sgresv are the same except the size
  *  size = sizeof(process_struct) - sizeof(mtype)
+ *  @note mtype for coming processes = 1
  */
+
 struct process_struct {
-    long mtype;
+    long mtype; // 1
     int id;
     int arrival;
     int runtime;
     int priority;
 };
 
+struct chosen_algorithm {
+    long mtype; // 2
+    short algo; // 1 for RR
+    int arg; // quantum of RR algorithm
+};
 
 
 

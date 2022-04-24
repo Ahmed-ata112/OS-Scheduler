@@ -8,6 +8,8 @@ enum state {
 };
 #define pcb_s struct PCB
 
+void RR(int quantum);
+
 struct PCB {
     int id; //this is the key in the hashmap
     int pid;
@@ -56,13 +58,33 @@ int main(int argc, char *argv[]) {
     initClk();
     //process Gen sends a SIGUSR1 to sch to tell than no more processes are coming
     signal(SIGUSR1, set_no_more_processes_coming);
-    // TODO implement the scheduler :)
-    // upon termination release the clock resources.
+    process_table = hashmap_new(sizeof(pcb_s), 0, 0, 0,
+                                process_hash, process_compare, NULL);
 
+
+    struct chosen_algorithm coming;
+    int key_id = ftok("keyfile", 65);
+    process_msg_queue = msgget(key_id, 0666 | IPC_CREAT);
+    msgrcv(process_msg_queue, &coming, sizeof(coming) - sizeof(coming.mtype), 1,
+           !IPC_NOWAIT);
+
+    printf("\nChosen ALgo is %d\n", coming.algo);
+
+    switch (coming.algo) {
+        case 1:
+            //RR(coming.arg);
+            printf("RR\n");
+            break;
+    }
+
+
+
+    // upon termination release the clock resources.
+    hashmap_free(process_table);
     destroyClk(true);
 }
 
-void RR() {
+void RR(int quantum) {
     /**
      * i loop all the time
      * till a variable tells me that there is no more proccesses comming
@@ -72,9 +94,6 @@ void RR() {
      *
      */
     struct c_queue RRqueue;
-    int quantum = 3;
-    int time_slot_remaining = quantum;
-    bool started = false;
     // if the Queue is empty then check if there is no more processes that will come
     pcb_s *current_pcb;
     while (!circular_is_empty(&RRqueue) || more_processes_coming) {
@@ -89,7 +108,7 @@ void RR() {
             // take it out
             // add it to both the RRqueue and its PCB to the processTable
             struct process_struct coming_process;
-            msgrcv(process_msg_queue, &coming_process, sizeof(coming_process) - sizeof(coming_process.mtype), 0,
+            msgrcv(process_msg_queue, &coming_process, sizeof(coming_process) - sizeof(coming_process.mtype), 1,
                    !IPC_NOWAIT);
             //you have that struct Now
             struct PCB pcb;
