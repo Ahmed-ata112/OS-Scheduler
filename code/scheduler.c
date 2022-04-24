@@ -71,7 +71,8 @@ void RR() {
     int time_slot_remaining = quantum;
     bool started = false;
     // if the Queue is empty then check if there is no more processes that will come
-    while (circular_is_empty(&RRqueue) == false || more_processes_coming) {
+    pcb_s *current_pcb;
+    while (!circular_is_empty(&RRqueue) || more_processes_coming) {
 
         // First check if any process has come
         struct msqid_ds buf;
@@ -101,9 +102,9 @@ void RR() {
         int previos_clk = getClk();
         int current_clk;
 
-        if (circular_is_empty(&RRqueue) == 0) {
+        if (!circular_is_empty(&RRqueue)) {
 
-            pcb_s *current_pcb = hashmap_get(process_table, &(pcb_s) {.id = RRqueue.front->data});
+           current_pcb = hashmap_get(process_table, &(pcb_s) {.id = RRqueue.front->data});
             if (current_pcb->pid == 0) { // if current process never started before
                 int pid = fork();
                 if (pid == 0) {
@@ -121,26 +122,25 @@ void RR() {
             int st;
             int ret = waitpid(-1, &st, WNOHANG);
             // if a process ended normally -- you're sure that the signal came from a dead process -- not stoped or resumed
-            bool is_curr_finished = ret != 0 && WIFEXITED(st);
-            if (is_curr_finished) {
+            bool is_curr_terminated = ret != 0 && WIFEXITED(st);
+            if (is_curr_terminated) {
                 printf("process %d finished at %d", current_pcb->id, getClk());
                 circular_deQueue(&RRqueue);
                 hashmap_delete(process_table, current_pcb);
 
             }
             current_clk = getClk();
-            // if the current's quantum finished and only one left -> don't switch
+            // if the current's quantum finished and only one left -> no switch
             // if the current terminated and no other in the Queue -> no switching
-
-            if ((is_curr_finished && !circular_is_empty(&RRqueue)) ||
+            if ((is_curr_terminated && !circular_is_empty(&RRqueue)) ||
                 (current_clk - previos_clk >= quantum && !circular_is_only_one_left(&RRqueue))) {
 
                 // if terminated -> don't send Stop signal
-                if (is_curr_finished) {
+                if (is_curr_terminated) {
                     //TODO add some error printing, bitch
                     kill(current_pcb->pid, SIGSTOP);
                     current_pcb->state = READY; //back to Ready state
-                    circular_advance_queue(&RRqueue);
+                    circular_advance_queue(&RRqueue); //already advanced if deleted
 
                 }
                 current_pcb = hashmap_get(process_table, &(pcb_s) {.id = RRqueue.front->data});
@@ -157,7 +157,7 @@ void RR() {
                     kill(current_pcb->pid, SIGCONT);
                 }
                 current_pcb->state = RUNNING;
-                //reset the Quantum counter
+                //reset the Quantum counter previos -> start-time of the worker
                 previos_clk = getClk();
             }
 
