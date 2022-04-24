@@ -1,9 +1,10 @@
 #include "headers.h"
 #include "hashmap.h"
 #include "circular_queue.h"
-enum state{
-    READY=1,
-    RUNNING=2,
+
+enum state {
+    READY = 1,
+    RUNNING = 2,
 };
 
 
@@ -68,29 +69,30 @@ void RR() {
     struct c_queue RRqueue;
     // if the Queue is empty then check if there is no more processes that will come
     while (circular_is_empty(&RRqueue) == false || more_processes_coming) {
+
         struct msqid_ds buf;
         int num_messages;
 
         msgctl(process_msg_queue, IPC_STAT, &buf);
         num_messages = buf.msg_qnum;
-
         while (num_messages > 0) {
             // while still a process in the queue
             // take it out
             // add it to both the RRqueue and its PCB to the processTable
-            struct process_struct message;
-            msgrcv(process_msg_queue,&message,sizeof(message) - sizeof(message.mtype),0,!IPC_NOWAIT );
-
+            struct process_struct coming_process;
+            msgrcv(process_msg_queue, &coming_process, sizeof(coming_process) - sizeof(coming_process.mtype), 0,
+                   !IPC_NOWAIT);
             //you have that struct Now
             struct PCB pcb;
-            pcb.id = message.id;
-            pcb.priority = message.priority;
-            pcb.arrival_time = message.arrival;
-            pcb.remaining_time = message.runtime; // at the beginning
-            hashmap_set(process_table,&pcb); // this copies the content of the struct
-
+            pcb.id = coming_process.id;
+            pcb.priority = coming_process.priority;
+            pcb.arrival_time = coming_process.arrival;
+            pcb.remaining_time = coming_process.runtime; // at the beginning
+            hashmap_set(process_table, &pcb); // this copies the content of the struct
+            circular_enQueue(&RRqueue, coming_process.id); // add this process to the end of the Queue
             num_messages--;
         }
+
 
 
 
