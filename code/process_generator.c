@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
      process_msg_queue = msgget(key_id, 0666 | IPC_CREAT);
     struct chosen_algorithm coming;
     coming.algo = 1; //RR
-    coming.arg = 3;
+    coming.arg = 3; //q
     coming.mtype = ALGO_TYPE;
     msgsnd(process_msg_queue, &coming, sizeof(coming) - sizeof(coming.mtype),
            !IPC_NOWAIT);
@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
         sleep(5);
     }
     kill(sch_pid,SIGUSR1); //
-    sleep(10);
+    sleep(40);
     destroyClk(true);
 }
 

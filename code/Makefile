@@ -14,6 +14,6 @@ run:
 	./process_generator.out
 
 
-test:
+test: build
 	./clk.out &
 	./process_generator.out
