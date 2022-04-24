@@ -63,7 +63,9 @@ void circular_advance_queue(struct c_queue *q) {
 short circular_is_empty(struct c_queue *q) {
     return q->front == NULL;
 }
-
+short circular_is_only_one_left(struct c_queue *q) {
+    return (!circular_is_empty(q) && q->front == q->rear);
+}
 // Function displaying the elements of Circular c_queue
 void displayQueue(struct c_queue *q) {
     struct cq_node *temp = q->front;
