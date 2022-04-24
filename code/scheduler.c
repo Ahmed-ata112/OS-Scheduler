@@ -6,7 +6,7 @@ enum state {
     READY = 1,
     RUNNING = 2,
 };
-
+#define pcb_s struct PCB
 
 struct PCB {
     int id; //this is the key in the hashmap
@@ -96,14 +96,18 @@ void RR() {
             num_messages--;
         }
 
-        if (started == 0) {
+        //there is a process in the Queue and first time to start
+        if (started == 0 && circular_is_empty(&RRqueue)==0) {
             int pid = fork();
             if (pid == 0) {
                 //child
-                execl("./p.out", "./p.out", NULL);
+               // execl("./p.out", "./p.out", NULL);
+                printf("Create process: %d",RRqueue.front->data);
             } else {
                 //parent take the pid to the hashmap
-
+                pcb_s  pcb ={.id = RRqueue.front->data};
+                pcb_s *ret= hashmap_get(process_table,&pcb);
+                ret->pid = pid; //update Pid of existing process
             }
         }
 
