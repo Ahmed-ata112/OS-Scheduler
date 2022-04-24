@@ -55,6 +55,7 @@ void set_no_more_processes_coming(int signum) {
 }
 
 int main(int argc, char *argv[]) {
+
     initClk();
     // process Gen sends a SIGUSR1 to sch to tell than no more processes are coming
     signal(SIGUSR1, set_no_more_processes_coming);
