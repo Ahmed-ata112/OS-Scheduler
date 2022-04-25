@@ -84,7 +84,9 @@ struct chosen_algorithm {
 };
 #define PROC_TYPE 1
 #define ALGO_TYPE 2
+// message of remaining type
 #define TIME_TYPE 3
+
 
 struct process_scheduler {
     long mtype; // TIME_TYPE

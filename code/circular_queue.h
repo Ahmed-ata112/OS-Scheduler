@@ -75,13 +75,14 @@ void circular_advance_queue(struct c_queue *q)
     q->front = q->front->next;
 }
 
-short circular_is_empty(struct c_queue *q)
+bool circular_is_empty(struct c_queue *q)
 {
     return q->front == NULL;
 }
-short circular_is_only_one_left(struct c_queue *q)
+// we don't switch if there is only one left or the queue empty
+bool circular_is_empty_or_one_left(struct c_queue *q)
 {
-    return (!circular_is_empty(q) && q->front == q->rear);
+    return q->front == q->rear;
 }
 // Function displaying the elements of Circular c_queue
 void displayQueue(struct c_queue *q)

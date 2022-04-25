@@ -10,6 +10,10 @@ int main(int argc, char *argv[]) {
     // 3. Initiate and create the scheduler and clock processes.
     // 4. Use this function after creating the clock process to initialize clock
 
+    int i = fork();
+    if(i == 0){
+        execl("./clk.out","./clk.out",NULL);
+    }
 
     initClk();
     // To get time use this
@@ -20,7 +24,6 @@ int main(int argc, char *argv[]) {
     // 5. Create a data structure for processes and provide it with its parameters.
     // 6. Send the information to the scheduler at the appropriate time.
     // 7. Clear clock resources
-
 
 
 
@@ -38,7 +41,7 @@ int main(int argc, char *argv[]) {
      process_msg_queue = msgget(key_id, 0666 | IPC_CREAT);
     struct chosen_algorithm coming;
     coming.algo = 1; //RR
-    coming.arg = 3; //q
+    coming.arg = 5; //q
     coming.mtype = ALGO_TYPE;
     msgsnd(process_msg_queue, &coming, sizeof(coming) - sizeof(coming.mtype),
            !IPC_NOWAIT);
@@ -47,16 +50,16 @@ int main(int argc, char *argv[]) {
     struct process_struct pp;
     for (int i = 0; i < 3; ++i) {
         pp.mtype =PROC_TYPE;
-        pp.runtime=4;
+        pp.runtime=8;
         pp.priority=2;
-        pp.arrival=-1;
+        pp.arrival=getClk();
         pp.id =i;
         msgsnd(process_msg_queue, &pp, sizeof(pp) - sizeof(pp.mtype),
                !IPC_NOWAIT);
         sleep(5);
     }
     kill(sch_pid,SIGUSR1); //
-    sleep(40);
+    sleep(10);
     destroyClk(true);
 }
 
