@@ -1,6 +1,7 @@
 #include "headers.h"
 #include "hashmap.h"
 #include "circular_queue.h"
+#include "priority_queue.h"
 
 enum state {
     READY = 1,
@@ -10,7 +11,8 @@ enum state {
 
 void RR(int quantum);
 
-struct PCB {
+//Modified from struct to typedef struct .......................................................Hany
+typedef struct PCB {
     int id; // this is the key in the hashmap
     int pid;
     int arrival_time;
@@ -19,7 +21,7 @@ struct PCB {
     int cum_runtime;
     int remaining_time;
     int waiting_time;
-};
+} PCB;
 
 // 3 functions related to the hashmap
 int process_compare(const void *a, const void *b, void *udata) {
@@ -76,11 +78,38 @@ int main(int argc, char *argv[]) {
 
             RR(coming.arg);
             break;
+        case 2:
+            printf("SRTN\n");
+
+            break;
     }
 
     // upon termination release the clock resources.
     hashmap_free(process_table);
     destroyClk(true);
+}
+
+/*----------------------------------------------------------------
+Author: Ahmed Hany @Ahmed-H300
+function: SRTN
+param: void ()
+output: void
+*///----------------------------------------------------------------
+void SRTN()
+{
+    printf("Entering SRTN \n");
+    // intialize the priority queue
+    minHeap sQueue;
+    sQueue = init_min_heap();
+
+    // the main loop for the scheduler
+    while (!is_empty(&sQueue) || more_processes_coming)
+    {
+        
+    }
+
+
+
 }
 
 void RR(int quantum) {

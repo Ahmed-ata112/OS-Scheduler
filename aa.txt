@@ -77,11 +77,11 @@ HashMap(process Table)
 
 Pr queue
 circular Queue
-
+Pr queue
 
 process Generator + output -> fady
 HPF  + HashMap-> sarah
-SRTN  -> Hany
+SRTN -> Hany 
 RR    -> atta 
 
 
