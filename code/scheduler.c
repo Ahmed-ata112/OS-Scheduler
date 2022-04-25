@@ -124,17 +124,13 @@ void RR(int quantum) {
         }
 
         // there is a process in the Queue and first time to start
-        int previos_clk = getClk();
+        int previousClk = getClk();
         int current_clk;
 
         if (!circular_is_empty(&RRqueue)) {
-
             //hashmap_scan(process_table, process_iter, NULL);
-
             pcb_s get_process = {.id = RRqueue.front->data};
             current_pcb = hashmap_get(process_table, &get_process);
-
-            fflush(0);
             if (current_pcb->pid == 0) { // if current process never started before
                 int pid = fork();
                 if (pid == 0) {
@@ -169,7 +165,7 @@ void RR(int quantum) {
             // if the current's quantum finished and only one left -> no switch
             // if the current terminated and no other in the Queue -> no switching
             if ((is_curr_terminated && !circular_is_empty(&RRqueue)) ||
-                (current_clk - previos_clk >= quantum && !circular_is_only_one_left(&RRqueue))) {
+                (current_clk - previousClk >= quantum && !circular_is_only_one_left(&RRqueue))) {
 
                 // if terminated -> don't send Stop signal
                 if (is_curr_terminated) {
@@ -197,7 +193,7 @@ void RR(int quantum) {
                 }
                 current_pcb->state = RUNNING;
                 // reset the Quantum counter previos -> start-time of the worker
-                previos_clk = getClk();
+                previousClk = getClk();
             }
         }
     }
