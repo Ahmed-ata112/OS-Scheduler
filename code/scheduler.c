@@ -233,11 +233,13 @@ void RR(int quantum)
     }
 }
 void HPF()
-{   
-    printf("Entering hpf/n");
+{
+    printf("Entering hpf \n");
+    fflush(0);
 
     minHeap hpf_queue = init_min_heap();
     pcb_s *current_pcb;
+    bool process_is_currently_running = false;
 
     while (!is_empty(&hpf_queue) || more_processes_coming)
     {
@@ -261,71 +263,82 @@ void HPF()
             pcb.priority = coming_process.priority;
             pcb.arrival_time = coming_process.arrival;
             pcb.remaining_time = coming_process.runtime; // at the beginning
-
+            pcb.state = READY;
             hashmap_set(process_table, &pcb);                             // this copies the content of the struct
             push(&hpf_queue, coming_process.priority, coming_process.id); // add this process to the priority queue
+            printf("Received process with priority %d and id %d at time %d \n", coming_process.priority, coming_process.id, getClk());
+            printf("Front of the queue is %d\n", peek(&hpf_queue)->priority);
             num_messages--;
         }
 
         int previos_clk; //= getClk();
         int current_clk;
-        struct process_scheduler pp;
         if (!is_empty(&hpf_queue))
         {
-
-            current_pcb = hashmap_get(process_table, &(pcb_s){.id = peek(&hpf_queue)->data});
-
-            if (current_pcb->state == READY)
+            if (!process_is_currently_running)
             {
-                if (current_pcb->arrival_time <= getClk()) // if it's already the arrival time of the process
-                {
-                    int pid = fork();
-                    if (pid == 0)
-                    {
-                        // child
-                        printf("Create process: %d", peek(&hpf_queue)->data);
-                        execl("./process.out", "./process.out", NULL);
-                    }
-                    else
-                    {
-                        // parent take the pid to the hashmap
-                        current_pcb->pid = pid; // update Pid of existing process
-                        current_pcb->state = RUNNING;
-                        previos_clk = getClk();
+                current_pcb = hashmap_get(process_table, &(pcb_s){.id = peek(&hpf_queue)->data});
 
-                        pp.remaining_time = current_pcb->remaining_time;
-                        pp.mtype = TIME_TYPE;
-                        int msg_id = msgget(pid, IPC_CREAT | 0666);
-                        msgsnd(msg_id, &pp, sizeof(pp.remaining_time), !IPC_NOWAIT);
+                // if (current_pcb->state == READY)
+                {
+                    if (current_pcb->arrival_time <= getClk()) // if it's already the arrival time of the process
+                    {
+                        int pid = fork();
+                        if (pid == 0)
+                        {
+                            // child
+                            printf("Create process: %d with priority: %d", peek(&hpf_queue)->data, peek(&hpf_queue)->priority);
+                            fflush(0);
+                            execl("./process.out", "./process.out", NULL);
+                        }
+                        else
+                        {
+                            process_is_currently_running = true;
+                            // parent take the pid to the hashmap
+                            current_pcb->pid = pid; // update Pid of existing process
+                            current_pcb->state = RUNNING;
+                            previos_clk = getClk();
+                            struct process_scheduler pp;
+
+                            pp.remaining_time = current_pcb->remaining_time;
+                            pp.mtype = TIME_TYPE;
+                            int msg_id = msgget(pid, IPC_CREAT | 0666);
+                            msgsnd(msg_id, &pp, sizeof(pp.remaining_time), !IPC_NOWAIT);
+                        }
                     }
                 }
             }
+            //  else
 
-            else
+            current_clk = getClk();
+            if (previos_clk != current_clk)
             {
-
+                struct process_scheduler pp;
+                previos_clk = current_clk;
                 current_clk = getClk();
 
-                current_pcb->remaining_time = current_pcb->cum_runtime - (current_clk - previos_clk); // update remaining time of process
-                //Sends remaining time to process
-                pp.remaining_time = current_pcb->remaining_time;
-                pp.mtype = TIME_TYPE;
-                int msg_id = msgget(current_pcb->pid, IPC_CREAT | 0666);
-                msgsnd(msg_id, &pp, sizeof(pp.remaining_time), !IPC_NOWAIT);
+                current_pcb->remaining_time--; // update remaining time of process
+                printf("Remaining time of process %d is %d \n", current_pcb->id, current_pcb->remaining_time);
 
-                if (current_pcb->remaining_time <= 0)
-                // the process has finished, so we have to wait for it to terminate
+                // Sends remaining time to process
+                // pp.remaining_time = current_pcb->remaining_time;
+                // pp.mtype = TIME_TYPE;
+                // int msg_id = msgget(current_pcb->pid, IPC_CREAT | 0666);
+                // msgsnd(msg_id, &pp, sizeof(pp.remaining_time), !IPC_NOWAIT);
+            }
+            if (current_pcb->remaining_time == 0)
+            // the process has finished, so we have to wait for it to terminate
+            {
+                int st;
+                int ret = waitpid(current_pcb->pid, &st, WNOHANG);
+                // if a process ended normally -- you're sure that the signal came from a dead process -- not stoped or resumed
+                bool is_curr_terminated = (ret != 0) && WIFEXITED(st);
+                if (is_curr_terminated)
                 {
-                    int st;
-                    int ret = waitpid(-1, &st, WNOHANG);
-                    // if a process ended normally -- you're sure that the signal came from a dead process -- not stoped or resumed
-                    bool is_curr_terminated = (ret != 0) && WIFEXITED(st);
-                    if (is_curr_terminated)
-                    {
-                        printf("process %d finished at %d", current_pcb->id, getClk());
-                        pop(&hpf_queue);
-                        hashmap_delete(process_table, current_pcb);
-                    }
+                    printf("process %d finished at %d\n", current_pcb->id, getClk());
+                    pop(&hpf_queue);
+                    hashmap_delete(process_table, current_pcb);
+                    process_is_currently_running = false;
                 }
             }
         }
