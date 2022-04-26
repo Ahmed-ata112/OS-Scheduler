@@ -1,4 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -6,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Apr 26 19:57:43 2022
+# Make data base, printed on Wed Apr 27 01:32:15 2022
 
 # Variables
 
@@ -53,7 +55,7 @@ SNAP_DATA = /var/snap/code/94
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:55422
+JOURNAL_STREAM = 8:52063
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -81,7 +83,7 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 _ = /snap/code/94/usr/share/code/code
 # environment
-MANAGERPID = 1628
+MANAGERPID = 1793
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -97,7 +99,7 @@ NO_PROXY = 127.0.0.1
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/1876,unix/my-loly:/tmp/.ICE-unix/1876
+SESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/2041,unix/my-loly:/tmp/.ICE-unix/2041
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -115,7 +117,7 @@ DISABLE_WAYLAND = 1
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 5ac52f0741fb4c54844dbd3d7cbe3a66
+INVOCATION_ID = bb9017b8f4e04b2698f8dff49f0aba65
 # environment
 GDK_PIXBUF_MODULEDIR = /snap/code/94/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
@@ -127,7 +129,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 3273
+GIO_LAUNCHED_DESKTOP_FILE_PID = 2681
 # automatic
 %F = $(notdir $%)
 # environment
@@ -141,7 +143,7 @@ PWD = /home/ahmedatta/Stud/OS/Repos/OSproject
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1835
+SSH_AGENT_PID = 2003
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -195,7 +197,7 @@ SHLVL = 0
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-ee54d92a-6988-4f0b-b8d7-3eab6c82f552.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-3cf9a938-289c-4dc5-8e7c-5031b7079800.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -276,8 +278,9 @@ GJS_DEBUG_OUTPUT = stderr
 LC_ADDRESS = en_US.UTF-8
 # environment
 LANG = C
+ 
 # environment
-VSCODE_PID = 3320
+VSCODE_PID = 2725
 # variable set hash-table stats:
 # Load=134/1024=13%, Rehash=0, Collisions=25/156=16%
 
@@ -303,9 +306,6 @@ all:
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has not been updated.
- 
-make: *** No rule to make target 'all'.  Stop.
-
 
 # Not a target:
 Makefile:
@@ -348,6 +348,6 @@ GNUmakefile:
 # strcache performance: lookups = 24 / hit rate = 12%
 # hash-table stats:
 # Load=21/8192=0%, Rehash=0, Collisions=1/24=4%
-# Finished Make data base on Tue Apr 26 19:57:43 2022
+# Finished Make data base on Wed Apr 27 01:32:15 2022
 
  
