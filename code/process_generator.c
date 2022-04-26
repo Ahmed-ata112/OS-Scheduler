@@ -2,7 +2,8 @@
 
 void clearResources(int);
 int process_msg_queue;
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     signal(SIGINT, clearResources);
     // TODO Initialization
     // 1. Read the input files.
@@ -11,8 +12,9 @@ int main(int argc, char *argv[]) {
     // 4. Use this function after creating the clock process to initialize clock
 
     int i = fork();
-    if(i == 0){
-        execl("./clk.out","./clk.out",NULL);
+    if (i == 0)
+    {
+        execl("./clk.out", "./clk.out", NULL);
     }
 
     initClk();
@@ -25,45 +27,46 @@ int main(int argc, char *argv[]) {
     // 6. Send the information to the scheduler at the appropriate time.
     // 7. Clear clock resources
 
-
-
     /**
      * @atta
      * TODO: Change THESE
      * @brief just for debugging
      */
     int sch_pid = fork();
-    if(sch_pid == 0){
-        execl("./scheduler.out","./scheduler.out",NULL);
+    if (sch_pid == 0)
+    {
+        execl("./scheduler.out", "./scheduler.out", NULL);
     }
 
     int key_id = ftok("keyfile", 65);
-     process_msg_queue = msgget(key_id, 0666 | IPC_CREAT);
+    process_msg_queue = msgget(key_id, 0666 | IPC_CREAT);
     struct chosen_algorithm coming;
-    coming.algo = 1; //RR
-    coming.arg = 5; //q
+    coming.algo = 1; // RR
+    coming.arg = 3;  // q
     coming.mtype = ALGO_TYPE;
     msgsnd(process_msg_queue, &coming, sizeof(coming) - sizeof(coming.mtype),
            !IPC_NOWAIT);
 
     // I will send some Process to simulate this
     struct process_struct pp;
-    for (int i = 0; i < 3; ++i) {
-        pp.mtype =PROC_TYPE;
-        pp.runtime=8;
-        pp.priority=2;
-        pp.arrival=getClk();
-        pp.id =i;
+    for (int i = 0; i < 2; ++i)
+    {
+        pp.mtype = PROC_TYPE;
+        pp.runtime = 3;
+        pp.priority = 2;
+        pp.arrival = getClk();
+        pp.id = i;
         msgsnd(process_msg_queue, &pp, sizeof(pp) - sizeof(pp.mtype),
                !IPC_NOWAIT);
-        sleep(5);
+        sleep(2);
     }
-    kill(sch_pid,SIGUSR1); //
-    sleep(10);
+    kill(sch_pid, SIGUSR1); //
+    sleep(100);
     destroyClk(true);
 }
 
-void clearResources(int signum) {
-    //TODO Clears all resources in case of interruption
-    msgctl(process_msg_queue,IPC_RMID,0);
+void clearResources(int signum)
+{
+    // TODO Clears all resources in case of interruption
+    msgctl(process_msg_queue, IPC_RMID, 0);
 }
