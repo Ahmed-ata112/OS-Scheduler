@@ -48,7 +48,7 @@ void initClk()
 
 void init_remain_time()
 {
-    int shmid = shmget(SHKEY, 4, 0444);
+    int shmid = shmget(REMAIN_TIME_SHMKEY, 4, 0444);
     while ((int)shmid == -1)
     {
         // Make sure that the clock exists
@@ -59,18 +59,6 @@ void init_remain_time()
     shm_remain_time = (int *)shmat(shmid, (void *)0, 0);
 }
 
-void initClk()
-{
-    int shmid = shmget(SHKEY, 4, 0444);
-    while ((int)shmid == -1)
-    {
-        // Make sure that the clock exists
-        printf("Wait! The clock not initialized yet!\n");
-        sleep(1);
-        shmid = shmget(SHKEY, 4, 0444);
-    }
-    shmaddr = (int *)shmat(shmid, (void *)0, 0);
-}
 /*
  * All process call this function at the end to release the communication
  * resources between them and the clock module.

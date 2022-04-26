@@ -71,6 +71,7 @@ void dead_process(int signum)
 
 int main(int argc, char *argv[])
 {
+
     initClk();
 
     int shmid = shmget(REMAIN_TIME_SHMKEY, 4, IPC_CREAT | 0644);
@@ -145,9 +146,8 @@ void RR(int quantum)
             pcb.pid = 0;
             pcb.priority = coming_process.priority;
             pcb.arrival_time = coming_process.arrival;
-            pcb.remaining_time = coming_process.runtime; // at the beginning
-            pcb.burst_time = coming_process.runtime;     // at the beginning
-
+            pcb.remaining_time = coming_process.runtime;   // at the beginning
+            pcb.burst_time = coming_process.runtime;       // at the beginning
             hashmap_set(process_table, &pcb);              // this copies the content of the struct
             circular_enQueue(&RRqueue, coming_process.id); // add this process to the end of the Queue
             num_messages--;
@@ -161,6 +161,7 @@ void RR(int quantum)
             current_pcb = hashmap_get(process_table, &get_process);
             if (current_pcb->pid == 0)
             { // if current process never started before
+                *shm_remain_time = current_pcb->remaining_time;
                 int pid = fork();
                 if (pid == 0)
                 {
@@ -168,16 +169,11 @@ void RR(int quantum)
                     printf("Create process: %d", RRqueue.front->data);
                     execl("./process.out", "./process.out", NULL);
                 }
-
                 // parent take the pid to the hashmap
                 current_pcb->pid = pid; // update Pid of existing process
                 current_pcb->state = RUNNING;
-                struct process_scheduler pp;
-                pp.remaining_time = current_pcb->remaining_time;
-                pp.mtype = TIME_TYPE;
-                int msg_id = msgget(pid, IPC_CREAT | 0666);
-                printf("At time %d process %d started arr %d total %d remain 0 wait 0\n", getClk(), current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time);
-                msgsnd(msg_id, &pp, sizeof(pp.remaining_time), !IPC_NOWAIT);
+                printf("At time %d process %d started arr %d total %d remain %d wait 0\n", getClk(), current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time);
+                // msgsnd(msg_id, &pp, sizeof(pp.remaining_time), !IPC_NOWAIT);
                 previousClk = getClk(); // started a quantum
             }
             // if its time ended or its quantum -> switch (Advance front)
@@ -190,7 +186,7 @@ void RR(int quantum)
 
             if (is_curr_terminated)
             {
-                printf("At time %d process %d finished arr %d total %d remain 0 wait 0\n", getClk(), current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time);
+                printf("At time %d process %d finished arr %d total %d remain %d wait 0\n", getClk(), current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time);
                 circular_deQueue(&RRqueue); // auto advance the queue
                 hashmap_delete(process_table, current_pcb);
             }
@@ -198,17 +194,19 @@ void RR(int quantum)
 
             // if the current's quantum finished and only one left -> no switch
             // if the current terminated and no other in the Queue -> no switching
+
             if ((is_curr_terminated && !circular_is_empty(&RRqueue)) ||
-                (current_clk - previousClk >= quantum && !circular_is_empty_or_one_left(&RRqueue)))
+                ((current_clk - previousClk >= quantum && !circular_is_empty_or_one_left(&RRqueue)) && *shm_remain_time))
             {
                 // if terminated -> don't send Stop signal
-                printf("Reach\n");
+                printf("switch\n");
 
                 if (!is_curr_terminated)
                 {
                     // TODO add some error printing, bitch
                     kill(current_pcb->pid, SIGSTOP);
-                    printf("At time %d process %d stoped arr %d total %d remain 0 wait 0\n", getClk(), current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time);
+                    printf("At time %d process %d stoped arr %d total %d remain %d wait 0\n", getClk(), current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time);
+                    current_pcb->remaining_time = *shm_remain_time;
                     current_pcb->state = READY;       // back to Ready state
                     circular_advance_queue(&RRqueue); // already advanced if deleted
                 }
@@ -216,6 +214,7 @@ void RR(int quantum)
                 current_pcb = hashmap_get(process_table, &(pcb_s){.id = RRqueue.front->data});
                 if (current_pcb->pid == 0)
                 { // if current process never started before
+                    *shm_remain_time = current_pcb->remaining_time;
                     int pid = fork();
                     if (pid == 0)
                     {
@@ -224,18 +223,14 @@ void RR(int quantum)
                     }
 
                     // parent
-                    struct process_scheduler pp;
-                    pp.remaining_time = current_pcb->remaining_time;
-                    pp.mtype = TIME_TYPE;
-                    int msg_id = msgget(pid, IPC_CREAT | 0666);
-                    msgsnd(msg_id, &pp, sizeof(pp.remaining_time), !IPC_NOWAIT);
                     current_pcb->pid = pid; // update Pid of existing process
-                    printf("At time %d process %d started arr %d total %d remain 0 wait 0\n", getClk(), current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time);
+                    printf("At time %d process %d started arr %d total %d remain %d wait 0\n", getClk(), current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time);
                 }
                 else
                 {
                     kill(current_pcb->pid, SIGCONT);
-                    printf("At time %d process %d resumed arr %d total %d remain 0 wait 0\n", getClk(), current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time);
+                    *shm_remain_time = current_pcb->remaining_time;
+                    printf("At time %d process %d resumed arr %d total %d remain %d wait 0\n", getClk(), current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time);
                 }
                 current_pcb->state = RUNNING;
                 previousClk = getClk(); // started a quantum
