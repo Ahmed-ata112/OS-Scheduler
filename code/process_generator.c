@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
     process_msg_queue = msgget(key_id, 0666 | IPC_CREAT);
     struct chosen_algorithm coming;
     coming.algo = 1; // RR
-    coming.arg = 5;  // q
+    coming.arg = 3;  // q
     coming.mtype = ALGO_TYPE;
     msgsnd(process_msg_queue, &coming, sizeof(coming) - sizeof(coming.mtype),
            !IPC_NOWAIT);
@@ -52,13 +52,13 @@ int main(int argc, char *argv[])
     for (int i = 0; i < 3; ++i)
     {
         pp.mtype = PROC_TYPE;
-        pp.runtime = 10;
+        pp.runtime = 3;
         pp.priority = 2;
         pp.arrival = getClk();
         pp.id = i;
         msgsnd(process_msg_queue, &pp, sizeof(pp) - sizeof(pp.mtype),
                !IPC_NOWAIT);
-        sleep(2);
+        sleep(1);
     }
     kill(sch_pid, SIGUSR1); //
     sleep(100);

@@ -13,13 +13,12 @@ int main(int agrc, char *argv[])
     int prev_clk = getClk();
     while (*shm_remain_time > 0)
     {
-        int curr_clk = getClk();
-        if (prev_clk != curr_clk)
-        {
-            (*shm_remain_time)--;
-            printf("\n %d : %d\n", getpid(), *shm_remain_time);
-            prev_clk = getClk();
-        }
+        // if (prev_clk != curr_clk)
+        // {
+        //     (*shm_remain_time)--;
+        //     printf("\n %d : %d\n", getpid(), *shm_remain_time);
+        //     prev_clk = getClk();
+        // }
     }
 
     destroyClk(false);
