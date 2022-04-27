@@ -3,20 +3,22 @@
 /* Modify this file as needed*/
 int remainingtime;
 
-
-int main(int agrc, char *argv[]) {
+int main(int agrc, char *argv[])
+{
     initClk();
-    struct process_scheduler pp;
-    int msg_id = msgget(getpid(), IPC_CREAT | 0666);
-    msgrcv(msg_id, &pp, sizeof(pp.remaining_time), TIME_TYPE, !IPC_NOWAIT);;
-    remainingtime = pp.remaining_time;
-    printf("\nin Process.c remain_time = %d\n", remainingtime);
-    int curr_clk = getClk();
-    while (remainingtime > 0) {
-        if(curr_clk != getClk()){
-            remainingtime --;
-            curr_clk = getClk();
-        }
+    init_remain_time();
+
+    //printf("\nin Process.c remain_time = %d\n", *shm_remain_time);
+
+    int prev_clk = getClk();
+    while (*shm_remain_time > 0)
+    {
+        // if (prev_clk != curr_clk)
+        // {
+        //     (*shm_remain_time)--;
+        //     printf("\n %d : %d\n", getpid(), *shm_remain_time);
+        //     prev_clk = getClk();
+        // }
     }
 
     destroyClk(false);
