@@ -98,7 +98,7 @@ void RR(int quantum) {
      * till a variable tells me that there is no more proccesses comming
      * this is when i quit
      * All the processes that in the circular queue are in the process_table
-     * when finished -> u delete from both
+     * when finished -> u delete_by_key from both
      * @bug: if the process gen sends a SIGUSR1 immediately after sending Processes -> it finishes too
      *       @solution -> make Process gen sleep for a 1 sec or st after sending all
      */
