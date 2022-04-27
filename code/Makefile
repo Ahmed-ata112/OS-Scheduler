@@ -16,3 +16,8 @@ run:
 
 test: build
 	./process_generator.out
+
+
+buddy:
+	gcc -o hey  buddy_core.c -lm
+	./hey

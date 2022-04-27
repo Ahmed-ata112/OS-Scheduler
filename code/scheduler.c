@@ -154,7 +154,8 @@ void RR(int quantum) {
                 // parent take the pid to the hashmap
                 current_pcb->pid = pid; // update Pid of existing process
                 current_pcb->state = RUNNING;
-                printf("At time %d process %d started arr %d total %d remain %d wait 0\n", getClk(), current_pcb->id,
+                printf("At time %d process %d started sizes_arr %d total %d remain %d wait 0\n", getClk(),
+                       current_pcb->id,
                        current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time);
                 curr_q_start = getClk(); // started a quantum
             }
@@ -172,7 +173,8 @@ void RR(int quantum) {
                 int TA = curr - current_pcb->arrival_time;
                 current_pcb->waiting_time = TA - current_pcb->burst_time;
                 float WTA = (float) TA / current_pcb->burst_time;
-                printf("At time %d process %d finished arr %d total %d remain %d wait %d TA %d WTA %.2f\n", getClk(),
+                printf("At time %d process %d finished sizes_arr %d total %d remain %d wait %d TA %d WTA %.2f\n",
+                       getClk(),
                        current_pcb->id,
                        current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time, current_pcb->waiting_time,
                        TA, WTA);
@@ -191,7 +193,8 @@ void RR(int quantum) {
                 current_pcb->cum_runtime += quantum;
                 current_pcb->waiting_time = curr - current_pcb->arrival_time - current_pcb->cum_runtime;
 
-                printf("At time %d process %d stopped arr %d total %d remain %d wait %d\n", getClk(), current_pcb->id,
+                printf("At time %d process %d stopped sizes_arr %d total %d remain %d wait %d\n", getClk(),
+                       current_pcb->id,
                        current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time, current_pcb->waiting_time);
                 current_pcb->remaining_time = *shm_remain_time;
                 current_pcb->state = READY;       // back to Ready state
@@ -216,7 +219,7 @@ void RR(int quantum) {
 
                     current_pcb->waiting_time = curr - current_pcb->arrival_time;
 
-                    printf("At time %d process %d started arr %d total %d remain %d wait %d\n", getClk(),
+                    printf("At time %d process %d started sizes_arr %d total %d remain %d wait %d\n", getClk(),
                            current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time,
                            current_pcb->waiting_time);
                 } else {
@@ -224,7 +227,7 @@ void RR(int quantum) {
                     kill(current_pcb->pid, SIGCONT);
                     current_pcb->waiting_time = curr - current_pcb->arrival_time - current_pcb->cum_runtime;
                     *shm_remain_time = current_pcb->remaining_time;
-                    printf("At time %d process %d resumed arr %d total %d remain %d wait %d\n", getClk(),
+                    printf("At time %d process %d resumed sizes_arr %d total %d remain %d wait %d\n", getClk(),
                            current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time,
                            current_pcb->waiting_time);
                 }
