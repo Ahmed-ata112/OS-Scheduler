@@ -1,25 +1,12 @@
 #include "headers.h"
 #define FILE_NAME_LENGTH 100
 
-struct Process
-{
-    long mtype;
-    //==============================
-    //index ---->    meaning      ||
-    //  0   ---->    ID           ||
-    //  1   ---->    arrival time ||
-    //  2   ---->    runtime      ||
-    //  3   ---->    priority     ||
-    //============================== 
-    int ProcessData[4];
-};
-
 //message queue id
 int msgq_id;
 
 void clearResources(int);
 int NumOfProcesses (FILE* file , char FileName[]);
-void ReadProcessesData (FILE* file, struct Process Processes[],int ProcessesNum);
+void ReadProcessesData (FILE* file, struct process_struct Processes[],int ProcessesNum);
 void Create_Scheduler_Clk(int& sch_pid, int& clk_pid);
 
 int main(int argc, char * argv[])
@@ -32,7 +19,7 @@ int main(int argc, char * argv[])
     FILE* file = fopen(FileName,"r");
     int ProcessesNum = NumOfProcesses(file);
     //make an array of processes and store data of each process in it
-    struct Process Processes[ProcessesNum];
+    struct process_struct Processes[ProcessesNum];
     ReadProcessesData(file,Processes,ProcessesNum);
     fclose(file);
 
@@ -78,15 +65,18 @@ int main(int argc, char * argv[])
     }
     //secondly, sending processes in the appropiate time
     int ProcessIterator = 0;
-    while (getClk()>=Processes->ProcessData[1] && ProcessIterator < ProcessesNum)
+    while (ProcessIterator < ProcessesNum)
     {
-        //send the process to the schedular
-        send_val = msgsnd(msgq_id,&Processes[ProcessIterator],sizeof(Processes[ProcessIterator].ProcessData),!IPC_NOWAIT);
-        if (send_val == -1)
+        if (getClk()>=Processes[ProcessIterator].arrival)
         {
-            perror("error has been occured while sending a process number %d to the schedular\n",ProcessIterator);
+            //send the process to the schedular
+            send_val = msgsnd(msgq_id,&Processes[ProcessIterator],sizeof(Processes[ProcessIterator].ProcessData),!IPC_NOWAIT);
+            if (send_val == -1)
+            {
+                perror("error has been occured while sending a process number %d to the schedular\n",ProcessIterator);
+            }
+            ProcessIterator++;
         }
-        ProcessIterator++;
     }   
 
     //send a signal to the schedular indicating that there are no more processes
@@ -130,7 +120,7 @@ int NumOfProcesses (FILE* file,char FileName[])
     count--;
     return count;
 }
-void ReadProcessesData(FILE* file, struct Process Processes[],int ProcessesNum)
+void ReadProcessesData(FILE* file, struct process_struct Processes[],int ProcessesNum)
 {
     //note that the pointer of the file points to the end of it
     //because we have count the number of processes so we need to move it again to the begining of the file
@@ -144,10 +134,10 @@ void ReadProcessesData(FILE* file, struct Process Processes[],int ProcessesNum)
     for (int i=0;i<ProcessesNum;i++)
     {
         Processes[i].mtype = 1;
-        fscanf(file,"%d",&Processes[i].ProcessData[0]);
-        fscanf(file,"%d",&Processes[i].ProcessData[1]);
-        fscanf(file,"%d",&Processes[i].ProcessData[2]);
-        fscanf(file,"%d",&Processes[i].ProcessData[3]);
+        fscanf(file,"%d",&Processes[i].id);
+        fscanf(file,"%d",&Processes[i].arrival);
+        fscanf(file,"%d",&Processes[i].runtime);
+        fscanf(file,"%d",&Processes[i].priority);
     }
 }
 void Create_Scheduler_Clk(int& sch_pid, int& clk_pid)
