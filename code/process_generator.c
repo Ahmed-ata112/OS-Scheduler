@@ -102,7 +102,7 @@ int main(int argc, char * argv[])
         }
         ProcessIterator++;
     }   
-
+    sleep(1);
     //send a signal to the schedular indicating that there are no more processes
     kill(sch_pid,SIGUSR1);
     //wait for schedular to finish
