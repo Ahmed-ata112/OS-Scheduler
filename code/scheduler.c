@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
 
     case 2:
         printf("SRTN\n");
-
+        SRTN();
         break;
     }
 
