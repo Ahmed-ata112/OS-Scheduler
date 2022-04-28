@@ -40,18 +40,18 @@ int main(int argc, char *argv[]) {
     int key_id = ftok("keyfile", 65);
     process_msg_queue = msgget(key_id, 0666 | IPC_CREAT);
     struct chosen_algorithm coming;
-    coming.algo = 1; // RR
-    coming.arg = 1;  // q
+    coming.algo = 3; // SRTN
+    //coming.arg = 1;  // q
     coming.mtype = ALGO_TYPE;
     msgsnd(process_msg_queue, &coming, sizeof(coming) - sizeof(coming.mtype),
            !IPC_NOWAIT);
 
     // I will send some Process to simulate this
     struct process_struct pp;
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 2; ++i) {
         pp.mtype = PROC_TYPE;
         pp.runtime = 1;
-        pp.priority = 2;
+        pp.priority = i;
         pp.arrival = getClk();
         pp.id = i;
         msgsnd(process_msg_queue, &pp, sizeof(pp) - sizeof(pp.mtype),

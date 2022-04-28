@@ -2,6 +2,7 @@
 #include "hashmap.h"
 #include "circular_queue.h"
 #include "priority_queue.h"
+#include "priority_queue.c"
 
 enum state
 {
@@ -11,6 +12,7 @@ enum state
 #define pcb_s struct PCB
 
 void RR(int quantum);
+void SRTN();
 
 //@Ahmed-H300
 // change it to typedef instead of struct
@@ -95,7 +97,7 @@ int main(int argc, char *argv[])
         RR(coming.arg);
         break;
 
-    case 2:
+    case 3:
         printf("SRTN\n");
         SRTN();
         break;
