@@ -1,5 +1,6 @@
 build:
 	gcc process_generator.c -o process_generator.out
+	gcc priority_queue.c -o priority_queue.out
 	gcc clk.c -o clk.out
 	gcc scheduler.c  hashmap.c -o scheduler.out
 	gcc process.c -o process.out
