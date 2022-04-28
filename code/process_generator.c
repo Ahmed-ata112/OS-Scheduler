@@ -19,11 +19,10 @@ struct SchedulerInit
     long mtype;
     //=====================================
     //index ---->    meaning             ||
-    //  0   ---->    Number Of Processes ||
-    //  1   ---->    scheduling Algorithm||
-    //  2   ---->    quantum if any      ||
+    //  0   ---->    scheduling Algorithm||
+    //  1   ---->    quantum if any      ||
     //=====================================
-    int Info[3]; 
+    int Info[2]; 
 };
 
 //message queue id
@@ -81,10 +80,9 @@ int main(int argc, char * argv[])
     // 6. Send the information to the scheduler at the appropriate time.
     //firtly, initialize the scheduler
     struct SchedularInit Initializer;
-    Initializer.Info[0] = ProcessesNum;
-    Initializer.Info[1] = Algorithm;
-    Initializer.Info[2] = quantum;
-    Initializer.mtype = 1;  //dummy
+    Initializer.Info[0] = Algorithm;
+    Initializer.Info[1] = quantum;
+    Initializer.mtype = 1;
     //send the initiator struct to the scheduler
     int send_val = msgsnd(msgq_id,&Initializer,sizeof(Initializer.Info),!IPC_NOWAIT);
     if (send_val == -1)
@@ -94,20 +92,19 @@ int main(int argc, char * argv[])
     }
     //secondly, sending processes in the appropiate time
     int ProcessIterator = 0;
-    while(1)
+    while (getClk()>=Processes->ProcessData[1] && ProcessIterator < ProcessesNum)
     {
-        while (getClk()>=Processes->ProcessData[1] && ProcessIterator < ProcessesNum)
+        //send the process to the schedular
+        send_val = msgsnd(msgq_id,&Processes[ProcessIterator],sizeof(Processes[ProcessIterator].ProcessData),!IPC_NOWAIT);
+        if (send_val == -1)
         {
-            //send the process to the schedular
-            send_val = msgsnd(msgq_id,&Processes[ProcessIterator],sizeof(Processes[ProcessIterator].ProcessData),!IPC_NOWAIT);
-            if (send_val == -1)
-            {
-                perror("error has been occured while sending a process number %d to the schedular\n",ProcessIterator);
-            }
-            ProcessIterator++;
-        }   
-    }
-    
+            perror("error has been occured while sending a process number %d to the schedular\n",ProcessIterator);
+        }
+        ProcessIterator++;
+    }   
+
+    //send a signal to the schedular indicating that there are no more processes
+    kill(sch_pid,SIGUSR1);
     // 7. Clear clock resources
     destroyClk(true);
 }
@@ -158,6 +155,7 @@ void ReadProcessesData(FILE* file, struct Process Processes[],int ProcessesNum)
     }
     for (int i=0;i<ProcessesNum;i++)
     {
+        Processes[i].mtype = 1;
         fscanf(file,"%d",&Processes[i].ProcessData[0]);
         fscanf(file,"%d",&Processes[i].ProcessData[1]);
         fscanf(file,"%d",&Processes[i].ProcessData[2]);
