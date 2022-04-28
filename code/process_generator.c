@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
 
     // I will send some Process to simulate this
     struct process_struct pp;
-    for (int i = 0; i < 2; ++i) {
+    for (int i = 0; i < 5; ++i) {
         pp.mtype = PROC_TYPE;
         pp.runtime = 1;
         pp.priority = i;
