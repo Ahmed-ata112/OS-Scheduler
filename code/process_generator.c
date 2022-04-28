@@ -92,15 +92,18 @@ int main(int argc, char * argv[])
     }
     //secondly, sending processes in the appropiate time
     int ProcessIterator = 0;
-    while (getClk()>=Processes->ProcessData[1] && ProcessIterator < ProcessesNum)
+    while (ProcessIterator < ProcessesNum)
     {
-        //send the process to the schedular
-        send_val = msgsnd(msgq_id,&Processes[ProcessIterator],sizeof(Processes[ProcessIterator].ProcessData),!IPC_NOWAIT);
-        if (send_val == -1)
+        if (getClk()>=Processes->ProcessData[1])
         {
-            perror("error has been occured while sending a process number %d to the schedular\n",ProcessIterator);
+            //send the process to the schedular
+            send_val = msgsnd(msgq_id,&Processes[ProcessIterator],sizeof(Processes[ProcessIterator].ProcessData),!IPC_NOWAIT);
+            if (send_val == -1)
+            {
+                perror("error has been occured while sending a process number %d to the schedular\n",ProcessIterator);
+            }
+            ProcessIterator++;
         }
-        ProcessIterator++;
     }   
     sleep(1);
     //send a signal to the schedular indicating that there are no more processes
