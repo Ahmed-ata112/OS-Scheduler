@@ -57,7 +57,7 @@ int main(int argc, char * argv[])
 
     // 3. Initiate and create the scheduler and clock processes.
     //using forking
-    int sch_pid,clk_pid;
+    int sch_pid,clk_pid,stat_loc;
     Create_Scheduler_Clk(sch_pid,clk_pid);
     
     // 4. Use this function after creating the clock process to initialize clock
@@ -105,6 +105,8 @@ int main(int argc, char * argv[])
 
     //send a signal to the schedular indicating that there are no more processes
     kill(sch_pid,SIGUSR1);
+    //wait for schedular to finish
+    waitpid(sch_pid,&stat_loc,0);
     // 7. Clear clock resources
     destroyClk(true);
 }
