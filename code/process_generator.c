@@ -32,6 +32,7 @@ int main(int argc, char * argv[])
     {
         Initializer.arg = atoi(argv[3]);
     }
+    Initializer.NumOfProcesses = ProcessesNum;
     Initializer.mtype = 2;
 
     // 3. Initiate and create the scheduler and clock processes.
