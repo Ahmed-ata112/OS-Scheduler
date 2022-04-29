@@ -3,7 +3,7 @@
 /*
     Function to initialize the min heap with size = 0
 */
-minHeap initMinHeap() {
+minHeap init_min_heap() {
     minHeap hp;
     hp.size = 0;
     return hp;
@@ -62,7 +62,7 @@ void push(minHeap* hp, int priority, int data) {
     hp->elem[i] = nd;
 }
 
-int isEmpty(minHeap* hp)
+int is_empty(minHeap* hp)
 {
     return hp->size == 0;
 }
