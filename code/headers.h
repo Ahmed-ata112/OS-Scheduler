@@ -103,6 +103,7 @@ struct chosen_algorithm
     long mtype; // 2
     short algo; // 1 for RR
     int arg;    // quantum of RR algorithm
+    int NumOfProcesses;
 };
 #define PROC_TYPE 1
 #define ALGO_TYPE 2
