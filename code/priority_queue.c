@@ -1,4 +1,4 @@
-#include "priorityQueue.h"
+#include "priority_queue.h"
 
 /*
     Function to initialize the min heap with size = 0
