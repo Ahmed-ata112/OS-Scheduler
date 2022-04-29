@@ -66,20 +66,13 @@ void push(minHeap *hp, int priority, int data)
     int i = (hp->size)++;
     while (i && nd.priority < hp->elem[PARENT(i)].priority)
     {
-
+        if(nd.priority == hp->elem[PARENT(i)].priority)
+    break;
         hp->elem[i] = hp->elem[PARENT(i)];
         i = PARENT(i);
     }
     hp->elem[i] = nd;
 
-    if (hp->size != 1)
-    {
-        if (hp->elem[i].priority == hp->elem[0].priority)
-        {
-
-            swap(&(hp->elem[i]), &(hp->elem[0]));
-        }
-    }
 }
 
 int isEmpty(minHeap *hp)
