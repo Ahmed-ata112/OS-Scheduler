@@ -48,20 +48,21 @@ int main(int argc, char *argv[]) {
 
     // I will send some Process to simulate this
     struct process_struct pp;
-       for(int i = 5; i >0; i--){
+       for(int i = 0; i <5; i++){
         pp.mtype =PROC_TYPE;
-        pp.runtime=4;
+        pp.runtime=1;
         pp.priority=i;
-        pp.arrival=0;
+        pp.arrival=5*i+1;
         pp.id =i;
         msgsnd(process_msg_queue, &pp, sizeof(pp) - sizeof(pp.mtype),
                !IPC_NOWAIT);
+               sleep(5);
 
-    sleep(1);
     }
+    sleep(1);
 
     kill(sch_pid, SIGUSR1); //
-    sleep(100);
+    sleep(60);
     destroyClk(true);
 }
 
