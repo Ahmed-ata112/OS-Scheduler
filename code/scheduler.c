@@ -95,7 +95,7 @@ int main(int argc, char *argv[]) {
 void RR(int quantum) {
     /**
      * i loop all the time
-     * till a variable tells me that there is no more proccesses comming
+     * till a variable tells me that there is no more processes coming
      * this is when i quit
      * All the processes that in the circular queue are in the process_table
      * when finished -> u delete from both
