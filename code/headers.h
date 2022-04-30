@@ -88,7 +88,11 @@ void destroyClk(bool terminateAll)
  *  size = sizeof(process_struct) - sizeof(mtype)
  *  @note mtype for coming processes = 1
  */
-
+enum state
+{
+    READY = 1,
+    RUNNING = 2,
+};
 typedef struct process_struct
 {
     long mtype; // 1

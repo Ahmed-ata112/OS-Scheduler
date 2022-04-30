@@ -3,14 +3,12 @@
 #include "circular_queue.h"
 #include "priority_queue.h"
 
-enum state
-{
-    READY = 1,
-    RUNNING = 2,
-};
+
 #define pcb_s struct PCB
 
 void RR(int quantum);
+void SRTN();
+
 
 //@Ahmed-H300
 // change it to typedef instead of struct
@@ -77,11 +75,11 @@ int main(int argc, char *argv[])
     shm_remain_time = (int *)shmat(remain_time_shmid, NULL, 0);
     *shm_remain_time = -1;
 
-    process_table = hashmap_new(sizeof(pcb_s), 0, 0, 0,
+    process_table = hashmap_new(sizeof(PCB), 0, 0, 0,
                                 process_hash, process_compare, NULL);
 
     struct chosen_algorithm coming;
-    int key_id = ftok("keyfile", 65);
+    int key_id = ftok("keyfile", 'q');
     process_msg_queue = msgget(key_id, 0666 | IPC_CREAT);
     msgrcv(process_msg_queue, &coming, sizeof(coming) - sizeof(coming.mtype), ALGO_TYPE,
            !IPC_NOWAIT);
@@ -122,7 +120,7 @@ void RR(int quantum)
     struct c_queue RRqueue;
     circular_init_queue(&RRqueue);
     // if the Queue is empty then check if there is no more processes that will come
-    pcb_s *current_pcb;
+    PCB *current_pcb;
     int curr_q_start;
 
     while (!circular_is_empty(&RRqueue) || more_processes_coming)
@@ -160,7 +158,7 @@ void RR(int quantum)
         if (!circular_is_empty(&RRqueue))
         {
             // hashmap_scan(process_table, process_iter, NULL);
-            pcb_s get_process = {.id = RRqueue.front->data};
+            PCB get_process = {.id = RRqueue.front->data};
             current_pcb = hashmap_get(process_table, &get_process);
             if (current_pcb->pid == 0)
             { // if current process never started before
@@ -227,7 +225,7 @@ void RR(int quantum)
             {
                 // printf("switch\n");
 
-                current_pcb = hashmap_get(process_table, &(pcb_s){.id = RRqueue.front->data});
+                current_pcb = hashmap_get(process_table, &(PCB){.id = RRqueue.front->data});
                 if (current_pcb->pid == 0)
                 { // if current process never started before
                     *shm_remain_time = current_pcb->remaining_time;
