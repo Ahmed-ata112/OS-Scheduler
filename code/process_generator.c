@@ -41,16 +41,16 @@ int main(int argc, char *argv[]) {
     process_msg_queue = msgget(key_id, 0666 | IPC_CREAT);
     struct chosen_algorithm coming;
     coming.algo = 1; // RR
-    coming.arg = 1;  // q
+    coming.arg = 3;  // q
     coming.mtype = ALGO_TYPE;
     msgsnd(process_msg_queue, &coming, sizeof(coming) - sizeof(coming.mtype),
            !IPC_NOWAIT);
-
+    sleep(6);
     // I will send some Process to simulate this
     struct process_struct pp;
     for (int i = 0; i < 3; ++i) {
         pp.mtype = PROC_TYPE;
-        pp.runtime = 1;
+        pp.runtime = 2;
         pp.priority = 2;
         pp.arrival = getClk();
         pp.id = i;
