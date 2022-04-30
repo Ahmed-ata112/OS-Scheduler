@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 
     // 2. Ask the user for the chosen scheduling algorithm and its parameters, if there are any.
     struct chosen_algorithm Initializer;
-    Initializer.algo = atoi(argv[2]);
+    Initializer.algo = atoi(argv[1]);
     Initializer.arg = 0;
     if (argc == 4)
     {
