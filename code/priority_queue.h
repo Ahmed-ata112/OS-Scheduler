@@ -7,35 +7,11 @@
 #define LCHILD(x) 2 * x + 1
 #define RCHILD(x) 2 * x + 2
 #define PARENT(x) (x - 1) / 2
-int static ARRIVAL = 0;
-typedef struct node
-{
-    int priority;
-    int data;
-    int arrival;
-} node;
-
-typedef struct minHeap
-{
-    int size;
-    node *elem;
-} minHeap;
-
-minHeap init_min_heap();
-void swap(node *n1, node *n2);
-void heapify(minHeap *hp, int i);
-void push(minHeap *hp, int priority, int data);
-int is_empty(minHeap *hp);
-struct node *pop(minHeap *hp);
-struct node *peek(minHeap *hp);
-
-#endif
 
 typedef struct node
 {
     int priority;
     int data;
-    int arrival;
 } node;
 
 typedef struct minHeap
