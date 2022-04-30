@@ -45,15 +45,18 @@ int main(int argc, char *argv[])
 
     // TODO Generation Main Loop
     // 5. Create a data structure for processes and provide it with its parameters.
+
     // create a message queue
     // create the queue id
     key_t qid = ftok("keyfile", 'q');
     msgq_id = msgget(qid, 0666 | IPC_CREAT);
+
     if (msgq_id == -1)
     {
         perror("error has been occured in the message queue\n");
         exit(-1);
     }
+
 
     // 6. Send the information to the scheduler at the appropriate time.
     // send the initiator struct to the scheduler
@@ -79,11 +82,14 @@ int main(int argc, char *argv[])
         }
     }
 
+
     // send a signal to the schedular indicating that there are no more processes
     kill(sch_pid, SIGUSR1);
     // wait for schedular to finish
     waitpid(sch_pid, &stat_loc, 0);
+
     // 7. Clear clock resources
+
     destroyClk(true);
 }
 
