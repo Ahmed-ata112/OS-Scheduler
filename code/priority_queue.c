@@ -1,22 +1,23 @@
 #include "priority_queue.h"
 
+
 /*
     Function to initialize the min heap with size = 0
 */
 minHeap init_min_heap() {
-    minHeap hp;
-    hp.size = 0;
-    return hp;
+    minHeap hp ;
+    hp.size = 0 ;
+    return hp ;
 }
 
 
 /*
     Function to swap priority within two nodes of the min heap using pointers
 */
-void swap(node* n1, node* n2) {
-    node temp = *n1;
-    *n1 = *n2;
-    *n2 = temp;
+void swap(node *n1, node *n2) {
+    node temp = *n1 ;
+    *n1 = *n2 ;
+    *n2 = temp ;
 }
 
 
@@ -26,14 +27,21 @@ void swap(node* n1, node* n2) {
     may be violated. In such cases, heapify function can be called to make sure that
     heap property is never violated
 */
-void heapify(minHeap* hp, int i) {
-    int smallest = (LCHILD(i) < hp->size && hp->elem[LCHILD(i)].priority < hp->elem[i].priority) ? LCHILD(i) : i;
-    if (RCHILD(i) < hp->size && hp->elem[RCHILD(i)].priority < hp->elem[smallest].priority) {
-        smallest = RCHILD(i);
+void heapify(minHeap *hp, int i) {
+    int smallest = (LCHILD(i) < hp->size && hp->elem[LCHILD(i)].priority < hp->elem[i].priority)? LCHILD(i) : i;
+    if(RCHILD(i) < hp->size && hp->elem[RCHILD(i)].priority < hp->elem[smallest].priority) {
+        smallest = RCHILD(i) ;
     }
-    if (smallest != i) {
-        swap(&(hp->elem[i]), &(hp->elem[smallest]));
-        heapify(hp, smallest);
+    if(LCHILD(i)<hp->size&&RCHILD(i)<hp->size )
+    {
+        if (hp->elem[LCHILD(i)].arrival < hp->elem[RCHILD(i)].arrival)
+            smallest = LCHILD(i);
+        else
+            smallest = RCHILD(i);
+    }
+    if(smallest != i) {
+        swap(&(hp->elem[i]), &(hp->elem[smallest])) ;
+        heapify(hp, smallest) ;
     }
 }
 
@@ -42,29 +50,33 @@ void heapify(minHeap* hp, int i) {
     Function to insert a node into the min heap, by allocating space for that node in the
     heap and also making sure that the heap property and shape propety are never violated.
 */
-void push(minHeap* hp, int priority, int data) {
-    if (hp->size) {
-        hp->elem = realloc(hp->elem, (hp->size + 1) * sizeof(node));
-    }
-    else {
-        hp->elem = malloc(sizeof(node));
+void push(minHeap *hp, int priority, int data) {
+    if(hp->size) {
+        hp->elem = realloc(hp->elem, (hp->size + 1) * sizeof(node)) ;
+    } else {
+        hp->elem = malloc(sizeof(node)) ;
     }
 
-    node nd;
-    nd.priority = priority;
+    node nd ;
+    nd.priority = priority ;
     nd.data = data;
+    nd.arrival = ARRIVAL++;
 
-    int i = (hp->size)++;
-    while (i && nd.priority < hp->elem[PARENT(i)].priority) {
-        hp->elem[i] = hp->elem[PARENT(i)];
-        i = PARENT(i);
+    int i = (hp->size)++ ;
+    while(i && nd.priority <= hp->elem[PARENT(i)].priority) {
+        if(nd.priority== hp->elem[PARENT(i)].priority)
+        {
+            break;
+        }
+        hp->elem[i] = hp->elem[PARENT(i)] ;
+        i = PARENT(i) ;
     }
-    hp->elem[i] = nd;
+    hp->elem[i] = nd ;
 }
 
-int is_empty(minHeap* hp)
+int is_empty(minHeap *hp)
 {
-    return hp->size == 0;
+  return hp->size == 0;
 }
 /*
     Function to delete a node from the min heap
@@ -72,32 +84,32 @@ int is_empty(minHeap* hp)
     and then call heapify function to make sure that the heap property
     is never violated
 */
-node* pop(minHeap* hp) {
-    if (hp->size) {
+node* pop(minHeap *hp) {
+    if(hp->size) {
         struct node n;
         struct node* temp = &n;
         temp->data = hp->elem[0].data;
         temp->priority = hp->elem[0].priority;
-        hp->elem[0] = hp->elem[--(hp->size)];
-        hp->elem = realloc(hp->elem, hp->size * sizeof(node));
-        heapify(hp, 0);
+        hp->elem[0] = hp->elem[--(hp->size)] ;
+        hp->elem = realloc(hp->elem, hp->size * sizeof(node)) ;
+        heapify(hp, 0) ;
         return temp;
-    }
-    else {
-        free(hp->elem);
+    } else {
+        free(hp->elem) ;
         return NULL;
     }
 }
 
-struct node* peek(minHeap* hp)
+struct node* peek(minHeap *hp)
 {
-    if (hp->size) {
+    if(hp->size) {
         struct node n;
         struct node* temp = &n;
         temp->data = hp->elem[0].data;
         temp->priority = hp->elem[0].priority;
         return temp;
     }
-    else
+    else 
         return NULL;
 }
+
