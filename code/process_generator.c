@@ -101,7 +101,7 @@ int NumOfProcesses (FILE* file,char FileName[])
 {
     if (file == NULL)
     {
-        perror("the file %s does not exist",FileName);
+        perrorf("the file %s does not exist",FileName);
         exit(-1);
     }
     //number of lines in the file determines number of process
