@@ -89,14 +89,14 @@ void destroyClk(bool terminateAll)
  *  @note mtype for coming processes = 1
  */
 
-struct process_struct
+typedef struct process_struct
 {
     long mtype; // 1
     int id;
     int arrival;
     int runtime;
     int priority;
-};
+} process_struct;
 
 struct chosen_algorithm
 {

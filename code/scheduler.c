@@ -11,8 +11,12 @@ enum state
 #define pcb_s struct PCB
 
 void RR(int quantum);
+
 void HPF();
-struct PCB
+
+//@Ahmed-H300
+// change it to typedef instead of struct
+typedef struct PCB
 {
     int id; // this is the key in the hashmap
     int pid;
@@ -23,7 +27,7 @@ struct PCB
     int burst_time;
     int remaining_time;
     int waiting_time;
-};
+} PCB;
 
 // 3 functions related to the hashmap
 int process_compare(const void *a, const void *b, void *udata)
@@ -92,9 +96,16 @@ int main(int argc, char *argv[])
         printf("RR\n");
         RR(coming.arg);
         break;
+
     case 2:
         printf("HPF\n");
         HPF();
+        break;
+    case 3:
+        printf("SRTN\n");
+        SRTN();
+        break;
+
     }
 
     // upon termination release the clock resources.
@@ -259,7 +270,165 @@ void RR(int quantum)
 
             // if the current's quantum finished and only one left -> no switch
             // if the current terminated and no other in the Queue -> no switching
+
         }
+    }
+
+    printf("\nOut at time %d\n", getClk());
+}
+
+/*----------------------------------------------------------------
+Author: Ahmed Hany @Ahmed-H300
+function: SRTN
+param: void ()
+output: void
+*/
+//----------------------------------------------------------------
+void SRTN()
+{
+    printf("Entering SRTN \n");
+    // intialize the priority queue
+    minHeap sQueue;
+    sQueue = init_min_heap();
+
+    PCB *current_pcb = NULL;
+    int curr_q_start;
+
+    // if the Queue is empty then check if there is no more processes that will come
+    // the main loop for the scheduler
+    while (!is_empty(&sQueue) || more_processes_coming)
+    {
+        // First check if any process has come
+        struct msqid_ds buf;
+        int num_messages;
+        msgctl(process_msg_queue, IPC_STAT, &buf);
+        num_messages = buf.msg_qnum;
+        while (num_messages > 0)
+        {
+            // while still a process in the queue
+            // take it out
+            // add it to both the Prority Queue (sQueue) and its PCB to the processTable
+            process_struct coming_process;
+            msgrcv(process_msg_queue, &coming_process, sizeof(coming_process) - sizeof(coming_process.mtype), 1,
+                   !IPC_NOWAIT);
+            printf("\nrecv process with id: %d at time %d\n", coming_process.id, getClk());
+            //  you have that struct Now
+            PCB pcb;
+            pcb.id = coming_process.id;
+            pcb.pid = 0;
+            pcb.arrival_time = coming_process.arrival;
+            pcb.priority = coming_process.priority;
+            pcb.state = READY;
+            pcb.cum_runtime = 0;
+            pcb.burst_time = coming_process.runtime;     // at the beginning
+            pcb.remaining_time = coming_process.runtime; // at the beginning
+            pcb.waiting_time = 0;                        // at the beginning
+            hashmap_set(process_table, &pcb);            // this copies the content of the struct
+            push(&sQueue, pcb.remaining_time, pcb.id);         // add this process to the end of the Queue
+            num_messages--;
+        }
+        //  if the first start then put the first on in queue
+        // if not check if the current process running is the one on top
+        // if yes continue runnig else switch
+
+
+        // 3 cases
+        // first is first start process or there is gap between processes -> Done
+        // second update the remaining time
+        // third is a new process with shortest time came
+        
+        if (current_pcb == NULL)
+        {
+            node* temp = pop(&sQueue);
+            PCB get_process = {.id = temp->data};
+            current_pcb = hashmap_get(process_table, &get_process);
+            *shm_remain_time = current_pcb->remaining_time;
+            // first time
+            if (current_pcb->pid == 0)
+            {
+                int pid = fork();
+                if (pid == 0)
+                {
+                    // child
+                    execl("./process.out", "./process.out", NULL);
+                }
+
+                // continue scheduler
+                int curr = getClk();
+                current_pcb->pid = pid; // update Pid of existing process
+                current_pcb->state = RUNNING;
+                current_pcb->waiting_time += curr - current_pcb->arrival_time;
+                printf("At time %d process %d started arr %d total %d remain %d wait %d\n",
+                       curr, current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time,
+                        *shm_remain_time, current_pcb->waiting_time);
+            }
+            // resumed after stopped
+            else
+            {
+                int pid = fork();
+                if (pid == 0)
+                {
+                    // child
+                    execl("./process.out", "./process.out", NULL);
+                }
+
+                // continue scheduler
+                int curr = getClk();
+                current_pcb->pid = pid; // update Pid of existing process
+                current_pcb->state = RUNNING;
+                current_pcb->waiting_time += curr - (current_pcb->arrival_time + current_pcb->cum_runtime);
+                printf("At time %d process %d resumed arr %d total %d remain %d wait %d\n",
+                        curr,current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time,
+                         *shm_remain_time,current_pcb->waiting_time);
+
+                
+            }
+            
+        }
+        else
+        {
+            int curr = getClk();
+            *shm_remain_time -= (curr - (current_pcb->arrival_time + current_pcb->cum_runtime + current_pcb->waiting_time));
+            current_pcb->remaining_time = *shm_remain_time;
+            if (*shm_remain_time <= 0)
+            {
+                *shm_remain_time = 0;
+                current_pcb->remaining_time = 0;
+                current_pcb->cum_runtime = current_pcb->burst_time;
+                // kill and out new data
+                int dum;
+                int ret = wait(&dum);
+                int TA = curr - current_pcb->arrival_time;
+                float WTA = (float)TA / current_pcb->burst_time;
+                printf("At time %d process %d finished arr %d total %d remain %d wait %d TA %d WTA %.2f\n",
+                        getClk(),current_pcb->id,current_pcb->arrival_time,
+                        current_pcb->burst_time, *shm_remain_time,
+                        current_pcb->waiting_time,
+                        TA, WTA);
+                hashmap_delete(process_table, current_pcb);
+                continue;
+                
+            }
+            current_pcb->cum_runtime = current_pcb->burst_time - *shm_remain_time;
+            node* temp = peek(&sQueue);
+            if (temp->priority < current_pcb->remaining_time)
+            {
+                // swap and stop current process
+                *shm_remain_time = 0;
+                int dum;
+                int ret = wait(&dum);
+
+                printf("At time %d process %d stopped arr %d total %d remain %d wait %d\n",
+                    getClk(), current_pcb->id,current_pcb->arrival_time,
+                    current_pcb->burst_time, *shm_remain_time, current_pcb->waiting_time);
+
+                current_pcb->state = READY;       // back to Ready state
+                push(&sQueue, current_pcb->remaining_time, current_pcb->id);
+            }
+
+        }
+        
+
     }
 
     printf("\nOut at time %d\n", getClk());

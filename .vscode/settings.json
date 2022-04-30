@@ -3,7 +3,11 @@
     "files.associations": {
         "*.tcc": "cpp",
         "iostream": "cpp",
+
         "priorityqueue.h": "c",
         "priority_queue.h": "c"
+
+        "headers.h": "c"
+
     }
 }
