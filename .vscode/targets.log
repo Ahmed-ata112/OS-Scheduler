@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Apr 30 20:17:49 2022
+# Make data base, printed on Sun May  1 22:03:06 2022
 
 # Variables
 
@@ -53,7 +53,11 @@ SNAP_DATA = /var/snap/code/94
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
+<<<<<<< HEAD
 JOURNAL_STREAM = 8:48849
+=======
+JOURNAL_STREAM = 8:37869
+>>>>>>> main
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -81,7 +85,11 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 _ = /snap/code/94/usr/share/code/code
 # environment
+<<<<<<< HEAD
 MANAGERPID = 1467
+=======
+MANAGERPID = 1301
+>>>>>>> main
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -97,7 +105,11 @@ NO_PROXY = 127.0.0.1
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
+<<<<<<< HEAD
 SESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/2015,unix/my-loly:/tmp/.ICE-unix/2015
+=======
+SESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/1847,unix/my-loly:/tmp/.ICE-unix/1847
+>>>>>>> main
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -115,7 +127,11 @@ DISABLE_WAYLAND = 1
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
+<<<<<<< HEAD
 INVOCATION_ID = 86b4d4de905d4dd78d6d941ab9e0fd59
+=======
+INVOCATION_ID = 4427e7bb5aa34cd4bd200bd799acb87a
+>>>>>>> main
 # environment
 GDK_PIXBUF_MODULEDIR = /snap/code/94/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
@@ -127,7 +143,11 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
+<<<<<<< HEAD
 GIO_LAUNCHED_DESKTOP_FILE_PID = 5785
+=======
+GIO_LAUNCHED_DESKTOP_FILE_PID = 5211
+>>>>>>> main
 # automatic
 %F = $(notdir $%)
 # environment
@@ -141,7 +161,11 @@ PWD = /home/ahmedatta/Stud/OS/Repos/OSproject
 # default
 .LOADED := 
 # environment
+<<<<<<< HEAD
 SSH_AGENT_PID = 1985
+=======
+SSH_AGENT_PID = 1817
+>>>>>>> main
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -195,7 +219,11 @@ SHLVL = 0
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
+<<<<<<< HEAD
 VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-7eac37bb-2640-46bf-83d8-6d2723c31374.sock
+=======
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-8b4b1b1d-b667-49ee-abf5-cf0dcd5e8427.sock
+>>>>>>> main
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -277,7 +305,11 @@ LC_ADDRESS = en_US.UTF-8
 # environment
 LANG = C
 # environment
+<<<<<<< HEAD
 VSCODE_PID = 5832
+=======
+VSCODE_PID = 5288
+>>>>>>> main
 # variable set hash-table stats:
 # Load=134/1024=13%, Rehash=0, Collisions=25/156=16%
  
@@ -290,9 +322,9 @@ make: *** No rule to make target 'all'.  Stop.
 
 # Directories
 
-# . (device 66307, inode 1841474): 13 files, no impossibilities.
+# . (device 66307, inode 1841474): 12 files, no impossibilities.
 
-# 13 files, no impossibilities in 1 directories.
+# 12 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -326,6 +358,9 @@ makefile:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
+ 
+make: *** No rule to make target 'all'.  Stop.
+
 
 # Not a target:
 GNUmakefile:
@@ -342,12 +377,17 @@ GNUmakefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 21 / storage = 210 B / avg = 10 B
-# current buf: size = 8162 B / used = 210 B / count = 21 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 20 / storage = 201 B / avg = 10 B
+# current buf: size = 8162 B / used = 201 B / count = 20 / avg = 10 B
 
-# strcache performance: lookups = 24 / hit rate = 12%
+# strcache performance: lookups = 23 / hit rate = 13%
 # hash-table stats:
+<<<<<<< HEAD
 # Load=21/8192=0%, Rehash=0, Collisions=1/24=4%
 # Finished Make data base on Sat Apr 30 20:17:49 2022
+=======
+# Load=20/8192=0%, Rehash=0, Collisions=1/23=4%
+# Finished Make data base on Sun May  1 22:03:06 2022
+>>>>>>> main
 
  
