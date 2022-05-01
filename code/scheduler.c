@@ -403,7 +403,7 @@ void SRTN() {
                     // int curr = current_time;
                     current_pcb->pid = pid; // update Pid of existing process
                     current_pcb->state = RUNNING;
-                    current_pcb->waiting_time += current_time - (current_pcb->arrival_time + current_pcb->cum_runtime);
+                    current_pcb->waiting_time = current_time - (current_pcb->arrival_time + current_pcb->cum_runtime);
                     printf("At time %d process %d resumed arr %d total %d remain %d wait %d\n",
                            current_time, current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time,
                            *shm_remain_time, current_pcb->waiting_time);
