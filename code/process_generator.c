@@ -50,13 +50,12 @@ int main(int argc, char *argv[]) {
     struct process_struct pp;
     for (int i = 0; i < 5; ++i) {
         pp.mtype = PROC_TYPE;
-        pp.runtime = 1;
+        pp.runtime = i+1;
         pp.priority = i;
         pp.arrival = getClk();
         pp.id = i;
         msgsnd(process_msg_queue, &pp, sizeof(pp) - sizeof(pp.mtype),
                !IPC_NOWAIT);
-
     }
     sleep(1);
 
