@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Apr 23 20:56:36 2022
+# Make data base, printed on Wed Apr 27 12:56:17 2022
 
 # Variables
 
@@ -51,11 +51,9 @@ SHELL = /bin/sh
 # environment
 SNAP_DATA = /var/snap/code/94
 # environment
-VTE_VERSION = 6003
-# environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:36864
+JOURNAL_STREAM = 8:16155
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -77,17 +75,17 @@ MAKELEVEL := 0
 # environment
 XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
 # environment
-DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus,guid=4e398c939cf3704d66f4dfa3626440c1
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus,guid=beb79025b30b0c5df4d5de8162691bce
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-MANAGERPID = 1675
+MANAGERPID = 1809
 # environment
-LESSOPEN = | /usr/bin/lesspipe %s
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-e52085ed-e777-4342-9810-0248a335cb2d.sock
 # environment
 LC_NAME = en_US.UTF-8
 # environment
-VSCODE_CWD = /home/ahmedatta/Stud/OS/Repos/OSproject/code
+VSCODE_CWD = /home/ahmedatta
 # environment
 GSETTINGS_SCHEMA_DIR = /snap/code/94/usr/share/glib-2.0/schemas
 # default
@@ -97,7 +95,7 @@ NO_PROXY = 127.0.0.1
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/1921,unix/my-loly:/tmp/.ICE-unix/1921
+SESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/2057,unix/my-loly:/tmp/.ICE-unix/2057
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -115,19 +113,17 @@ DISABLE_WAYLAND = 1
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 79def7a8a6bb485ea748491bf73a064e
+INVOCATION_ID = 03490eab4f5e44faa5bba92c71ecc85e
 # environment
 GDK_PIXBUF_MODULEDIR = /snap/code/94/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
-LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
-# environment
 XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 3690
+GIO_LAUNCHED_DESKTOP_FILE_PID = 5632
 # automatic
 %F = $(notdir $%)
 # environment
@@ -141,7 +137,7 @@ PWD = /home/ahmedatta/Stud/OS/Repos/OSproject/code
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1881
+SSH_AGENT_PID = 2019
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -151,7 +147,7 @@ VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 HOME = /home/ahmedatta
 # environment
-LESSCLOSE = /usr/bin/lesspipe %s %s
+INSIDE_NAUTILUS_PYTHON = 
 # environment
 VSCODE_CLI = 1
 # environment
@@ -181,23 +177,19 @@ LC_TIME = en_US.UTF-8
 # environment
 SNAP_REAL_HOME = /home/ahmedatta
 # environment
-PLATFORMIO_PATH = /home/ahmedatta/.platformio/python3/bin:/home/ahmedatta/.local/bin:/home/ahmedatta/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:QT_QPA_PLATFORMTHEME=gtk2
-# environment
-COLORTERM = truecolor
+PLATFORMIO_PATH = /home/ahmedatta/.platformio/python3/bin:/home/ahmedatta/.local/bin:/home/ahmedatta/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:QT_QPA_PLATFORMTHEME=gtk2:/home/ahmedatta/Downloads/clion-2022.1/bin
 # default
 MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # environment
-PATH = /home/ahmedatta/.local/bin:/home/ahmedatta/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:QT_QPA_PLATFORMTHEME=gtk2
+PATH = /home/ahmedatta/.local/bin:/home/ahmedatta/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:QT_QPA_PLATFORMTHEME=gtk2:/home/ahmedatta/Downloads/clion-2022.1/bin
 # environment
 SNAP_USER_DATA = /home/ahmedatta/snap/code/94
 # environment
-SHLVL = 1
+SHLVL = 0
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
-# environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-78d1840d-e1aa-43ff-b079-9d567946f81e.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -262,18 +254,14 @@ LC_ALL = C
 DBUS_STARTER_BUS_TYPE = session
 # environment
 GJS_DEBUG_TOPICS = JS ERROR;JS LOG
-# environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/aa87d57d_0303_41e1_8de1_4e727853b14a
 # automatic
 ^F = $(notdir $^)
-# environment
-GNOME_TERMINAL_SERVICE = :1.192
 # default
 SUFFIXES := 
 # environment
 SNAP_REEXEC = 
 # environment
-CHROME_DESKTOP = code-url-set_no_more_processes_comming.desktop
+CHROME_DESKTOP = code-url-handler.desktop
 # environment
 WINDOWPATH = 2
 # default
@@ -287,14 +275,11 @@ LC_ADDRESS = en_US.UTF-8
 # environment
 LANG = C
 # environment
-TERM = xterm-256color
+VSCODE_PID = 5685
 # environment
-VSCODE_PID = 3738
-# environment
-DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=4e398c939cf3704d66f4dfa3626440c1
+DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=beb79025b30b0c5df4d5de8162691bce
 # variable set hash-table stats:
- 
-# Load=141/1024=14%, Rehash=0, Collisions=24/169=14%
+# Load=134/1024=13%, Rehash=0, Collisions=23/162=14%
 
 # Pattern-specific Variable Values
 
@@ -302,9 +287,10 @@ DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=4e398c939cf3704d66f4dfa
 
 # Directories
 
-# . (device 66307, inode 1841558): 16 files, no impossibilities.
+# . (device 66307, inode 1841558): 24 files, no impossibilities.
 
-# 16 files, no impossibilities in 1 directories.
+# 24 files, no impossibilities in 1 directories.
+ 
 
 # Implicit Rules
 
@@ -330,9 +316,16 @@ all: clean build
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-04-23 00:36:27.612699217
+#  Last modified 2022-04-26 10:26:22.922353052
 #  File has been updated.
 #  Successfully updated.
+
+test: build
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 18):
+	./process_generator.out
 
 build:
 #  Implicit rule search has not been done.
@@ -341,7 +334,7 @@ build:
 #  recipe to execute (from 'Makefile', line 2):
 	gcc process_generator.c -o process_generator.out
 	gcc clk.c -o clk.out
-	gcc scheduler.c -o scheduler.out
+	gcc scheduler.c  hashmap.c -o scheduler.out
 	gcc process.c -o process.out
 	gcc test_generator.c -o test_generator.out
 
@@ -386,19 +379,19 @@ clean:
 	rm -f *.out  processes.txt
 
 # files hash-table stats:
-# Load=7/1024=1%, Rehash=0, Collisions=0/21=0%
+# Load=8/1024=1%, Rehash=0, Collisions=0/23=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 24 / storage = 230 B / avg = 9 B
-# current buf: size = 8162 B / used = 230 B / count = 24 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 33 / storage = 342 B / avg = 10 B
+# current buf: size = 8162 B / used = 342 B / count = 33 / avg = 10 B
 
-# strcache performance: lookups = 36 / hit rate = 33%
+# strcache performance: lookups = 47 / hit rate = 29%
 # hash-table stats:
-# Load=24/8192=0%, Rehash=0, Collisions=1/36=3%
-# Finished Make data base on Sat Apr 23 20:56:36 2022
+# Load=33/8192=0%, Rehash=0, Collisions=1/47=2%
+# Finished Make data base on Wed Apr 27 12:56:17 2022
 
  
