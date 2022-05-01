@@ -79,7 +79,7 @@ bool buddy_allocate(int size, pair_t *returned) {
     for (; higher_size < MAX_PLACES; ++higher_size) {
 
         if (!lkl_isEmpty(&sizes_arr[higher_size])) {
-            printf("%d\n", higher_size);
+            
             break;
         }
     }
@@ -183,16 +183,16 @@ int main() {
     if (buddy_allocate(1, &p2))
         printf("\nin main allocated from %d to %d\n", p2.start_ind, p2.end_ind);
 
-    // pair_t p3;
-    // if (buddy_allocate(256, &p3))
-    //     printf("\nin main allocated from %d to %d\n", p3.start_ind, p3.end_ind);
-    // pair_t p4;
-    // if (buddy_allocate(256, &p4))
-    //     printf("\nin main allocated from %d to %d\n", p4.start_ind, p4.end_ind);
+    pair_t p3;
+    if (buddy_allocate(256, &p3))
+        printf("\nin main allocated from %d to %d\n", p3.start_ind, p3.end_ind);
+    pair_t p4;
+    if (buddy_allocate(256, &p4))
+        printf("\nin main allocated from %d to %d\n", p4.start_ind, p4.end_ind);
 
     buddy_deallocate(p1.start_ind, p1.end_ind);
-    // buddy_deallocate(p2.start_ind, p2.end_ind);
-    // buddy_deallocate(p3.start_ind, p3.end_ind);
+    buddy_deallocate(p2.start_ind, p2.end_ind);
+    buddy_deallocate(p3.start_ind, p3.end_ind);
     pair_t p5;
     if (buddy_allocate(800, &p5))
         printf("\nin main allocated from %d to %d\n", p5.start_ind, p5.end_ind);
