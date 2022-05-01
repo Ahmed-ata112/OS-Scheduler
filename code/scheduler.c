@@ -222,6 +222,10 @@ void RR(int quantum) {
                 float WTA = (float) TA / current_pcb->burst_time;
                 OutputFinishedProcesses(getClk(), current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time,
                                         *shm_remain_time, current_pcb->waiting_time, TA, WTA);
+                printf("At time %d process %d finished arr %d total %d remain %d wait %d TA %d WTA %.2f\n", getClk(),
+                       current_pcb->id,
+                       current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time, current_pcb->waiting_time,
+                       TA, WTA);
                 circular_deQueue(&RRqueue); // auto advance the queue
                 hashmap_delete(process_table, current_pcb);
                 // if the terminated is the last one so no switching
@@ -231,10 +235,10 @@ void RR(int quantum) {
             } else if (curr - curr_q_start >= quantum && !circular_is_empty_or_one_left(&RRqueue)) {
                 // its quantum finished
                 //  TODO add some error printing, bitch
-                *shm_remain_time -= quantum;
+                *shm_remain_time -= curr - curr_q_start;
 
                 kill(current_pcb->pid, SIGSTOP);
-                current_pcb->cum_runtime += quantum;
+                current_pcb->cum_runtime += curr - curr_q_start;
                 current_pcb->waiting_time = curr - current_pcb->arrival_time - current_pcb->cum_runtime;
 
                 fprintf(sch_log, "At time %d process %d stopped arr %d total %d remain %d wait %d\n", getClk(),
