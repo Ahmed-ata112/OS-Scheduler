@@ -19,5 +19,5 @@ test: build
 
 
 buddy:
-	gcc -o hey  buddy_core.c -lm
+	gcc -o hey -g  buddy_core.c -lm
 	./hey

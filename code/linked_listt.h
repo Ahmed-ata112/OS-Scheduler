@@ -5,11 +5,11 @@
 
 #define node_s struct lkl_node
 
-struct pair {
+typedef struct pair {
     int start_ind;
     int end_ind;
 
-};
+} pair_t;
 
 
 struct lkl_node {
@@ -83,4 +83,43 @@ bool free_linked_list(struct lkl_node **head) {
         free(*head);
         *head = temp;
     }
+}
+
+
+//delete_by_key a link with given key
+struct lkl_node *delete_by_start_id(struct lkl_node **head, int start_ind) {
+
+    //start from the first link
+    struct lkl_node *current = *head;
+    struct lkl_node *previous = NULL;
+
+    //if list is empty
+    if (head == NULL) {
+        return NULL;
+    }
+
+    //navigate through list
+    while (current->data.start_ind != start_ind) {
+
+        //if it is last lkl_node
+        if (current->next == NULL) {
+            return NULL; // the last Node // NOT FOUND
+        } else {
+            //store reference to current link
+            previous = current;
+            //move to next link
+            current = current->next;
+        }
+    }
+
+    //found a match, update the link
+    if (current == *head) {
+        //change first to point to next link
+        *head = (*head)->next;
+    } else {
+        //bypass the current link
+        previous->next = current->next;
+    }
+
+    return current;
 }
