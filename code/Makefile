@@ -16,5 +16,5 @@ run:
 
 
 test: build
-	./process_generator.out 3
+	./process_generator.out 2
 
