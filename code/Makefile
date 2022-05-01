@@ -10,13 +10,11 @@ build:
 clean:
 	rm -f *.out  processes.txt
 
-all: clean build
 
 run:
 	./process_generator.out
 
 
 test: build
-
-	./process_generator.out 2
+	./process_generator.out 3
 
