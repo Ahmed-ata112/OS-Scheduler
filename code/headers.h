@@ -48,13 +48,13 @@ void initClk()
 
 void init_remain_time()
 {
-    int shmid = shmget(REMAIN_TIME_SHMKEY, 4, 0444);
+    int shmid = shmget(REMAIN_TIME_SHMKEY, 4, 0644);
     while ((int)shmid == -1)
     {
         // Make sure that the clock exists
         printf("Wait! The Remaining time not initialized yet!\n");
         sleep(1);
-        shmid = shmget(SHKEY, 4, 0444);
+        shmid = shmget(REMAIN_TIME_SHMKEY, 4, 0644);
     }
     shm_remain_time = (int *)shmat(shmid, (void *)0, 0);
 }
@@ -88,7 +88,11 @@ void destroyClk(bool terminateAll)
  *  size = sizeof(process_struct) - sizeof(mtype)
  *  @note mtype for coming processes = 1
  */
-
+enum state
+{
+    READY = 1,
+    RUNNING = 2,
+};
 typedef struct process_struct
 {
     long mtype; // 1
@@ -101,7 +105,7 @@ typedef struct process_struct
 struct chosen_algorithm
 {
     long mtype; // 2
-    short algo; // 1 for RR
+    short algo; // 1 for RR /2 for hpf
     int arg;    // quantum of RR algorithm
     int NumOfProcesses;
 };
