@@ -1,4 +1,5 @@
 #include "headers.h"
+#include <string.h>
 #define FILE_NAME_LENGTH 100
 
 // message queue id
@@ -14,6 +15,7 @@ int main(int argc, char *argv[])
     signal(SIGINT, clearResources);
 
     // 1. Read the input files.
+    //make an array of processes and store data of each process in it
     char FileName[FILE_NAME_LENGTH] = "processes.txt";
     // strcpy(FileName, argv[1]);
     FILE *file = fopen(FileName, "r");
@@ -31,13 +33,13 @@ int main(int argc, char *argv[])
     {
         Initializer.arg = atoi(argv[3]);
     }
+    Initializer.NumOfProcesses = ProcessesNum;
     Initializer.mtype = 2;
 
     // 3. Initiate and create the scheduler and clock processes.
     // using forking
     int sch_pid, clk_pid, stat_loc;
     Create_Scheduler_Clk(&sch_pid, &clk_pid);
-
     // 4. Use this function after creating the clock process to initialize clock
     initClk();
 
@@ -45,12 +47,10 @@ int main(int argc, char *argv[])
 
     // TODO Generation Main Loop
     // 5. Create a data structure for processes and provide it with its parameters.
-
     // create a message queue
     // create the queue id
     key_t qid = ftok("keyfile", 'q');
     msgq_id = msgget(qid, 0666 | IPC_CREAT);
-
     if (msgq_id == -1)
     {
         perror("error has been occured in the message queue\n");
@@ -154,7 +154,7 @@ void Create_Scheduler_Clk(int *sch_pid, int *clk_pid)
     *sch_pid = fork();
     if (*sch_pid == -1)
     {
-        perror("error has been occured while initiating the scheduler\n");
+        printf("error has been occured while initiating the scheduler\n");
         exit(-1);
     }
     if (*sch_pid == 0)
@@ -164,7 +164,7 @@ void Create_Scheduler_Clk(int *sch_pid, int *clk_pid)
     *clk_pid = fork();
     if (*clk_pid == -1)
     {
-        perror("error has been occured while initiating the clock\n");
+        printf("error has been occured while initiating the clock\n");
         exit(-1);
     }
     if (*clk_pid == 0)
