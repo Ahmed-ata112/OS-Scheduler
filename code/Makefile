@@ -15,4 +15,4 @@ run:
 
 
 test: build
-	./process_generator.out
+	./process_generator.out 
