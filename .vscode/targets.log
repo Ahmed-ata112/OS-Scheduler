@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun May  1 16:16:24 2022
+# Make data base, printed on Sun May  1 22:03:06 2022
 
 # Variables
 
@@ -55,7 +53,7 @@ SNAP_DATA = /var/snap/code/94
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:50391
+JOURNAL_STREAM = 8:37869
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -83,7 +81,7 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 _ = /snap/code/94/usr/share/code/code
 # environment
-MANAGERPID = 1338
+MANAGERPID = 1301
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -99,7 +97,7 @@ NO_PROXY = 127.0.0.1
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/1885,unix/my-loly:/tmp/.ICE-unix/1885
+SESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/1847,unix/my-loly:/tmp/.ICE-unix/1847
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -117,7 +115,7 @@ DISABLE_WAYLAND = 1
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = ac8de6827d714ad5b712e8332f6b7eb0
+INVOCATION_ID = 4427e7bb5aa34cd4bd200bd799acb87a
 # environment
 GDK_PIXBUF_MODULEDIR = /snap/code/94/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
@@ -129,7 +127,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 5388
+GIO_LAUNCHED_DESKTOP_FILE_PID = 5211
 # automatic
 %F = $(notdir $%)
 # environment
@@ -143,7 +141,7 @@ PWD = /home/ahmedatta/Stud/OS/Repos/OSproject
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1855
+SSH_AGENT_PID = 1817
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -183,7 +181,7 @@ LC_TIME = en_US.UTF-8
 # environment
 SNAP_REAL_HOME = /home/ahmedatta
 # environment
-PLATFORMIO_PATH = /home/ahmedatta/.platformio/penv/bin:/home/ahmedatta/.platformio/penv:/home/ahmedatta/.platformio/python3/bin:/home/ahmedatta/.local/bin:/home/ahmedatta/bin:/home/ahmedatta/.local/bin:/home/ahmedatta/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:QT_QPA_PLATFORMTHEME=gtk2:/home/ahmedatta/Downloads/clion-2022.1/bin
+PLATFORMIO_PATH = /home/ahmedatta/.platformio/python3/bin:/home/ahmedatta/.local/bin:/home/ahmedatta/bin:/home/ahmedatta/.local/bin:/home/ahmedatta/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:QT_QPA_PLATFORMTHEME=gtk2:/home/ahmedatta/Downloads/clion-2022.1/bin
 # default
 MAKE = $(MAKE_COMMAND)
 # default
@@ -197,7 +195,7 @@ SHLVL = 0
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-54a9fe81-82c7-4398-8cf3-5d99e30998ee.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-8b4b1b1d-b667-49ee-abf5-cf0dcd5e8427.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -279,7 +277,7 @@ LC_ADDRESS = en_US.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 5438
+VSCODE_PID = 5288
 # variable set hash-table stats:
 # Load=134/1024=13%, Rehash=0, Collisions=25/156=16%
 
@@ -296,7 +294,6 @@ VSCODE_PID = 5438
 # Implicit Rules
 
 # No implicit rules.
- 
 
 # Files
 
@@ -326,6 +323,9 @@ makefile:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
+ 
+make: *** No rule to make target 'all'.  Stop.
+
 
 # Not a target:
 GNUmakefile:
@@ -348,6 +348,6 @@ GNUmakefile:
 # strcache performance: lookups = 23 / hit rate = 13%
 # hash-table stats:
 # Load=20/8192=0%, Rehash=0, Collisions=1/23=4%
-# Finished Make data base on Sun May  1 16:16:24 2022
+# Finished Make data base on Sun May  1 22:03:06 2022
 
  
