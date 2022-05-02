@@ -114,8 +114,11 @@ struct chosen_algorithm
 // message of remaining type
 #define TIME_TYPE 3
 
-struct process_scheduler
-{
+struct process_scheduler {
     long mtype; // TIME_TYPE
     int remaining_time;
+};
+struct count_msg {
+    long mtype;
+    int count;
 };
