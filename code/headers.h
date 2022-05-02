@@ -24,8 +24,7 @@ int *shm_remain_time;
 int *shmaddr; //
 //===============================
 
-int getClk()
-{
+int getClk() {
     return *shmaddr;
 }
 
@@ -33,30 +32,26 @@ int getClk()
  * All process call this function at the beginning to establish communication between them and the clock module.
  * Again, remember that the clock is only emulation!
  */
-void initClk()
-{
+void initClk() {
     int shmid = shmget(SHKEY, 4, 0444);
-    while ((int)shmid == -1)
-    {
+    while ((int) shmid == -1) {
         // Make sure that the clock exists
         printf("Wait! The clock not initialized yet!\n");
         sleep(1);
         shmid = shmget(SHKEY, 4, 0444);
     }
-    shmaddr = (int *)shmat(shmid, (void *)0, 0);
+    shmaddr = (int *) shmat(shmid, (void *) 0, 0);
 }
 
-void init_remain_time()
-{
+void init_remain_time() {
     int shmid = shmget(REMAIN_TIME_SHMKEY, 4, 0644);
-    while ((int)shmid == -1)
-    {
+    while ((int) shmid == -1) {
         // Make sure that the clock exists
         printf("Wait! The Remaining time not initialized yet!\n");
         sleep(1);
         shmid = shmget(REMAIN_TIME_SHMKEY, 4, 0644);
     }
-    shm_remain_time = (int *)shmat(shmid, (void *)0, 0);
+    shm_remain_time = (int *) shmat(shmid, (void *) 0, 0);
 }
 
 /*
@@ -67,11 +62,9 @@ void init_remain_time()
  *                      It terminates the whole system and releases resources.
  */
 
-void destroyClk(bool terminateAll)
-{
+void destroyClk(bool terminateAll) {
     shmdt(shmaddr);
-    if (terminateAll)
-    {
+    if (terminateAll) {
         /**
          * @note Atta
          * this is because the parent( process generator ) and all the children share
@@ -88,13 +81,11 @@ void destroyClk(bool terminateAll)
  *  size = sizeof(process_struct) - sizeof(mtype)
  *  @note mtype for coming processes = 1
  */
-enum state
-{
+enum state {
     READY = 1,
     RUNNING = 2,
 };
-typedef struct process_struct
-{
+typedef struct process_struct {
     long mtype; // 1
     int id;
     int arrival;
@@ -102,8 +93,7 @@ typedef struct process_struct
     int priority;
 } process_struct;
 
-struct chosen_algorithm
-{
+struct chosen_algorithm {
     long mtype; // 2
     short algo; // 1 for RR /2 for hpf
     int arg;    // quantum of RR algorithm
@@ -114,8 +104,8 @@ struct chosen_algorithm
 // message of remaining type
 #define TIME_TYPE 3
 
-struct process_scheduler
-{
-    long mtype; // TIME_TYPE
-    int remaining_time;
-};
+
+typedef struct no_of_processes {
+    long mtype;
+    int num;
+} no_of_processes_t;

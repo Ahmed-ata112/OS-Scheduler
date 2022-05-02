@@ -3,6 +3,7 @@
 
 #define FILE_NAME_LENGTH 100
 
+
 // message queue id
 int msgq_id;
 
@@ -69,14 +70,17 @@ int main(int argc, char *argv[]) {
     }
     // secondly, sending processes in the appropiate time
     int ProcessIterator = 0;
+
     while (ProcessIterator < ProcessesNum) {
+
         if (getClk() >= Processes[ProcessIterator].arrival) {
+
             // send the process to the schedular
             send_val = msgsnd(msgq_id, &Processes[ProcessIterator],
                               sizeof(Processes[ProcessIterator]) - sizeof(Processes[ProcessIterator].mtype),
                               !IPC_NOWAIT);
             if (send_val == -1) {
-                perror("error has been occured while sending to the schedular\n");
+                perror("error has been occurred while sending to the scheduler\n");
             }
             ProcessIterator++;
         }
@@ -104,6 +108,7 @@ void clearResources(int signum) {
 // remember to add the file name in it
 int NumOfProcesses(FILE *file, char FileName[]) {
     if (file == NULL) {
+
 
         perror("the file does not exist");
 
