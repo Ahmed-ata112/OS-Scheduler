@@ -9,6 +9,7 @@ void clearResources(int);
 int NumOfProcesses(FILE *file, char FileName[]);
 void ReadProcessesData(FILE *file, struct process_struct Processes[], int ProcessesNum);
 void Create_Scheduler_Clk(int *sch_pid, int *clk_pid);
+int GetSyncProcessesNum (int Time,struct process_struct Processes[], int ProcessesNum);
 
 int main(int argc, char *argv[])
 {
@@ -68,18 +69,32 @@ int main(int argc, char *argv[])
     }
     // secondly, sending processes in the appropiate time
     int ProcessIterator = 0;
+    int prevClk = 0;
     while (ProcessIterator < ProcessesNum)
     {
-        if (getClk() >= Processes[ProcessIterator].arrival)
+        while (prevClk == getClk())
         {
-            // send the process to the schedular
-            send_val = msgsnd(msgq_id, &Processes[ProcessIterator], sizeof(Processes[ProcessIterator]) - sizeof(Processes[ProcessIterator].mtype), !IPC_NOWAIT);
+            //get number of processes to be sent to the scheduler
+            int count = GetSyncProcessesNum(prevClk,Processes,ProcessesNum);
+            //send the number to the scheduler
+            send_val = msgsnd(msgq_id, &count,sizeof(int), !IPC_NOWAIT);
             if (send_val == -1)
             {
-                perror("error has been occured while sending to the schedular\n");
+                perror("error has been occured while sending the number of processes/n");
             }
-            ProcessIterator++;
+            //send the processes to the scheduler
+            while (getClk() >= Processes[ProcessIterator].arrival)
+            {
+                // send the process to the schedular
+                send_val = msgsnd(msgq_id, &Processes[ProcessIterator], sizeof(Processes[ProcessIterator]) - sizeof(Processes[ProcessIterator].mtype), !IPC_NOWAIT);
+                if (send_val == -1)
+                {
+                    perror("error has been occured while sending to the schedular\n");
+                }
+                ProcessIterator++;
+            }
         }
+        prevClk = getClk();
     }
 
 
@@ -171,4 +186,21 @@ void Create_Scheduler_Clk(int *sch_pid, int *clk_pid)
     {
         execl("./clk.out", "./clk.out", NULL);
     }
+}
+
+int GetSyncProcessesNum(int Time, struct process_struct *Processes, int ProcessesNum)
+{
+    int count = 0;
+    for (int i=0;i<ProcessesNum;i++)
+    {
+        if (Processes[i].arrival == Time)
+        {
+            count++;
+        }
+        if (Processes[i].arrival > Time)
+        {
+            break;
+        }
+    }
+    return count;
 }
