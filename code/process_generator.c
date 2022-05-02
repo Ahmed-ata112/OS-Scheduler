@@ -1,13 +1,17 @@
 #include "headers.h"
 #include <string.h>
+
 #define FILE_NAME_LENGTH 100
 
 // message queue id
 int msgq_id;
 
 void clearResources(int);
+
 int NumOfProcesses(FILE *file, char FileName[]);
+
 void ReadProcessesData(FILE *file, struct process_struct Processes[], int ProcessesNum);
+
 void Create_Scheduler_Clk(int *sch_pid, int *clk_pid);
 
 int GetSyncProcessesNum(int Time, struct process_struct Processes[], int ProcessesNum, int ProcessIterator);
@@ -90,8 +94,9 @@ int main(int argc, char *argv[]) {
                 perror("error has been occured while sending to the schedular\n");
             }
             ProcessIterator++;
+
             if (ProcessIterator == ProcessesNum) {
-                kill(sch_pid, SIGUSR1);
+                kill(sch_pid, SIGUSR1); //sent all
 
             }
             count--;
@@ -99,23 +104,18 @@ int main(int argc, char *argv[]) {
 
     }
 
-
-    // send a signal to the schedular indicating that there are no more processes
-    kill(sch_pid, SIGUSR1);
-    // wait for schedular to finish
-    waitpid(sch_pid, &stat_loc, 0);
-
-    // 7. Clear clock resources
-
-    destroyClk(true);
 }
 
-void clearResources(int signum)
-{
+void clearResources(int signum) {
     // TODO Clears all resources in case of interruption
-    msgctl(msgq_id, IPC_RMID, (struct msqid_ds *)0);
+    msgctl(msgq_id, IPC_RMID, (struct msqid_ds *) 0);
     kill(getpgrp(), SIGKILL);
-    // is it required to clear clock resources also????
+    int st;
+    //wait for clk and scheduler
+    wait(&st);
+    wait(&st);
+
+    exit(0);
     signal(SIGINT, clearResources);
 }
 
