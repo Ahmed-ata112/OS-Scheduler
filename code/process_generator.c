@@ -1,19 +1,16 @@
 #include "headers.h"
 #include <string.h>
-
 #define FILE_NAME_LENGTH 100
-
 
 // message queue id
 int msgq_id;
 
 void clearResources(int);
-
 int NumOfProcesses(FILE *file, char FileName[]);
-
 void ReadProcessesData(FILE *file, struct process_struct Processes[], int ProcessesNum);
-
 void Create_Scheduler_Clk(int *sch_pid, int *clk_pid);
+
+int GetSyncProcessesNum(int Time, struct process_struct Processes[], int ProcessesNum, int ProcessIterator);
 
 int main(int argc, char *argv[]) {
     signal(SIGINT, clearResources);
@@ -70,20 +67,36 @@ int main(int argc, char *argv[]) {
     }
     // secondly, sending processes in the appropiate time
     int ProcessIterator = 0;
+    int prevClk = -1;
+    while (1) {
+        while (prevClk == getClk());
+        prevClk = getClk();
 
-    while (ProcessIterator < ProcessesNum) {
-
-        if (getClk() >= Processes[ProcessIterator].arrival) {
-
+        //get number of processes to be sent to the scheduler
+        int count = GetSyncProcessesNum(prevClk, Processes, ProcessesNum, ProcessIterator);
+        //send the number to the scheduler
+        struct count_msg c = {10, count};
+        send_val = msgsnd(msgq_id, &c, sizeof(int), !IPC_NOWAIT);
+        if (send_val == -1) {
+            perror("error has been occured while sending the number of processes/n");
+        }
+        //send the processes to the scheduler
+        while (count > 0 && prevClk >= Processes[ProcessIterator].arrival) {
             // send the process to the schedular
             send_val = msgsnd(msgq_id, &Processes[ProcessIterator],
                               sizeof(Processes[ProcessIterator]) - sizeof(Processes[ProcessIterator].mtype),
                               !IPC_NOWAIT);
             if (send_val == -1) {
-                perror("error has been occurred while sending to the scheduler\n");
+                perror("error has been occured while sending to the schedular\n");
             }
             ProcessIterator++;
+            if (ProcessIterator == ProcessesNum) {
+                kill(sch_pid, SIGUSR1);
+
+            }
+            count--;
         }
+
     }
 
 
@@ -97,9 +110,10 @@ int main(int argc, char *argv[]) {
     destroyClk(true);
 }
 
-void clearResources(int signum) {
+void clearResources(int signum)
+{
     // TODO Clears all resources in case of interruption
-    msgctl(msgq_id, IPC_RMID, (struct msqid_ds *) 0);
+    msgctl(msgq_id, IPC_RMID, (struct msqid_ds *)0);
     kill(getpgrp(), SIGKILL);
     // is it required to clear clock resources also????
     signal(SIGINT, clearResources);
@@ -109,9 +123,7 @@ void clearResources(int signum) {
 int NumOfProcesses(FILE *file, char FileName[]) {
     if (file == NULL) {
 
-
         perror("the file does not exist");
-
         exit(-1);
     }
     // number of lines in the file determines number of process
@@ -167,4 +179,17 @@ void Create_Scheduler_Clk(int *sch_pid, int *clk_pid) {
     if (*clk_pid == 0) {
         execl("./clk.out", "./clk.out", NULL);
     }
+}
+
+int GetSyncProcessesNum(int Time, struct process_struct *Processes, int ProcessesNum, int curr_iter) {
+    int count = 0;
+    for (int i = curr_iter; i < ProcessesNum; i++) {
+        if (Processes[i].arrival == Time) {
+            count++;
+        }
+        if (Processes[i].arrival > Time) {
+            break;
+        }
+    }
+    return count;
 }
