@@ -316,6 +316,8 @@ void RR(int quantum) {
 
         // there is a process in the Queue and first time to start
         if (!circular_is_empty(&RRqueue)) {
+            int curr = getClk();
+
             // hashmap_scan(process_table, process_iter, NULL);
             PCB get_process = {.id = RRqueue.front->data};
             current_pcb = hashmap_get(process_table, &get_process);
@@ -340,7 +342,6 @@ void RR(int quantum) {
             }
             // if its time ended or its quantum -> switch (Advance front)
             // otherwise just let it run in peace
-            int curr = getClk();
             bool try_to_switch_if_terminated = false;
             bool try_to_switch_if_q = false;
             if (curr - curr_q_start >= current_pcb->remaining_time) { // that process will be finished
