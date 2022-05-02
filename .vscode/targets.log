@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun May  1 22:03:06 2022
+# Make data base, printed on Mon May  2 18:39:28 2022
 
 # Variables
 
@@ -53,11 +53,7 @@ SNAP_DATA = /var/snap/code/94
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
-<<<<<<< HEAD
-JOURNAL_STREAM = 8:48849
-=======
-JOURNAL_STREAM = 8:37869
->>>>>>> main
+JOURNAL_STREAM = 8:56345
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -69,7 +65,7 @@ MAKEFILE_LIST :=
 # automatic
 @F = $(notdir $@)
 # environment
-GIO_LAUNCHED_DESKTOP_FILE = /var/lib/snapd/desktop/applications/code_code.desktop
+GIO_LAUNCHED_DESKTOP_FILE = /var/lib/snapd/desktop/applications/code_code-url-handler.desktop
 # environment
 QT_IM_MODULE = ibus
 # environment
@@ -85,11 +81,7 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 _ = /snap/code/94/usr/share/code/code
 # environment
-<<<<<<< HEAD
-MANAGERPID = 1467
-=======
-MANAGERPID = 1301
->>>>>>> main
+MANAGERPID = 1378
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -105,11 +97,7 @@ NO_PROXY = 127.0.0.1
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-<<<<<<< HEAD
-SESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/2015,unix/my-loly:/tmp/.ICE-unix/2015
-=======
-SESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/1847,unix/my-loly:/tmp/.ICE-unix/1847
->>>>>>> main
+SESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/1916,unix/my-loly:/tmp/.ICE-unix/1916
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -127,11 +115,7 @@ DISABLE_WAYLAND = 1
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-<<<<<<< HEAD
-INVOCATION_ID = 86b4d4de905d4dd78d6d941ab9e0fd59
-=======
-INVOCATION_ID = 4427e7bb5aa34cd4bd200bd799acb87a
->>>>>>> main
+INVOCATION_ID = 6999c865ad4348dd9191cff3ed7db8c2
 # environment
 GDK_PIXBUF_MODULEDIR = /snap/code/94/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
@@ -139,15 +123,13 @@ GDK_PIXBUF_MODULEDIR = /snap/code/94/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.1
 # environment
 LS_COLORS = 
 # environment
+PARENT_WINDOW_ID = 
+# environment
 XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-<<<<<<< HEAD
-GIO_LAUNCHED_DESKTOP_FILE_PID = 5785
-=======
-GIO_LAUNCHED_DESKTOP_FILE_PID = 5211
->>>>>>> main
+GIO_LAUNCHED_DESKTOP_FILE_PID = 5763
 # automatic
 %F = $(notdir $%)
 # environment
@@ -161,11 +143,7 @@ PWD = /home/ahmedatta/Stud/OS/Repos/OSproject
 # default
 .LOADED := 
 # environment
-<<<<<<< HEAD
-SSH_AGENT_PID = 1985
-=======
-SSH_AGENT_PID = 1817
->>>>>>> main
+SSH_AGENT_PID = 1886
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -219,11 +197,7 @@ SHLVL = 0
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-<<<<<<< HEAD
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-7eac37bb-2640-46bf-83d8-6d2723c31374.sock
-=======
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-8b4b1b1d-b667-49ee-abf5-cf0dcd5e8427.sock
->>>>>>> main
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-db0e96ef-58fb-4d2e-8d65-07578ee7a056.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -240,6 +214,8 @@ XDG_CURRENT_DESKTOP = Unity
 %D = $(patsubst %/,%,$(dir $%))
 # environment
 LC_TELEPHONE = en_US.UTF-8
+# environment
+GIO_USE_VFS = local
 # default
 MAKE_COMMAND := make
 # default
@@ -249,7 +225,7 @@ MAKE_COMMAND := make
 # environment
 VSCODE_IPC_HOOK = /run/user/1000/vscode-9c9b8c1f-1.66.2-main.sock
 # environment
-BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop
+BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code-url-handler.desktop
 # makefile
 MAKEFLAGS = pqrR
 # environment
@@ -262,8 +238,6 @@ MFLAGS = -pqrR
 GDK_BACKEND = x11
 # environment
 LC_PAPER = en_US.UTF-8
-# environment
-LC_IDENTIFICATION = en_US.UTF-8
 # environment
 QT_ACCESSIBILITY = 1
 # default
@@ -282,8 +256,6 @@ LC_MEASUREMENT = en_US.UTF-8
 SNAP_NAME = code
 # environment
 LC_ALL = C
-# environment
-GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # automatic
 ^F = $(notdir $^)
 # default
@@ -297,24 +269,20 @@ WINDOWPATH = 2
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
 # environment
-GJS_DEBUG_OUTPUT = stderr
+LC_IDENTIFICATION = en_US.UTF-8
 # default
 .RECIPEPREFIX := 
 # environment
 LC_ADDRESS = en_US.UTF-8
 # environment
 LANG = C
-# environment
-<<<<<<< HEAD
-VSCODE_PID = 5832
-=======
-VSCODE_PID = 5288
->>>>>>> main
-# variable set hash-table stats:
-# Load=134/1024=13%, Rehash=0, Collisions=25/156=16%
  
 make: *** No rule to make target 'all'.  Stop.
 
+# environment
+VSCODE_PID = 5807
+# variable set hash-table stats:
+# Load=134/1024=13%, Rehash=0, Collisions=24/156=15%
 
 # Pattern-specific Variable Values
 
@@ -358,9 +326,6 @@ makefile:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
- 
-make: *** No rule to make target 'all'.  Stop.
-
 
 # Not a target:
 GNUmakefile:
@@ -382,12 +347,7 @@ GNUmakefile:
 
 # strcache performance: lookups = 23 / hit rate = 13%
 # hash-table stats:
-<<<<<<< HEAD
-# Load=21/8192=0%, Rehash=0, Collisions=1/24=4%
-# Finished Make data base on Sat Apr 30 20:17:49 2022
-=======
 # Load=20/8192=0%, Rehash=0, Collisions=1/23=4%
-# Finished Make data base on Sun May  1 22:03:06 2022
->>>>>>> main
+# Finished Make data base on Mon May  2 18:39:28 2022
 
  
