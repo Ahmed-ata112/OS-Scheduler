@@ -390,6 +390,10 @@ void SRTN() {
                     printf("At time %d process %d started arr %d total %d remain %d wait %d\n",
                            current_time, current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time,
                            *shm_remain_time, current_pcb->waiting_time);
+
+                    fprintf(sch_log,"At time %d process %d started arr %d total %d remain %d wait %d\n",
+                           current_time, current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time,
+                           *shm_remain_time, current_pcb->waiting_time);
                 }
                     // resumed after stopped
                 else {
@@ -407,6 +411,9 @@ void SRTN() {
                     printf("At time %d process %d resumed arr %d total %d remain %d wait %d\n",
                            current_time, current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time,
                            *shm_remain_time, current_pcb->waiting_time);
+                    fprintf(sch_log,"At time %d process %d resumed arr %d total %d remain %d wait %d\n",
+                           current_time, current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time,
+                           *shm_remain_time, current_pcb->waiting_time);
                 }
             } else {
                 // Continue or switch process
@@ -419,6 +426,9 @@ void SRTN() {
 
                     //printf("\n..%d...%d...<%d \n", temp->priority, temp->data, current_pcb->remaining_time);
                     printf("At time %d process %d stopped arr %d total %d remain %d wait %d\n",
+                           current_time, current_pcb->id, current_pcb->arrival_time,
+                           current_pcb->burst_time, current_pcb->remaining_time, current_pcb->waiting_time);
+                    fprintf(sch_log,"At time %d process %d stopped arr %d total %d remain %d wait %d\n",
                            current_time, current_pcb->id, current_pcb->arrival_time,
                            current_pcb->burst_time, current_pcb->remaining_time, current_pcb->waiting_time);
 
@@ -453,6 +463,8 @@ void SRTN() {
                            current_pcb->burst_time, *shm_remain_time,
                            current_pcb->waiting_time,
                            TA, WTA);
+
+                    OutputFinishedProcesses(current_time, current_pcb->id, current_pcb->arrival_time,current_pcb->burst_time, *shm_remain_time,current_pcb->waiting_time,TA, WTA);
                     hashmap_delete(process_table, current_pcb);
                     pop(&sQueue);
                     //printf("\nid is poped :: %d\n", pop(&sQueue)->data);
@@ -615,7 +627,7 @@ void scheduler_perf(int ProcessesCount) {
     if (sch_perf == NULL) {
         printf("error has been occured while creation or opening scheduler.perf\n");
     } else {
-        float CPU_Utilization = (TotalRunTime / getClk()) * 100;
+        float CPU_Utilization = ((float)TotalRunTime / getClk()) * 100;
         fprintf(sch_perf, "CPU utilization = %.2f %%\n", CPU_Utilization);
         fprintf(sch_perf, "Avg WTA = %.2f\n", ((float) TotalWTA) / ProcessesCount);
         fprintf(sch_perf, "Avg Waiting = %.2f\n", ((float) TotalWaitingTime) / ProcessesCount);
@@ -646,7 +658,7 @@ float CalcStdWTA(float AvgWTA) {
     for (int i = 0; i < TotalNumberOfProcesses; i++) {
         numerator += pow((WeightedTA[i] - AvgWTA), 2);
     }
-    Variance = numerator / (TotalNumberOfProcesses - 1);
+    Variance = numerator / TotalNumberOfProcesses;
     return sqrt(Variance);
 }
 
