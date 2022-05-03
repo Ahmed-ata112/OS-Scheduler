@@ -235,7 +235,8 @@ void RR(int quantum) {
                 try_to_switch_if_terminated = !circular_is_empty(&RRqueue);
 
                 // if its q finished and there are some other in the Q waiting
-            } else if (curr - curr_q_start >= quantum && !circular_is_empty_or_one_left(&RRqueue)) {
+            } else if ((curr - curr_q_start) && (curr - curr_q_start) % quantum == 0 &&
+                       !circular_is_empty_or_one_left(&RRqueue)) {
                 // its quantum finished
                 //  TODO add some error printing, bitch
                 *shm_remain_time -= curr - curr_q_start;
