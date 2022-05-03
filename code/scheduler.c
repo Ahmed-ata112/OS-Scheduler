@@ -534,10 +534,10 @@ void HPF() {
             // printf("Front of the queue is %d\n", peek(&hpf_queue)->priority);
             num_messages--;
         }
+                current_clk = getClk();
         if (!is_empty(&hpf_queue) || process_is_currently_running) {
             if (process_is_currently_running) {
 
-                current_clk = getClk();
 
                 if (current_clk - started_clk == current_pcb->remaining_time) {
                     int st;
@@ -573,7 +573,8 @@ void HPF() {
                     execl("./process.out", "./process.out", NULL);
                 }
 
-                started_clk = getClk();
+                // started_clk = getClk();
+                started_clk =current_clk;
                 process_is_currently_running = true;
                 // parent take the pid to the hashmap
                 current_pcb->pid = pid; // update Pid of existing process
