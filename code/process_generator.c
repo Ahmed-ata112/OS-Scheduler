@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
     key_t qid = ftok("keyfile", 'q');
     msgq_id = msgget(qid, 0666 | IPC_CREAT);
     if (msgq_id == -1) {
-        perror("error has been occured in the message queue\n");
+        perror("error has been occurred in the message queue\n");
         exit(-1);
     }
 
@@ -74,8 +74,6 @@ int main(int argc, char *argv[]) {
     int prevClk = -1;
 
     while (ProcessIterator < ProcessesNum) {
-        while (prevClk == getClk());
-
         prevClk = getClk();
         //get number of processes to be sent to the scheduler
         int count = GetSyncProcessesNum(prevClk, Processes, ProcessesNum, ProcessIterator);
@@ -83,11 +81,11 @@ int main(int argc, char *argv[]) {
         struct count_msg c = {10, count};
         send_val = msgsnd(msgq_id, &c, sizeof(int), !IPC_NOWAIT);
         if (send_val == -1) {
-            perror("error has been occured while sending the number of processes/n");
+            perror("error has been occurred while sending the number of processes/n");
         }
         //send the processes to the scheduler
         while (count > 0 && prevClk >= Processes[ProcessIterator].arrival) {
-            // send the process to the schedular
+            // send the process to the scheduler
             send_val = msgsnd(msgq_id, &Processes[ProcessIterator],
                               sizeof(Processes[ProcessIterator]) - sizeof(Processes[ProcessIterator].mtype),
                               !IPC_NOWAIT);
@@ -98,8 +96,10 @@ int main(int argc, char *argv[]) {
             count--;
         }
         printf("\nfrom gen %d %d\n", ProcessIterator, ProcessesNum);
+        while (prevClk == getClk());
+
     }
-    sleep(1);
+    //sleep(1);
     kill(sch_pid, SIGUSR1); //sent all
     int st;
     // wait for clk and scheduler
