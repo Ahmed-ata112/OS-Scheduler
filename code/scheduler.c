@@ -328,7 +328,7 @@ void SRTN()
     sQueue = init_min_heap();
 
     PCB *current_pcb = NULL;
-    int curr_q_start;
+    //int curr_q_start;
 
     // if the Queue is empty then check if there is no more processes that will come
     // the main loop for the scheduler
@@ -336,10 +336,9 @@ void SRTN()
     {
         // First check if any process has come
         int current_time = getClk();
-        struct msqid_ds buf;
-        int num_messages;
-        msgctl(process_msg_queue, IPC_STAT, &buf);
-        num_messages = buf.msg_qnum;
+        count_msg c;
+        msgrcv(process_msg_queue, &c, sizeof(int), 10, !IPC_NOWAIT);
+        int num_messages = c.count;
         while (num_messages > 0)
         {
             // while still a process in the queue

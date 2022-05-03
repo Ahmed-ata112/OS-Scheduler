@@ -118,7 +118,9 @@ struct process_scheduler {
     long mtype; // TIME_TYPE
     int remaining_time;
 };
-struct count_msg {
+//@Ahmed-H300
+// change it to typedef instead of struct
+typedef struct count_msg {
     long mtype;
     int count;
-};
+} count_msg;
