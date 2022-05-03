@@ -14,6 +14,9 @@ clean:
 run:
 	./process_generator.out
 
+generate:
+	gcc test_generator.c -o test_generator.out
+	./test_generator.out
 
 test: build
 	./process_generator.out 1 1

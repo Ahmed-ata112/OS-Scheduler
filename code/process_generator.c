@@ -6,7 +6,6 @@
 // message queue id
 int msgq_id;
 
-
 void clearResources(int);
 
 int NumOfProcesses(FILE *file, char FileName[]);
@@ -95,8 +94,9 @@ int main(int argc, char *argv[]) {
                 perror("error has been occured while sending to the schedular\n");
             }
             ProcessIterator++;
+
             if (ProcessIterator == ProcessesNum) {
-                kill(sch_pid, SIGUSR1);
+                kill(sch_pid, SIGUSR1); //sent all
 
             }
             count--;
@@ -104,29 +104,25 @@ int main(int argc, char *argv[]) {
 
     }
 
-
-    // send a signal to the schedular indicating that there are no more processes
-    kill(sch_pid, SIGUSR1);
-    // wait for schedular to finish
-    waitpid(sch_pid, &stat_loc, 0);
-
-    // 7. Clear clock resources
-
-    destroyClk(true);
 }
 
 void clearResources(int signum) {
     // TODO Clears all resources in case of interruption
     msgctl(msgq_id, IPC_RMID, (struct msqid_ds *) 0);
     kill(getpgrp(), SIGKILL);
-    destroyClk(true);
-    // is it required to clear clock resources also????
+    int st;
+    //wait for clk and scheduler
+    wait(&st);
+    wait(&st);
+
+    exit(0);
     signal(SIGINT, clearResources);
 }
 
 // remember to add the file name in it
 int NumOfProcesses(FILE *file, char FileName[]) {
     if (file == NULL) {
+
         perror("the file does not exist");
         exit(-1);
     }
