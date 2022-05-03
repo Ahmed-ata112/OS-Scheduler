@@ -72,10 +72,11 @@ int main(int argc, char *argv[]) {
     // secondly, sending processes in the appropiate time
     int ProcessIterator = 0;
     int prevClk = -1;
-    while (1) {
-        while (prevClk == getClk());
-        prevClk = getClk();
 
+    while (ProcessIterator < ProcessesNum) {
+        while (prevClk == getClk());
+
+        prevClk = getClk();
         //get number of processes to be sent to the scheduler
         int count = GetSyncProcessesNum(prevClk, Processes, ProcessesNum, ProcessIterator);
         //send the number to the scheduler
@@ -91,30 +92,26 @@ int main(int argc, char *argv[]) {
                               sizeof(Processes[ProcessIterator]) - sizeof(Processes[ProcessIterator].mtype),
                               !IPC_NOWAIT);
             if (send_val == -1) {
-                perror("error has been occured while sending to the schedular\n");
+                perror("error has been occurred while sending to the scheduler\n");
             }
             ProcessIterator++;
-
-            if (ProcessIterator == ProcessesNum) {
-                kill(sch_pid, SIGUSR1); //sent all
-
-            }
             count--;
         }
-
+        printf("\nfrom gen %d %d\n", ProcessIterator, ProcessesNum);
     }
-
+    sleep(1);
+    kill(sch_pid, SIGUSR1); //sent all
+    int st;
+    // wait for clk and scheduler
+    wait(&st);
+    wait(&st);
 }
 
 void clearResources(int signum) {
     // TODO Clears all resources in case of interruption
     msgctl(msgq_id, IPC_RMID, (struct msqid_ds *) 0);
     kill(getpgrp(), SIGKILL);
-    int st;
     //wait for clk and scheduler
-    wait(&st);
-    wait(&st);
-
     exit(0);
     signal(SIGINT, clearResources);
 }
@@ -184,7 +181,7 @@ void Create_Scheduler_Clk(int *sch_pid, int *clk_pid) {
 int GetSyncProcessesNum(int Time, struct process_struct *Processes, int ProcessesNum, int curr_iter) {
     int count = 0;
     for (int i = curr_iter; i < ProcessesNum; i++) {
-        if (Processes[i].arrival == Time) {
+        if (Processes[i].arrival <= Time) {
             count++;
         }
         if (Processes[i].arrival > Time) {
