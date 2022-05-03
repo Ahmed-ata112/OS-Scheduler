@@ -8,7 +8,7 @@ int msgq_id;
 
 void clearResources(int);
 
-int NumOfProcesses(FILE *file, char FileName[]);
+int NumOfProcesses(FILE *file);
 
 void ReadProcessesData(FILE *file, struct process_struct Processes[], int ProcessesNum);
 
@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
     char FileName[FILE_NAME_LENGTH] = "processes.txt";
     // strcpy(FileName, argv[1]);
     FILE *file = fopen(FileName, "r");
-    int ProcessesNum = NumOfProcesses(file, FileName);
+    int ProcessesNum = NumOfProcesses(file);
     // make an array of processes and store data of each process in it
     struct process_struct Processes[ProcessesNum];
     ReadProcessesData(file, Processes, ProcessesNum);
@@ -119,28 +119,27 @@ void clearResources(int signum) {
     signal(SIGINT, clearResources);
 }
 
-// remember to add the file name in it
-int NumOfProcesses(FILE *file, char FileName[]) {
-    if (file == NULL) {
-
+int NumOfProcesses(FILE *file)
+{
+    if (file == NULL)
+    {
         perror("the file does not exist");
         exit(-1);
     }
-    // number of lines in the file determines number of process
     // note : do not count any line stating with #
     int count = 0;
-    char ch;
-    for (ch = getc(file); ch != EOF; ch = getc(file)) {
-        switch (ch) {
-            case '\n':
-                count++;
-                break;
-            default:
-                break;
-        }
+    int id,arrive,runtime,priority;
+    for (char ch = getc(file); ch != EOF; ch = getc(file))
+    {
+       if (ch == '\n')
+       {
+           break;
+       }
     }
-    // subtract one from the counter because we must skip the first line as it is a comment
-    count--;
+    while (fscanf(file,"%d %d %d %d",&id,&arrive,&runtime,&priority) == 4)
+    {
+        count++;
+    }
     return count;
 }
 
