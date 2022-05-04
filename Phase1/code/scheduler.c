@@ -190,6 +190,9 @@ void RR2(int quantum) {
             circular_enQueue(&RRqueue, coming_process.id); // add this process to the end of the Queue
             num_messages--;
         }
+        /////////////////
+
+        ////////////////
         //  printf("curr is %d: %d\n", getClk(), more_processes_coming);
 
         // there is a process in the Queue and first time to start

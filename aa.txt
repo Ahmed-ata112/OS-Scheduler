@@ -1,0 +1,148 @@
+Process Generator 
+    - get input and choose Algorithm
+    - gets all processes structs into a Queue and send each one at its time to the scheduler
+
+
+    -- input -> priority queue by time 
+
+    * Msg Queue to send process to scheduler 
+        mtype:
+         1-> P     
+         
+        
+    - SIGUSR1 -> quit (No more processes) - set a (noMoreComming) bool to true
+    - waits the scheduler to trminate than terminates clk process and end
+    - clk should get a SIGINT to clear shared memory
+    * clk -> shared (detached) 
+    
+
+    processStruct{
+        arrival, runtime, PR
+    }
+
+----------------------------------------------------------------
+
+
+
+-----------------------------------------------------------------
+Scheduler
+
+    *Queue 
+    - Process Table -> hashtable (pid -> struct)
+    - recieve the algorithm  -> call the algorithm
+            RR()        HPF()         SRTN()
+
+
+            RR(){
+
+                    while(true){
+                        check if process 
+
+                        //////////////
+                    }
+
+            }
+
+    - remainingtime = BurstTime - runnung
+    - waitingtime = TA - Burst_time
+    - PCB: (pid ,ownerid ,state,priority,Cumulative runningtime,
+         remainingtime, waiting time )
+
+    
+
+    - wait     ( waitany -- non blocking -- ) -- SIGUSR2 
+
+    - generate output files (each step in each algorithm) then the pref
+
+
+    Util = total runnung / (runningtime + idle + switching) 
+
+
+////////////////////////////////
+/
+////////////////////////////////
+
+
+----------------------------------------------------------------
+ - HashMap [key : value] 
+ - priority Queue -> min Heap 
+ - Circular Queue 
+
+
+
+-----------------------------------------------
+ 
+HashMap(process Table)
+
+
+Pr queue
+circular Queue
+Pr queue
+
+process Generator + output -> fady
+HPF  + HashMap-> sarah
+SRTN -> Hany 
+RR    -> atta 
+
+
+
+
+
+Ques:
+    1- Blocked state?
+    2- should the scheduler sleep if there is no current processes??
+    3- (arrival, runtime, PR ) -> Static variables -> should be in the 
+            PCB or another independent Table
+    4- why two way communication of the scheduler and the processes??
+    5- arrival starts from 1 -> cpu utilization should be from 1?????
+
+
+------------------------------------------------------------------------------
+- We Can make it multithreaded 
+- we Can draw the Chart of the scheduler
+
+
+
+--------------------------------------------------------------------------------
+
+
+
+
+
+**** ****
+
+
+
+
+1024 - pairs(0,1023)
+512 - 1
+256 -1
+128 -1
+64 -1
+32 -1
+16 -1 - 1
+8
+4
+2
+1
+
+
+
+--bool allocate( sz, &pair ) -> { 
+T/F , 
+pair(start,end)
+ }
+dellocate(from, to)
+size 
+
+-------------------------------------------------------------------------------------
+
+- Should Ready processes be inside the memory?
+- Should allocate processes in order or take whatever fitting at the current time? considering the case with priority (we might take a lower priority that fits)
+- ????
+- 
+
+
+
+
+
