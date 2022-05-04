@@ -95,8 +95,8 @@ int main(int argc, char *argv[]) {
         while (prevClk == getClk());
 
     }
-    // sleep(1); // to give time for scheduler to run
-
+    
+    sleep(1); // to give time for scheduler to run
     printf("From Gen: Done Send process\n");
     kill(sch_pid, SIGUSR1); //sent all
     int st;
@@ -115,25 +115,20 @@ void clearResources(int signum) {
 }
 
 // remember to add the file name in it
-int NumOfProcesses(FILE *file)
-{
-    if (file == NULL)
-    {
+int NumOfProcesses(FILE *file) {
+    if (file == NULL) {
         perror("the file does not exist");
         exit(-1);
     }
     // note : do not count any line stating with #
     int count = 0;
-    int id,arrive,runtime,priority;
-    for (char ch = getc(file); ch != EOF; ch = getc(file))
-    {
-       if (ch == '\n')
-       {
-           break;
-       }
+    int id, arrive, runtime, priority;
+    for (char ch = getc(file); ch != EOF; ch = getc(file)) {
+        if (ch == '\n') {
+            break;
+        }
     }
-    while (fscanf(file,"%d %d %d %d",&id,&arrive,&runtime,&priority) == 4)
-    {
+    while (fscanf(file, "%d %d %d %d", &id, &arrive, &runtime, &priority) == 4) {
         count++;
     }
     return count;

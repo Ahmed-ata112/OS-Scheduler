@@ -19,3 +19,7 @@ generate:
 test: build
 	./process_generator.out 3 1
 
+buddy:
+	gcc -o hey -g  buddy_core.c -lm
+	./hey
+
