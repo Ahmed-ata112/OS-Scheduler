@@ -39,15 +39,11 @@ int main(int argc, char *argv[]) {
         Initializer.arg = atoi(argv[2]);
     }
     Initializer.NumOfProcesses = ProcessesNum;
-    Initializer.mtype = 2;
-
-    // 3. Initiate and create the scheduler and clock processes.
-    // using forking
+    Initializer.mtype = ALGO_TYPE;
     int sch_pid, clk_pid, stat_loc;
     Create_Scheduler_Clk(&sch_pid, &clk_pid);
     // 4. Use this function after creating the clock process to initialize clock
     initClk();
-
     // To get time use this getClk();
 
     // TODO Generation Main Loop
@@ -57,7 +53,7 @@ int main(int argc, char *argv[]) {
     key_t qid = ftok("keyfile", 'q');
     msgq_id = msgget(qid, 0666 | IPC_CREAT);
     if (msgq_id == -1) {
-        perror("error has been occured in the message queue\n");
+        perror("error has been occurred in the message queue\n");
         exit(-1);
     }
 
@@ -66,16 +62,14 @@ int main(int argc, char *argv[]) {
     // send the initiator struct to the scheduler
     int send_val = msgsnd(msgq_id, &Initializer, sizeof(Initializer) - sizeof(Initializer.mtype), !IPC_NOWAIT);
     if (send_val == -1) {
-        perror("error has been occured in scheduler initation operation\n");
+        perror("error has been occurred in scheduler initiation operation\n");
         exit(-1);
     }
-    // secondly, sending processes in the appropiate time
+    // secondly, sending processes in the appropriate time
     int ProcessIterator = 0;
     int prevClk = -1;
-
+//    printf("from Gen: sent message to scheduler at %d\n", getClk());
     while (ProcessIterator < ProcessesNum) {
-        while (prevClk == getClk());
-
         prevClk = getClk();
         //get number of processes to be sent to the scheduler
         int count = GetSyncProcessesNum(prevClk, Processes, ProcessesNum, ProcessIterator);
@@ -83,11 +77,11 @@ int main(int argc, char *argv[]) {
         struct count_msg c = {10, count};
         send_val = msgsnd(msgq_id, &c, sizeof(int), !IPC_NOWAIT);
         if (send_val == -1) {
-            perror("error has been occured while sending the number of processes/n");
+            perror("error has been occurred while sending the number of processes/n");
         }
         //send the processes to the scheduler
         while (count > 0 && prevClk >= Processes[ProcessIterator].arrival) {
-            // send the process to the schedular
+            // send the process to the scheduler
             send_val = msgsnd(msgq_id, &Processes[ProcessIterator],
                               sizeof(Processes[ProcessIterator]) - sizeof(Processes[ProcessIterator].mtype),
                               !IPC_NOWAIT);
@@ -98,8 +92,12 @@ int main(int argc, char *argv[]) {
             count--;
         }
         printf("\nfrom gen %d %d\n", ProcessIterator, ProcessesNum);
+        while (prevClk == getClk());
+
     }
-    sleep(1);
+    // sleep(1); // to give time for scheduler to run
+
+    printf("From Gen: Done Send process\n");
     kill(sch_pid, SIGUSR1); //sent all
     int st;
     // wait for clk and scheduler
@@ -161,20 +159,20 @@ void ReadProcessesData(FILE *file, struct process_struct Processes[], int Proces
 
 void Create_Scheduler_Clk(int *sch_pid, int *clk_pid) {
     *sch_pid = fork();
-    if (*sch_pid == -1) {
+
+    if (*sch_pid == 0) {
+        execl("./scheduler.out", "./scheduler.out", NULL);
+    } else if (*sch_pid == -1) {
         printf("error has been occured while initiating the scheduler\n");
         exit(-1);
     }
-    if (*sch_pid == 0) {
-        execl("./scheduler.out", "./scheduler.out", NULL);
-    }
     *clk_pid = fork();
-    if (*clk_pid == -1) {
-        printf("error has been occured while initiating the clock\n");
-        exit(-1);
-    }
+
     if (*clk_pid == 0) {
         execl("./clk.out", "./clk.out", NULL);
+    } else if (*clk_pid == -1) {
+        printf("error has been occured while initiating the clock\n");
+        exit(-1);
     }
 }
 
