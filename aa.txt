@@ -94,8 +94,13 @@ Ques:
     3- (arrival, runtime, PR ) -> Static variables -> should be in the 
             PCB or another independent Table
     4- why two way communication of the scheduler and the processes??
+    5- arrival starts from 1 -> cpu utilization should be from 1?????
+
+
+------------------------------------------------------------------------------
+- We Can make it multithreaded 
+- we Can draw the Chart of the scheduler
 
 
 
-
-
+----------  
