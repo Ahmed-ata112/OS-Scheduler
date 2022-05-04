@@ -17,5 +17,5 @@ generate:
 	./test_generator.out
 
 test: build
-	./process_generator.out 1 1
+	./process_generator.out 3 1
 
