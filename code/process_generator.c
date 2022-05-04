@@ -8,7 +8,7 @@ int msgq_id;
 
 void clearResources(int);
 
-int NumOfProcesses(FILE *file, char FileName[]);
+int NumOfProcesses(FILE *file);
 
 void ReadProcessesData(FILE *file, struct process_struct Processes[], int ProcessesNum);
 
@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
     char FileName[FILE_NAME_LENGTH] = "processes.txt";
     // strcpy(FileName, argv[1]);
     FILE *file = fopen(FileName, "r");
-    int ProcessesNum = NumOfProcesses(file, FileName);
+    int ProcessesNum = NumOfProcesses(file);
     // make an array of processes and store data of each process in it
     struct process_struct Processes[ProcessesNum];
     ReadProcessesData(file, Processes, ProcessesNum);
