@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu May  5 00:50:38 2022
+# Make data base, printed on Thu May  5 00:04:26 2022
 
 # Variables
 
@@ -43,7 +43,7 @@ GDMSESSION = ubuntu
 # environment
 XMODIFIERS = @im=ibus
 # makefile
-CURDIR := /home/ahmedatta/Stud/OS/Repos/OSproject/Phase1/code
+CURDIR := /home/ahmedatta/Stud/OS/Repos/OSproject/Phase2
 # makefile
 SHELL = /bin/sh
 # environment
@@ -58,8 +58,8 @@ XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 SNAP_INSTANCE_NAME = code
 # environment
 SNAP_ARCH = amd64
-# makefile (from 'Makefile', line 1)
-MAKEFILE_LIST :=  Makefile
+# makefile
+MAKEFILE_LIST := 
 # automatic
 @F = $(notdir $@)
 # environment
@@ -79,7 +79,7 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 MANAGERPID = 1408
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-fd704bda-4391-4ffb-9a76-d6b151de122f.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-f9ea246f-dc65-4ef6-ac8b-c0d1286ff7fb.sock
 # environment
 LC_NAME = en_US.UTF-8
 # environment
@@ -129,7 +129,7 @@ VSCODE_PIPE_LOGGING = true
 # environment
 SNAP_INSTANCE_KEY = 
 # environment
-PWD = /home/ahmedatta/Stud/OS/Repos/OSproject/Phase1/code
+PWD = /home/ahmedatta/Stud/OS/Repos/OSproject/Phase2
 # default
 .LOADED := 
 # environment
@@ -195,7 +195,7 @@ SNAP_REVISION = 94
 # environment
 LC_MONETARY = en_US.UTF-8
 # makefile
-.DEFAULT_GOAL := build
+.DEFAULT_GOAL := 
 # environment
 XDG_CURRENT_DESKTOP = Unity
 # automatic
@@ -222,8 +222,6 @@ MFLAGS = -pqrR
 GDK_BACKEND = x11
 # environment
 LC_PAPER = en_US.UTF-8
-# environment
-NO_AT_BRIDGE = 1
 # environment
 QT_ACCESSIBILITY = 1
 # default
@@ -265,11 +263,11 @@ LC_ADDRESS = en_US.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 33967
+VSCODE_PID = 32390
 # environment
 DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=672470d36081509a30b748c46272c90b
 # variable set hash-table stats:
-# Load=129/1024=13%, Rehash=0, Collisions=20/154=13%
+# Load=128/1024=12%, Rehash=0, Collisions=20/150=13%
 
 # Pattern-specific Variable Values
 
@@ -277,9 +275,12 @@ DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=672470d36081509a30b748c
 
 # Directories
 
-# . (device 66307, inode 1841558): 33 files, no impossibilities.
+# . (device 66307, inode 2491825): 6 files, no impossibilities.
 
-# 33 files, no impossibilities in 1 directories.
+# 6 files, no impossibilities in 1 directories.
+ 
+make: *** No rule to make target 'all'.  Stop.
+
 
 # Implicit Rules
 
@@ -288,9 +289,6 @@ DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=672470d36081509a30b748c
 # Files
 
 # Not a target:
- 
-make: *** No rule to make target 'all'.  Stop.
-
 all:
 #  Command line target.
 #  Implicit rule search has been done.
@@ -300,43 +298,16 @@ all:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-04 21:20:10.258545236
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Failed to be updated.
 
-test: build
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 20):
-	./process_generator.out 3 1
-
-build:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 2):
-	gcc process_generator.c -o process_generator.out
-	gcc clk.c -o clk.out
-	gcc scheduler.c  hashmap.c -lm priority_queue.c -o scheduler.out
-	gcc process.c -o process.out
-	gcc test_generator.c -o test_generator.out
-
-generate:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 16):
-	gcc test_generator.c -o test_generator.out
-	./test_generator.out
-
-buddy:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 23):
-	gcc -o hey -g  buddy_core.c -lm
-	./hey
+# Not a target:
+makefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
 
 # Not a target:
 .DEFAULT:
@@ -344,34 +315,27 @@ buddy:
 #  Modification time never checked.
 #  File has not been updated.
 
-run:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 13):
-	./process_generator.out 1 4
-
-clean:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 9):
-	rm -f *.out  processes.txt
+# Not a target:
+GNUmakefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
 
 # files hash-table stats:
-# Load=10/1024=1%, Rehash=0, Collisions=0/21=0%
+# Load=6/1024=1%, Rehash=0, Collisions=0/15=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 44 / storage = 489 B / avg = 11 B
-# current buf: size = 8162 B / used = 489 B / count = 44 / avg = 11 B
+# strcache buffers: 1 (0) / strings = 14 / storage = 127 B / avg = 9 B
+# current buf: size = 8162 B / used = 127 B / count = 14 / avg = 9 B
 
-# strcache performance: lookups = 55 / hit rate = 20%
+# strcache performance: lookups = 17 / hit rate = 17%
 # hash-table stats:
-# Load=44/8192=1%, Rehash=0, Collisions=1/55=2%
-# Finished Make data base on Thu May  5 00:50:38 2022
+# Load=14/8192=0%, Rehash=0, Collisions=1/17=6%
+# Finished Make data base on Thu May  5 00:04:26 2022
 
  
