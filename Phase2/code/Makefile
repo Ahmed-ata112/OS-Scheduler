@@ -11,13 +11,15 @@ clean:
 
 run:
 	./process_generator.out 1 4
+all: run
 
 generate:
 	gcc test_generator.c -o test_generator.out
 	./test_generator.out
 
 test: build
-	./process_generator.out 3 1
+	./process_generator.out 1 1
+
 
 buddy:
 	gcc -o hey -g  buddy_core.c -lm
