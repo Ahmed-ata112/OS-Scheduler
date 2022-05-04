@@ -131,18 +131,14 @@ Ques:
 T/F , 
 pair(start,end)
  }
-
-
-
 deallocate(from, sz) -> bool 
-
-
 dellocate(from, to)
 
 -------------------------------------------------------------------------------------
 
 - Should Ready processes be inside the memory?
 - Should allocate processes in order or take whatever fitting at the current time? considering the case with priority (we might take a lower priority that fits)
+- ????
 - 
 
 

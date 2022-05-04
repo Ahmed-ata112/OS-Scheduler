@@ -140,18 +140,19 @@ int main(int argc, char *argv[]) {
 
 
 void RR2(int quantum) {
-/**
-     * i loop all the time
-     * till a variable tells me that there is no more processes coming
-     * this is when i quit
-     * All the processes that in the circular queue are in the process_table
-     * when finished -> u delete from both
-     * @bug: if the process gen sends a SIGUSR1 immediately after sending Processes -> it finishes too
-     *       @solution -> make Process gen sleep for a 1 sec or st after sending all
-     */
+    /**
+    * i loop all the time
+    * till a variable tells me that there is no more processes coming
+    * this is when i quit
+    * All the processes that in the circular queue are in the process_table
+    * when finished -> u delete from both
+    * @bug: if the process gen sends a SIGUSR1 immediately after sending Processes -> it finishes too
+    *       @solution -> make Process gen sleep for a 1 sec or st after sending all
+    **/
     struct c_queue RRqueue;
     circular_init_queue(&RRqueue);
     // if the Queue is empty then check if there is no more processes that will come
+    //                                       128
     PCB *current_pcb;
     int curr_q_start;
     int p_count = TotalNumberOfProcesses;
