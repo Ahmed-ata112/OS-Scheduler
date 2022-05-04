@@ -135,7 +135,9 @@ int main(int argc, char *argv[]) {
     hashmap_free(process_table);
     shmctl(remain_time_shmid, IPC_RMID, NULL);
     destroyClk(true);
+
 }
+
 
 void RR2(int quantum) {
 /**
@@ -155,6 +157,7 @@ void RR2(int quantum) {
     int p_count = TotalNumberOfProcesses;
     int need_to_receive = TotalNumberOfProcesses;
     bool process_is_currently_running = false;
+
 
     while (!circular_is_empty(&RRqueue) || p_count > 0) {
 
