@@ -3,7 +3,7 @@
 #include "circular_queue.h"
 #include "priority_queue.h"
 #include "math.h"
-
+#include "queue.h"
 #define pcb_s struct PCB
 
 
@@ -18,22 +18,12 @@ int WTAIterator = 0;
 void
 OutputFinishedProcesses(int CurrTime, int ID, int ArrTime, int RunningTime, int RemainTime, int WaitingTime, int TA,
                         float WTA);
-
 void scheduler_log();
-
 float CalcStdWTA(float AvgWTA);
-
 void scheduler_perf(int ProcessCount);
-
 void FinishPrinting();
-
-
-void RR(int quantum);
-
 void RR2(int quantum);
-
 void SRTN();
-
 void HPF();
 
 //@Ahmed-H300
@@ -151,8 +141,9 @@ void RR2(int quantum) {
     **/
     struct c_queue RRqueue;
     circular_init_queue(&RRqueue);
-    // if the Queue is empty then check if there is no more processes that will come
-    //                                       128
+
+    queue waiting_queue = initQueue(); // to receive in it
+
     PCB *current_pcb;
     int curr_q_start;
     int p_count = TotalNumberOfProcesses;

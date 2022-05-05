@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu May  5 00:05:50 2022
+# Make data base, printed on Thu May  5 10:55:05 2022
 
 # Variables
 
@@ -35,6 +33,8 @@ VSCODE_LOG_NATIVE = false
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
+IM_CONFIG_PHASE = 1
+# environment
 PLATFORMIO_IDE = 2.4.3
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
@@ -53,7 +53,7 @@ SNAP_DATA = /var/snap/code/94
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:54313
+JOURNAL_STREAM = 8:49590
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -65,7 +65,7 @@ MAKEFILE_LIST :=  Makefile
 # automatic
 @F = $(notdir $@)
 # environment
-IM_CONFIG_PHASE = 1
+GIO_LAUNCHED_DESKTOP_FILE = /var/lib/snapd/desktop/applications/code_code.desktop
 # environment
 QT_IM_MODULE = ibus
 # environment
@@ -75,13 +75,15 @@ MAKELEVEL := 0
 # environment
 XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
 # environment
-DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus,guid=672470d36081509a30b748c46272c90b
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-MANAGERPID = 1408
+_ = /snap/code/94/usr/share/code/code
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-2f0164db-8832-404d-8dbf-243c55a861cc.sock
+MANAGERPID = 1425
+# environment
+LESSOPEN = | /usr/bin/lesspipe %s
 # environment
 LC_NAME = en_US.UTF-8
 # environment
@@ -95,7 +97,7 @@ NO_PROXY = 127.0.0.1
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/1963,unix/my-loly:/tmp/.ICE-unix/1963
+SESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/1988,unix/my-loly:/tmp/.ICE-unix/1988
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -113,15 +115,19 @@ DISABLE_WAYLAND = 1
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 2d54a4410d0f4b5b8d15bcda1d1c2761
+INVOCATION_ID = a5da6bb9e68441fb86c45143f9f45be4
 # environment
 GDK_PIXBUF_MODULEDIR = /snap/code/94/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
+LS_COLORS = 
+# environment
 XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
+# environment
+GIO_LAUNCHED_DESKTOP_FILE_PID = 3181
 # automatic
 %F = $(notdir $%)
 # environment
@@ -135,7 +141,7 @@ PWD = /home/ahmedatta/Stud/OS/Repos/OSproject/Phase2/code
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1933
+SSH_AGENT_PID = 1958
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -145,7 +151,7 @@ VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 HOME = /home/ahmedatta
 # environment
-INSIDE_NAUTILUS_PYTHON = 
+LESSCLOSE = /usr/bin/lesspipe %s %s
 # environment
 VSCODE_CLI = 1
 # environment
@@ -175,19 +181,21 @@ LC_TIME = en_US.UTF-8
 # environment
 SNAP_REAL_HOME = /home/ahmedatta
 # environment
-PLATFORMIO_PATH = /home/ahmedatta/.platformio/python3/bin:/home/ahmedatta/.local/bin:/home/ahmedatta/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:QT_QPA_PLATFORMTHEME=gtk2:/home/ahmedatta/Downloads/clion-2022.1/bin
+PLATFORMIO_PATH = /home/ahmedatta/.platformio/python3/bin:/home/ahmedatta/.local/bin:/home/ahmedatta/bin:/home/ahmedatta/.local/bin:/home/ahmedatta/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:QT_QPA_PLATFORMTHEME=gtk2:/home/ahmedatta/Downloads/clion-2022.1/bin
 # default
 MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # environment
-PATH = /home/ahmedatta/.local/bin:/home/ahmedatta/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:QT_QPA_PLATFORMTHEME=gtk2:/home/ahmedatta/Downloads/clion-2022.1/bin
+PATH = /home/ahmedatta/.local/bin:/home/ahmedatta/bin:/home/ahmedatta/.local/bin:/home/ahmedatta/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:QT_QPA_PLATFORMTHEME=gtk2:/home/ahmedatta/Downloads/clion-2022.1/bin
 # environment
 SNAP_USER_DATA = /home/ahmedatta/snap/code/94
 # environment
 SHLVL = 0
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
+# environment
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-03fef4b8-d00c-48c6-b4f7-abac3e03aee2.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -212,6 +220,8 @@ MAKE_COMMAND := make
 *F = $(notdir $*)
 # environment
 VSCODE_IPC_HOOK = /run/user/1000/vscode-9c9b8c1f-1.66.2-main.sock
+# environment
+BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop
 # makefile
 MAKEFLAGS = pqrR
 # environment
@@ -224,6 +234,8 @@ MFLAGS = -pqrR
 GDK_BACKEND = x11
 # environment
 LC_PAPER = en_US.UTF-8
+# environment
+LC_IDENTIFICATION = en_US.UTF-8
 # environment
 QT_ACCESSIBILITY = 1
 # default
@@ -243,7 +255,7 @@ SNAP_NAME = code
 # environment
 LC_ALL = C
 # environment
-DBUS_STARTER_BUS_TYPE = session
+GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # automatic
 ^F = $(notdir $^)
 # default
@@ -257,7 +269,7 @@ WINDOWPATH = 2
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
 # environment
-LC_IDENTIFICATION = en_US.UTF-8
+GJS_DEBUG_OUTPUT = stderr
 # default
 .RECIPEPREFIX := 
 # environment
@@ -265,21 +277,20 @@ LC_ADDRESS = en_US.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 33967
-# environment
-DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=672470d36081509a30b748c46272c90b
+VSCODE_PID = 3236
 # variable set hash-table stats:
-# Load=128/1024=12%, Rehash=0, Collisions=20/153=13%
+# Load=134/1024=13%, Rehash=0, Collisions=25/162=15%
 
+ 
 # Pattern-specific Variable Values
 
 # No pattern-specific variable values.
 
 # Directories
 
-# . (device 66307, inode 2491816): 30 files, no impossibilities.
+# . (device 66307, inode 2491816): 32 files, no impossibilities.
 
-# 30 files, no impossibilities in 1 directories.
+# 32 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -287,18 +298,25 @@ DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=672470d36081509a30b748c
 
 # Files
 
-# Not a target:
-all:
+all: run
 #  Command line target.
 #  Implicit rule search has been done.
 #  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/3=0%
+
+# Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
 #  File has not been updated.
 
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
- 
-#  Last modified 2022-05-04 21:20:10.258545
+#  Last modified 2022-05-05 00:39:48.309669989
 #  File has been updated.
 #  Successfully updated.
 
@@ -306,8 +324,8 @@ test: build
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 20):
-	./process_generator.out 3 1
+#  recipe to execute (from 'Makefile', line 21):
+	./process_generator.out 1 1
 
 build:
 #  Implicit rule search has not been done.
@@ -324,7 +342,7 @@ generate:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 16):
+#  recipe to execute (from 'Makefile', line 17):
 	gcc test_generator.c -o test_generator.out
 	./test_generator.out
 
@@ -332,7 +350,7 @@ buddy:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 23):
+#  recipe to execute (from 'Makefile', line 25):
 	gcc -o hey -g  buddy_core.c -lm
 	./hey
 
@@ -344,8 +362,28 @@ buddy:
 
 run:
 #  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+#  Implicit/static pattern stem: ''
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := run
+# automatic
+# % := 
+# automatic
+# * := 
+# automatic
+# + := 
+# automatic
+# | := 
+# automatic
+# < := 
+# automatic
+# ^ := 
+# automatic
+# ? := 
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/11=9%
 #  recipe to execute (from 'Makefile', line 13):
 	./process_generator.out 1 4
 
@@ -357,19 +395,19 @@ clean:
 	rm -f *.out  processes.txt
 
 # files hash-table stats:
-# Load=10/1024=1%, Rehash=0, Collisions=0/21=0%
+# Load=10/1024=1%, Rehash=0, Collisions=0/24=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 41 / storage = 454 B / avg = 11 B
-# current buf: size = 8162 B / used = 454 B / count = 41 / avg = 11 B
+# strcache buffers: 1 (0) / strings = 43 / storage = 474 B / avg = 11 B
+# current buf: size = 8162 B / used = 474 B / count = 43 / avg = 11 B
 
-# strcache performance: lookups = 52 / hit rate = 21%
+# strcache performance: lookups = 58 / hit rate = 25%
 # hash-table stats:
-# Load=41/8192=1%, Rehash=0, Collisions=1/52=2%
-# Finished Make data base on Thu May  5 00:05:50 2022
+# Load=43/8192=1%, Rehash=0, Collisions=1/58=2%
+# Finished Make data base on Thu May  5 10:55:05 2022
 
  
