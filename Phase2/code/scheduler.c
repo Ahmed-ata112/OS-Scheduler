@@ -4,6 +4,7 @@
 #include "priority_queue.h"
 #include "math.h"
 #include "queue.h"
+#include "buddy_core.c"
 #define pcb_s struct PCB
 
 
@@ -38,6 +39,10 @@ typedef struct PCB {
     int burst_time;
     int remaining_time;
     int waiting_time;
+    //...............................P2
+    int mem_size;
+    int memory_start_ind;
+    int memory_end_ind;
 } PCB;
 
 // 3 functions related to the hashmap
@@ -79,8 +84,9 @@ int main(int argc, char *argv[]) {
 
     // create and open files
     scheduler_log();
-
     initClk();
+    buddy_init();
+
 
     int remain_time_shmid = shmget(REMAIN_TIME_SHMKEY, 4, IPC_CREAT | 0644);
     if (remain_time_shmid == -1)
@@ -101,7 +107,7 @@ int main(int argc, char *argv[]) {
     TotalNumberOfProcesses = coming.NumOfProcesses;
     WeightedTA = (int *) malloc(sizeof(int) * TotalNumberOfProcesses);
 
-    printf("\nChosen Algo is %d\n", coming.algo);
+    printf("\nchosen Algo is %d\n", coming.algo);
 
     switch (coming.algo) {
         case 1:
@@ -150,7 +156,6 @@ void RR2(int quantum) {
     int need_to_receive = TotalNumberOfProcesses;
     bool process_is_currently_running = false;
 
-
     while (!circular_is_empty(&RRqueue) || p_count > 0) {
 
         // First check if any process has come
@@ -164,7 +169,8 @@ void RR2(int quantum) {
             // while still a process in the queue
             // take it out
             // add it to both the RRqueue and its PCB to the processTable
-            struct process_struct coming_process;
+            process_struct coming_process;
+
             msgrcv(process_msg_queue, &coming_process, sizeof(coming_process) - sizeof(coming_process.mtype), 1,
                    !IPC_NOWAIT);
             printf("\nrecv process with id: %d at time %d\n", coming_process.id, getClk());
@@ -178,7 +184,8 @@ void RR2(int quantum) {
             pcb.remaining_time = coming_process.runtime;   // at the beginning
             pcb.burst_time = coming_process.runtime;       // at the beginning
             hashmap_set(process_table, &pcb);              // this copies the content of the struct
-            circular_enQueue(&RRqueue, coming_process.id); // add this process to the end of the Queue
+            //circular_enQueue(&RRqueue, coming_process.id); // add this process to the end of the Queue
+            pushQueue(&waiting_queue,coming_process.id); // add to the waiting list and will see if you can Run
             num_messages--;
         }
         //  printf("curr is %d: %d\n", getClk(), more_processes_coming);
@@ -191,6 +198,8 @@ void RR2(int quantum) {
         // if its time ended or its quantum -> switch (Advance front)
         // otherwise just let it run in peace
         // if there is a running process -> see if it can be finished or not
+
+
         if (process_is_currently_running) {
             current_pcb = hashmap_get(process_table, &(PCB) {.id = RRqueue.front->data});
 
@@ -199,7 +208,7 @@ void RR2(int quantum) {
                 *shm_remain_time = 0;
                 current_pcb->cum_runtime = current_pcb->burst_time;
                 int ret = wait(&st);
-                // if a process ended normally -- you're sure that the signal came from a dead process -- not stoped or resumed
+                // if a process ended normally -- you're sure that the signal came from a dead process -- not stopped or resumed
                 int TA = curr - current_pcb->arrival_time;
                 current_pcb->waiting_time = TA - current_pcb->burst_time;
                 float WTA = (float) TA / current_pcb->burst_time;
@@ -213,8 +222,8 @@ void RR2(int quantum) {
                        TA, WTA);
                 p_count--;
                 circular_deQueue(&RRqueue); // auto advance the queue
+                buddy_deallocate(current_pcb->memory_end_ind,current_pcb->memory_end_ind);
                 hashmap_delete(process_table, current_pcb);
-                // if the terminated is the last one so no switching
                 process_is_currently_running = false;
 
                 // if its multiple of q finished and there are some other in the Q waiting

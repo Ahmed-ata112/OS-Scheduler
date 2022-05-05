@@ -1,3 +1,6 @@
+#ifndef HEADERS
+#define HEADERS
+
 #include <stdio.h> //if you don't use scanf/printf change this include
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -124,3 +127,7 @@ typedef struct count_msg {
 #define CYN   "\x1B[36m"
 #define WHT   "\x1B[37m"
 #define RESET "\x1B[0m"
+
+
+
+#endif
