@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu May  5 10:55:05 2022
+# Make data base, printed on Fri May  6 12:45:45 2022
 
 # Variables
 
@@ -53,7 +53,7 @@ SNAP_DATA = /var/snap/code/94
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:49590
+JOURNAL_STREAM = 8:53340
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -81,7 +81,7 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 _ = /snap/code/94/usr/share/code/code
 # environment
-MANAGERPID = 1425
+MANAGERPID = 1479
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -97,7 +97,7 @@ NO_PROXY = 127.0.0.1
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/1988,unix/my-loly:/tmp/.ICE-unix/1988
+SESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/1994,unix/my-loly:/tmp/.ICE-unix/1994
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -115,7 +115,7 @@ DISABLE_WAYLAND = 1
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = a5da6bb9e68441fb86c45143f9f45be4
+INVOCATION_ID = 1ab731ddf1b14f29b741395dc8e81d82
 # environment
 GDK_PIXBUF_MODULEDIR = /snap/code/94/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
@@ -127,7 +127,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 3181
+GIO_LAUNCHED_DESKTOP_FILE_PID = 3949
 # automatic
 %F = $(notdir $%)
 # environment
@@ -141,7 +141,7 @@ PWD = /home/ahmedatta/Stud/OS/Repos/OSproject/Phase2/code
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1958
+SSH_AGENT_PID = 1964
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -195,7 +195,7 @@ SHLVL = 0
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-03fef4b8-d00c-48c6-b4f7-abac3e03aee2.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-e266bbe1-446e-4a93-a571-c1f07a39bfd2.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -277,20 +277,20 @@ LC_ADDRESS = en_US.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 3236
+VSCODE_PID = 4001
 # variable set hash-table stats:
+ 
 # Load=134/1024=13%, Rehash=0, Collisions=25/162=15%
 
- 
 # Pattern-specific Variable Values
 
 # No pattern-specific variable values.
 
 # Directories
 
-# . (device 66307, inode 2491816): 32 files, no impossibilities.
+# . (device 66307, inode 2491816): 36 files, no impossibilities.
 
-# 32 files, no impossibilities in 1 directories.
+# 36 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -316,7 +316,7 @@ all: run
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-05 00:39:48.309669989
+#  Last modified 2022-05-05 13:21:53.684973448
 #  File has been updated.
 #  Successfully updated.
 
@@ -325,7 +325,7 @@ test: build
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 21):
-	./process_generator.out 1 1
+	./process_generator.out 1 7
 
 build:
 #  Implicit rule search has not been done.
@@ -334,7 +334,7 @@ build:
 #  recipe to execute (from 'Makefile', line 2):
 	gcc process_generator.c -o process_generator.out
 	gcc clk.c -o clk.out
-	gcc scheduler.c  hashmap.c -lm priority_queue.c -o scheduler.out
+	gcc scheduler.c hashmap.c queue.c -lm priority_queue.c -o scheduler.out
 	gcc process.c -o process.out
 	gcc test_generator.c -o test_generator.out
 
@@ -402,12 +402,12 @@ clean:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 43 / storage = 474 B / avg = 11 B
-# current buf: size = 8162 B / used = 474 B / count = 43 / avg = 11 B
+# strcache buffers: 1 (0) / strings = 47 / storage = 518 B / avg = 11 B
+# current buf: size = 8162 B / used = 518 B / count = 47 / avg = 11 B
 
-# strcache performance: lookups = 58 / hit rate = 25%
+# strcache performance: lookups = 62 / hit rate = 24%
 # hash-table stats:
-# Load=43/8192=1%, Rehash=0, Collisions=1/58=2%
-# Finished Make data base on Thu May  5 10:55:05 2022
+# Load=47/8192=1%, Rehash=0, Collisions=1/62=2%
+# Finished Make data base on Fri May  6 12:45:45 2022
 
  
