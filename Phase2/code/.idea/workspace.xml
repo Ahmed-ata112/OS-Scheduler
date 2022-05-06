@@ -9,11 +9,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb74cbae-2b8d-4ad0-b305-4f35558e8945" name="Changes" comment="started buddy">
+    <list default="true" id="eb74cbae-2b8d-4ad0-b305-4f35558e8945" name="Changes" comment="initial tests buddy">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/configurationCache.log" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/configurationCache.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/dryrun.log" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/dryrun.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/targets.log" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/targets.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/processes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/processes.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scheduler.c" beforeDir="false" afterPath="$PROJECT_DIR$/scheduler.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scheduler.log" beforeDir="false" afterPath="$PROJECT_DIR$/scheduler.log" afterDir="false" />
@@ -79,7 +76,7 @@
       <workItem from="1651741795977" duration="8000" />
       <workItem from="1651741912093" duration="1001000" />
       <workItem from="1651746733229" duration="3286000" />
-      <workItem from="1651833951326" duration="5045000" />
+      <workItem from="1651833951326" duration="5966000" />
     </task>
     <task id="LOCAL-00001" summary="new phase">
       <created>1651702962617</created>
@@ -102,7 +99,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651750011140</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="initial tests buddy">
+      <created>1651839280574</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1651839280574</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -123,6 +127,7 @@
     <MESSAGE value="new phase" />
     <MESSAGE value="before main changes" />
     <MESSAGE value="started buddy" />
-    <option name="LAST_COMMIT_MESSAGE" value="started buddy" />
+    <MESSAGE value="initial tests buddy" />
+    <option name="LAST_COMMIT_MESSAGE" value="initial tests buddy" />
   </component>
 </project>

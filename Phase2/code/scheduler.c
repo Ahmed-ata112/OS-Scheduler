@@ -190,7 +190,7 @@ void RR2(int quantum) {
             pcb.cum_runtime = 0;
             pcb.remaining_time = coming_process.runtime;   // at the beginning
             pcb.burst_time = coming_process.runtime;       // at the beginning
-            pcb.mem_size = (coming_process.id *70)%250;
+            pcb.mem_size = 600;//(coming_process.id *70)%250;
             hashmap_set(process_table, &pcb);              // this copies the content of the struct
             //circular_enQueue(&RRqueue, coming_process.id); // add this process to the end of the Queue
 
