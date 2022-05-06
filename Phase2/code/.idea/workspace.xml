@@ -9,7 +9,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb74cbae-2b8d-4ad0-b305-4f35558e8945" name="Changes" comment="initial tests buddy">
+    <list default="true" id="eb74cbae-2b8d-4ad0-b305-4f35558e8945" name="Changes" comment="some tests and passed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/processes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/processes.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scheduler.c" beforeDir="false" afterPath="$PROJECT_DIR$/scheduler.c" afterDir="false" />
@@ -76,7 +76,7 @@
       <workItem from="1651741795977" duration="8000" />
       <workItem from="1651741912093" duration="1001000" />
       <workItem from="1651746733229" duration="3286000" />
-      <workItem from="1651833951326" duration="5966000" />
+      <workItem from="1651833951326" duration="7964000" />
     </task>
     <task id="LOCAL-00001" summary="new phase">
       <created>1651702962617</created>
@@ -106,7 +106,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651839280574</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="some tests and passed">
+      <created>1651839929289</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1651839929289</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -128,6 +135,7 @@
     <MESSAGE value="before main changes" />
     <MESSAGE value="started buddy" />
     <MESSAGE value="initial tests buddy" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial tests buddy" />
+    <MESSAGE value="some tests and passed" />
+    <option name="LAST_COMMIT_MESSAGE" value="some tests and passed" />
   </component>
 </project>
