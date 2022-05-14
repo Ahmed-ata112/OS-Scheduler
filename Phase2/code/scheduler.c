@@ -139,8 +139,19 @@ int main(int argc, char *argv[]) {
     destroyClk(true);
 
 }
-
-
+void allocate_for_process(PCB* _pcb,int current_time){
+    pair_t ret;
+    buddy_allocate(_pcb->mem_size, &ret);
+    printf(CYN "At time %d allocated %d bytes for process %d from %d to %d\n" RESET, current_time, _pcb->mem_size,
+           _pcb->id, ret.start_ind, ret.end_ind);
+    _pcb->memory_start_ind = ret.start_ind;
+    _pcb->memory_end_ind = ret.end_ind;
+}
+void deallocate_for_process(PCB* _pcb,int current_time){
+    buddy_deallocate(_pcb->memory_start_ind, _pcb->memory_end_ind);
+    printf(CYN "At time %d freed %d bytes for process %d from %d to %d\n" RESET, current_time, _pcb->mem_size,
+           _pcb->id, ret.start_ind, ret.end_ind);
+}
 void RR2(int quantum) {
     /**
     * i loop all the time
@@ -153,15 +164,11 @@ void RR2(int quantum) {
     **/
     struct c_queue RRqueue;
     circular_init_queue(&RRqueue);
-
-    queue waiting_queue = initQueue(); // to receive in it
-
     PCB *current_pcb;
     int curr_q_start;
     int p_count = TotalNumberOfProcesses;
     int need_to_receive = TotalNumberOfProcesses;
     bool process_is_currently_running = false;
-    bool can_insert = true;
 
     while (!circular_is_empty(&RRqueue) || p_count > 0) {
 
@@ -192,9 +199,7 @@ void RR2(int quantum) {
             pcb.burst_time = coming_process.runtime;       // at the beginning
             pcb.mem_size = (coming_process.id * 70) % 250;
             hashmap_set(process_table, &pcb);              // this copies the content of the struct
-            //circular_enQueue(&RRqueue, coming_process.id); // add this process to the end of the Queue
-
-            pushQueue(&waiting_queue, coming_process.id); // add to the waiting list and will see if you can Run
+            circular_enQueue(&RRqueue, coming_process.id); // add this process to the end of the Queue
             num_messages--;
         }
         //  printf("curr is %d: %d\n", getClk(), more_processes_coming);
@@ -251,25 +256,7 @@ void RR2(int quantum) {
             }
         }
 
-        while (!isEmptyQueue(&waiting_queue) && (process_has_finished || can_insert)) {
-            int id = front(&waiting_queue);
-            PCB *_pcb = hashmap_get(process_table, &(PCB) {.id = id});
-            pair_t ret;
-            can_insert = buddy_allocate(_pcb->mem_size, &ret);
-            if (can_insert) {
-                popQueue(&waiting_queue);
-                _pcb->state = READY; // allocated and in ready Queue
-                _pcb->memory_start_ind = ret.start_ind;
-                _pcb->memory_end_ind = ret.end_ind;
-                circular_enQueue(&RRqueue, id);
-                printf(CYN "At time %d allocated %d bytes for process %d from %d to %d\n" RESET, curr, _pcb->mem_size,
-                       id, ret.start_ind, ret.end_ind);
 
-            } else
-                break;
-
-
-        }
 
 
         if (!process_is_currently_running && !circular_is_empty(&RRqueue)) {
@@ -285,11 +272,13 @@ void RR2(int quantum) {
 
                 // parent
                 current_pcb->pid = pid; // update Pid of existing process
-
+                allocate_for_process(current_pcb,curr);
                 current_pcb->waiting_time = curr - current_pcb->arrival_time;
                 fprintf(sch_log, "At time %d process %d started arr %d total %d remain %d wait %d\n", curr,
                         current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time,
                         current_pcb->waiting_time);
+
+
 
                 printf("At time %d process %d started arr %d total %d remain %d wait %d\n", curr, current_pcb->id,
                        current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time, current_pcb->waiting_time);
