@@ -10,7 +10,7 @@ clean:
 
 
 run:
-	./process_generator.out 1 4
+	./process_generator.out 1 1
 all: run
 
 generate:

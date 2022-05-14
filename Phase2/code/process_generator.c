@@ -96,8 +96,6 @@ int main(int argc, char *argv[]) {
 
     }
 
-    if (getClk() == 0)
-        sleep(1); // to give time for scheduler to run
 
     printf("From Gen: Done Send process\n");
     kill(sch_pid, SIGUSR1); //sent all

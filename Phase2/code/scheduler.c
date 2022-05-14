@@ -212,17 +212,21 @@ void RR2(int quantum) {
 
             if (curr - curr_q_start >= current_pcb->remaining_time) { // that process will be finished
                 int st;
-                *shm_remain_time = 0;
+                //*shm_remain_time = 0;
+                current_pcb->remaining_time =0;
                 current_pcb->cum_runtime = current_pcb->burst_time;
                 int ret = wait(&st);
+                if(ret == -1){
+                    perror("error in waiting the Process:");
+                }
                 // if a process ended normally -- you're sure that the signal came from a dead process -- not stopped or resumed
                 int TA = curr - current_pcb->arrival_time;
                 current_pcb->waiting_time = TA - current_pcb->burst_time;
                 float WTA = (float) TA / current_pcb->burst_time;
                 OutputFinishedProcesses(curr, current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time,
-                                        *shm_remain_time, current_pcb->waiting_time, TA, WTA);
+                                        current_pcb->remaining_time, current_pcb->waiting_time, TA, WTA);
                 printf(RED "At time %d process %d finished arr %d total %d remain %d wait %d TA %d WTA %.2f\n" RESET,
-                       curr, current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time,
+                       curr, current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, current_pcb->remaining_time,
                        current_pcb->waiting_time, TA, WTA);
                 p_count--;
                 circular_deQueue(&RRqueue); // auto advance the queue
@@ -235,16 +239,16 @@ void RR2(int quantum) {
             } else if ((curr - curr_q_start) && (curr - curr_q_start) % quantum == 0 &&
                        !circular_is_empty_or_one_left(&RRqueue)) {
 
-                *shm_remain_time -= curr - curr_q_start;
+                current_pcb->remaining_time -= curr - curr_q_start;
                 kill(current_pcb->pid, SIGSTOP);
                 current_pcb->cum_runtime += curr - curr_q_start;
                 current_pcb->waiting_time = curr - current_pcb->arrival_time - current_pcb->cum_runtime;
                 fprintf(sch_log, "At time %d process %d stopped arr %d total %d remain %d wait %d\n", curr,
-                        current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time,
+                        current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, current_pcb->remaining_time,
                         current_pcb->waiting_time);
                 printf("At time %d process %d stopped arr %d total %d remain %d wait %d\n", curr, current_pcb->id,
-                       current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time, current_pcb->waiting_time);
-                current_pcb->remaining_time = *shm_remain_time;
+                       current_pcb->arrival_time, current_pcb->burst_time, current_pcb->remaining_time , current_pcb->waiting_time);
+
                 current_pcb->state = READY; // back to Ready state
                 circular_advance_queue(&RRqueue);
                 process_is_currently_running = false;
@@ -288,22 +292,22 @@ void RR2(int quantum) {
 
                 current_pcb->waiting_time = curr - current_pcb->arrival_time;
                 fprintf(sch_log, "At time %d process %d started arr %d total %d remain %d wait %d\n", curr,
-                        current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time,
+                        current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, current_pcb->remaining_time,
                         current_pcb->waiting_time);
 
                 printf("At time %d process %d started arr %d total %d remain %d wait %d\n", curr, current_pcb->id,
-                       current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time, current_pcb->waiting_time);
+                       current_pcb->arrival_time, current_pcb->burst_time, current_pcb->remaining_time, current_pcb->waiting_time);
             } else {
 
                 kill(current_pcb->pid, SIGCONT);
                 current_pcb->waiting_time = curr - current_pcb->arrival_time - current_pcb->cum_runtime;
                 *shm_remain_time = current_pcb->remaining_time;
                 fprintf(sch_log, "At time %d process %d resumed arr %d total %d remain %d wait %d\n", curr,
-                        current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time,
+                        current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, current_pcb->remaining_time,
                         current_pcb->waiting_time);
 
                 printf("At time %d process %d resumed arr %d total %d remain %d wait %d\n", curr, current_pcb->id,
-                       current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time, current_pcb->waiting_time);
+                       current_pcb->arrival_time, current_pcb->burst_time, current_pcb->remaining_time, current_pcb->waiting_time);
             }
             current_pcb->state = RUNNING;
             process_is_currently_running = true;

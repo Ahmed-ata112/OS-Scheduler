@@ -12,15 +12,12 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb74cbae-2b8d-4ad0-b305-4f35558e8945" name="Changes" comment="returned to correct version">
+    <list default="true" id="eb74cbae-2b8d-4ad0-b305-4f35558e8945" name="Changes" comment="Before changing Remaing Time">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/process.c" beforeDir="false" afterPath="$PROJECT_DIR$/process.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/processes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/processes.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scheduler.c" beforeDir="false" afterPath="$PROJECT_DIR$/scheduler.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scheduler.log" beforeDir="false" afterPath="$PROJECT_DIR$/scheduler.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scheduler.perf" beforeDir="false" afterPath="$PROJECT_DIR$/scheduler.perf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tomb.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tomb.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +113,7 @@
       <workItem from="1651833951326" duration="8093000" />
       <workItem from="1651950945153" duration="1337000" />
       <workItem from="1652560242591" duration="1000" />
-      <workItem from="1652563360727" duration="3089000" />
+      <workItem from="1652563360727" duration="5337000" />
     </task>
     <task id="LOCAL-00001" summary="new phase">
       <created>1651702962617</created>
@@ -181,7 +178,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652563891556</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Before changing Remaing Time">
+      <created>1652566926737</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1652566926737</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -206,6 +210,7 @@
     <MESSAGE value="some tests and passed" />
     <MESSAGE value="more tests passed" />
     <MESSAGE value="returned to correct version" />
-    <option name="LAST_COMMIT_MESSAGE" value="returned to correct version" />
+    <MESSAGE value="Before changing Remaing Time" />
+    <option name="LAST_COMMIT_MESSAGE" value="Before changing Remaing Time" />
   </component>
 </project>
