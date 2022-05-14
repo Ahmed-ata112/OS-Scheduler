@@ -150,7 +150,7 @@ void allocate_for_process(PCB* _pcb,int current_time){
 void deallocate_for_process(PCB* _pcb,int current_time){
     buddy_deallocate(_pcb->memory_start_ind, _pcb->memory_end_ind);
     printf(CYN "At time %d freed %d bytes for process %d from %d to %d\n" RESET, current_time, _pcb->mem_size,
-           _pcb->id, ret.start_ind, ret.end_ind);
+           _pcb->id, _pcb->memory_start_ind, _pcb->memory_end_ind);
 }
 void RR2(int quantum) {
     /**
