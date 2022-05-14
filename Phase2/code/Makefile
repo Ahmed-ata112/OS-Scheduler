@@ -18,7 +18,7 @@ generate:
 	./test_generator.out
 
 test: build
-	./process_generator.out 1 7
+	./process_generator.out 1 1
 
 
 buddy:
