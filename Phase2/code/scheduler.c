@@ -139,19 +139,8 @@ int main(int argc, char *argv[]) {
     destroyClk(true);
 
 }
-void allocate_for_process(PCB* _pcb,int current_time){
-    pair_t ret;
-    buddy_allocate(_pcb->mem_size, &ret);
-    printf(CYN "At time %d allocated %d bytes for process %d from %d to %d\n" RESET, current_time, _pcb->mem_size,
-           _pcb->id, ret.start_ind, ret.end_ind);
-    _pcb->memory_start_ind = ret.start_ind;
-    _pcb->memory_end_ind = ret.end_ind;
-}
-void deallocate_for_process(PCB* _pcb,int current_time){
-    buddy_deallocate(_pcb->memory_start_ind, _pcb->memory_end_ind);
-    printf(CYN "At time %d freed %d bytes for process %d from %d to %d\n" RESET, current_time, _pcb->mem_size,
-           _pcb->id, _pcb->memory_start_ind, _pcb->memory_end_ind);
-}
+
+
 void RR2(int quantum) {
     /**
     * i loop all the time
