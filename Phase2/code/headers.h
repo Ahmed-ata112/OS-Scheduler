@@ -91,6 +91,7 @@ typedef struct process_struct {
     int arrival;
     int runtime;
     int priority;
+    int memsize;
 } process_struct;
 
 struct chosen_algorithm {
