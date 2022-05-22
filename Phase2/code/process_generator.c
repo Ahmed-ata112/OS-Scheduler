@@ -91,7 +91,7 @@ int main(int argc, char *argv[]) {
             ProcessIterator++;
             count--;
         }
-        printf("\nfrom gen %d %d\n", ProcessIterator, ProcessesNum);
+        //printf("\nfrom gen %d %d\n", ProcessIterator, ProcessesNum);
         while (prevClk == getClk());
 
     }
