@@ -90,6 +90,7 @@ int main(int argc, char *argv[]) {
 
     // create and open files
     scheduler_log();
+    memory_log();
 
     initClk();
 
