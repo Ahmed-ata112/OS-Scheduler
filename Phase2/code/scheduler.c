@@ -9,7 +9,7 @@
 #define pcb_s struct PCB
 
 
-FILE *sch_log, *sch_perf;
+FILE *sch_log, *sch_perf,*mem_log;
 int TotalWaitingTime = 0;
 int TotalWTA = 0;
 int TotalRunTime = 0;
@@ -17,11 +17,12 @@ int TotalNumberOfProcesses = 0;
 int *WeightedTA = NULL;
 int WTAIterator = 0;
 
-void
-OutputFinishedProcesses(int CurrTime, int ID, int ArrTime, int RunningTime, int RemainTime, int WaitingTime, int TA,
+void OutputFinishedProcesses(int CurrTime, int ID, int ArrTime, int RunningTime, int RemainTime, int WaitingTime, int TA,
                         float WTA);
 
 void scheduler_log();
+
+void memory_log();
 
 float CalcStdWTA(float AvgWTA);
 
@@ -92,6 +93,7 @@ int main(int argc, char *argv[]) {
 
     // create and open files
     scheduler_log();
+    memory_log();
     initClk();
     buddy_init();
 
@@ -435,10 +437,13 @@ void SRTN() {
                 current_pcb->pid = pid; // update Pid of existing process
                 current_pcb->state = RUNNING;
                 current_pcb->waiting_time = current_time - current_pcb->arrival_time;
-                printf("At time %d process %d started arr %d total %d remain %d wait %d\n", current_time,
-                       current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time,
-                       current_pcb->waiting_time);
-
+                printf("At time %d process %d started arr %d total %d remain %d wait %d\n",
+                       current_time, current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time,
+                       *shm_remain_time, current_pcb->waiting_time);
+              
+                fprintf(sch_log,"At time %d process %d started arr %d total %d remain %d wait %d\n",
+                       current_time, current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time,
+                       *shm_remain_time, current_pcb->waiting_time);
             }
                 // resumed after stopped
             else {
@@ -450,12 +455,13 @@ void SRTN() {
                 // if(current_pcb->id == 3){
                 //     printf("current %d arrivl %d -- cum %d -- waiting time %d\n", current_time, current_pcb->arrival_time, current_pcb->cum_runtime, current_pcb->waiting_time);
                 // }
-                printf("At time %d process %d resumed arr %d total %d remain %d wait %d\n", current_time,
-                       current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time,
-                       current_pcb->waiting_time);
-                fprintf(sch_log, "At time %d process %d resumed arr %d total %d remain %d wait %d\n", current_time,
-                        current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time,
-                        current_pcb->waiting_time);
+                printf("At time %d process %d resumed arr %d total %d remain %d wait %d\n",
+                       current_time, current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time,
+                       *shm_remain_time, current_pcb->waiting_time);
+              
+                fprintf(sch_log, "At time %d process %d resumed arr %d total %d remain %d wait %d\n",
+                        current_time, current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time,
+                        *shm_remain_time, current_pcb->waiting_time);
             }
         }
     }
@@ -567,6 +573,15 @@ void scheduler_log() {
     }
 }
 
+void memory_log() {
+    mem_log = fopen("memory.log", "w");
+    if (mem_log == NULL) {
+        printf("error has been occured while creation or opening memory.log\n");
+    } else {
+        fprintf(mem_log, "#At time x allocated y bytes for processz from i to j\n");
+    }
+}
+
 void scheduler_perf(int ProcessesCount) {
     sch_perf = fopen("scheduler.perf", "w");
     if (sch_perf == NULL) {
@@ -608,5 +623,6 @@ float CalcStdWTA(float AvgWTA) {
 void FinishPrinting() {
     fclose(sch_log);
     fclose(sch_perf);
+    fclose(mem_log);
     free(WeightedTA);
 }

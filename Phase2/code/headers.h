@@ -94,6 +94,7 @@ typedef struct process_struct {
     int arrival;
     int runtime;
     int priority;
+    int memsize;
 } process_struct;
 
 struct chosen_algorithm {
@@ -127,7 +128,4 @@ typedef struct count_msg {
 #define CYN   "\x1B[36m"
 #define WHT   "\x1B[37m"
 #define RESET "\x1B[0m"
-
-
-
 #endif
