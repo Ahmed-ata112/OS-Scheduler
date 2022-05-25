@@ -3,6 +3,8 @@
 #include "circular_queue.h"
 #include "priority_queue.h"
 #include "math.h"
+#include "queue.h"
+#include "buddy_core.c"
 
 #define pcb_s struct PCB
 
@@ -28,9 +30,6 @@ void scheduler_perf(int ProcessCount);
 
 void FinishPrinting();
 
-
-void RR(int quantum);
-
 void RR2(int quantum);
 
 void SRTN();
@@ -49,6 +48,10 @@ typedef struct PCB {
     int burst_time;
     int remaining_time;
     int waiting_time;
+    //...............................P2
+    int mem_size;
+    int memory_start_ind;
+    int memory_end_ind;
 } PCB;
 
 // 3 functions related to the hashmap
@@ -91,8 +94,9 @@ int main(int argc, char *argv[]) {
     // create and open files
     scheduler_log();
     memory_log();
-
     initClk();
+    buddy_init();
+
 
     int remain_time_shmid = shmget(REMAIN_TIME_SHMKEY, 4, IPC_CREAT | 0644);
     if (remain_time_shmid == -1)
@@ -100,20 +104,18 @@ int main(int argc, char *argv[]) {
     shm_remain_time = (int *) shmat(remain_time_shmid, NULL, 0);
     *shm_remain_time = -1;
 
-    process_table = hashmap_new(sizeof(PCB), 0, 0, 0,
-                                process_hash, process_compare, NULL);
+    process_table = hashmap_new(sizeof(PCB), 0, 0, 0, process_hash, process_compare, NULL);
 
     struct chosen_algorithm coming;
     int key_id = ftok("keyfile", 'q');
     process_msg_queue = msgget(key_id, 0666 | IPC_CREAT);
-    msgrcv(process_msg_queue, &coming, sizeof(coming) - sizeof(coming.mtype), ALGO_TYPE,
-           !IPC_NOWAIT);
+    msgrcv(process_msg_queue, &coming, sizeof(coming) - sizeof(coming.mtype), ALGO_TYPE, !IPC_NOWAIT);
 
     // Set number of processes to use in statistics (scheduler.perf)
     TotalNumberOfProcesses = coming.NumOfProcesses;
     WeightedTA = (int *) malloc(sizeof(int) * TotalNumberOfProcesses);
 
-    printf("\nChosen Algo is %d\n", coming.algo);
+    printf("\nchosen Algo is %d\n", coming.algo);
 
     switch (coming.algo) {
         case 1:
@@ -139,8 +141,19 @@ int main(int argc, char *argv[]) {
     destroyClk(true);
 
 }
-
-
+void allocate_for_process(PCB* _pcb,int current_time){
+    pair_t ret;
+    buddy_allocate(_pcb->mem_size, &ret);
+    printf(CYN "At time %d allocated %d bytes for process %d from %d to %d\n" RESET, current_time, _pcb->mem_size,
+           _pcb->id, ret.start_ind, ret.end_ind);
+    _pcb->memory_start_ind = ret.start_ind;
+    _pcb->memory_end_ind = ret.end_ind;
+}
+void deallocate_for_process(PCB* _pcb,int current_time){
+    buddy_deallocate(_pcb->memory_start_ind, _pcb->memory_end_ind);
+    printf(CYN "At time %d freed %d bytes for process %d from %d to %d\n" RESET, current_time, _pcb->mem_size,
+           _pcb->id, ret.start_ind, ret.end_ind);
+}
 void RR2(int quantum) {
     /**
     * i loop all the time
@@ -153,14 +166,11 @@ void RR2(int quantum) {
     **/
     struct c_queue RRqueue;
     circular_init_queue(&RRqueue);
-    // if the Queue is empty then check if there is no more processes that will come
-    //                                       128
     PCB *current_pcb;
     int curr_q_start;
     int p_count = TotalNumberOfProcesses;
     int need_to_receive = TotalNumberOfProcesses;
     bool process_is_currently_running = false;
-
 
     while (!circular_is_empty(&RRqueue) || p_count > 0) {
 
@@ -175,7 +185,8 @@ void RR2(int quantum) {
             // while still a process in the queue
             // take it out
             // add it to both the RRqueue and its PCB to the processTable
-            struct process_struct coming_process;
+            process_struct coming_process;
+
             msgrcv(process_msg_queue, &coming_process, sizeof(coming_process) - sizeof(coming_process.mtype), 1,
                    !IPC_NOWAIT);
             printf("\nrecv process with id: %d at time %d\n", coming_process.id, getClk());
@@ -188,12 +199,12 @@ void RR2(int quantum) {
             pcb.cum_runtime = 0;
             pcb.remaining_time = coming_process.runtime;   // at the beginning
             pcb.burst_time = coming_process.runtime;       // at the beginning
+            pcb.mem_size = (coming_process.id * 70) % 250;
             hashmap_set(process_table, &pcb);              // this copies the content of the struct
             circular_enQueue(&RRqueue, coming_process.id); // add this process to the end of the Queue
             num_messages--;
         }
         //  printf("curr is %d: %d\n", getClk(), more_processes_coming);
-
         // there is a process in the Queue and first time to start
 
         int curr = getClk();
@@ -202,6 +213,7 @@ void RR2(int quantum) {
         // if its time ended or its quantum -> switch (Advance front)
         // otherwise just let it run in peace
         // if there is a running process -> see if it can be finished or not
+        bool process_has_finished = false;
         if (process_is_currently_running) {
             current_pcb = hashmap_get(process_table, &(PCB) {.id = RRqueue.front->data});
 
@@ -210,23 +222,21 @@ void RR2(int quantum) {
                 *shm_remain_time = 0;
                 current_pcb->cum_runtime = current_pcb->burst_time;
                 int ret = wait(&st);
-                // if a process ended normally -- you're sure that the signal came from a dead process -- not stoped or resumed
+                // if a process ended normally -- you're sure that the signal came from a dead process -- not stopped or resumed
                 int TA = curr - current_pcb->arrival_time;
                 current_pcb->waiting_time = TA - current_pcb->burst_time;
                 float WTA = (float) TA / current_pcb->burst_time;
                 OutputFinishedProcesses(curr, current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time,
                                         *shm_remain_time, current_pcb->waiting_time, TA, WTA);
                 printf(RED "At time %d process %d finished arr %d total %d remain %d wait %d TA %d WTA %.2f\n" RESET,
-                       curr,
-                       current_pcb->id,
-                       current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time,
-                       current_pcb->waiting_time,
-                       TA, WTA);
+                       curr, current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time,
+                       current_pcb->waiting_time, TA, WTA);
                 p_count--;
                 circular_deQueue(&RRqueue); // auto advance the queue
+                buddy_deallocate(current_pcb->memory_start_ind, current_pcb->memory_end_ind);
                 hashmap_delete(process_table, current_pcb);
-                // if the terminated is the last one so no switching
                 process_is_currently_running = false;
+                process_has_finished = true;
 
                 // if its multiple of q finished and there are some other in the Q waiting
             } else if ((curr - curr_q_start) && (curr - curr_q_start) % quantum == 0 &&
@@ -237,18 +247,19 @@ void RR2(int quantum) {
                 current_pcb->cum_runtime += curr - curr_q_start;
                 current_pcb->waiting_time = curr - current_pcb->arrival_time - current_pcb->cum_runtime;
                 fprintf(sch_log, "At time %d process %d stopped arr %d total %d remain %d wait %d\n", curr,
-                        current_pcb->id,
-                        current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time,
+                        current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time,
                         current_pcb->waiting_time);
                 printf("At time %d process %d stopped arr %d total %d remain %d wait %d\n", curr, current_pcb->id,
-                       current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time,
-                       current_pcb->waiting_time);
+                       current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time, current_pcb->waiting_time);
                 current_pcb->remaining_time = *shm_remain_time;
                 current_pcb->state = READY; // back to Ready state
                 circular_advance_queue(&RRqueue);
                 process_is_currently_running = false;
             }
         }
+
+
+
 
         if (!process_is_currently_running && !circular_is_empty(&RRqueue)) {
             // update the current_pcb as the queue is advanced
@@ -263,15 +274,16 @@ void RR2(int quantum) {
 
                 // parent
                 current_pcb->pid = pid; // update Pid of existing process
-
+                allocate_for_process(current_pcb,curr);
                 current_pcb->waiting_time = curr - current_pcb->arrival_time;
                 fprintf(sch_log, "At time %d process %d started arr %d total %d remain %d wait %d\n", curr,
                         current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time,
                         current_pcb->waiting_time);
 
-                printf("At time %d process %d started arr %d total %d remain %d wait %d\n", curr,
-                       current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time,
-                       current_pcb->waiting_time);
+
+
+                printf("At time %d process %d started arr %d total %d remain %d wait %d\n", curr, current_pcb->id,
+                       current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time, current_pcb->waiting_time);
             } else {
 
                 kill(current_pcb->pid, SIGCONT);
@@ -281,9 +293,8 @@ void RR2(int quantum) {
                         current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time,
                         current_pcb->waiting_time);
 
-                printf("At time %d process %d resumed arr %d total %d remain %d wait %d\n", curr,
-                       current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time,
-                       current_pcb->waiting_time);
+                printf("At time %d process %d resumed arr %d total %d remain %d wait %d\n", curr, current_pcb->id,
+                       current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time, current_pcb->waiting_time);
             }
             current_pcb->state = RUNNING;
             process_is_currently_running = true;
@@ -348,8 +359,8 @@ void SRTN() {
             num_messages--;
         }
         if (current_pcb != NULL) {
-            *shm_remain_time -= (current_time - (current_pcb->arrival_time + current_pcb->cum_runtime +
-                                                 current_pcb->waiting_time));
+            *shm_remain_time -= (current_time -
+                                 (current_pcb->arrival_time + current_pcb->cum_runtime + current_pcb->waiting_time));
             // if(current_pcb->id == 3){
             //     printf("remaining time %d %d\n",current_time,current_pcb->waiting_time);
             // }
@@ -370,14 +381,11 @@ void SRTN() {
                 int TA = current_time - current_pcb->arrival_time;
                 float WTA = (float) TA / current_pcb->burst_time;
                 printf("At time %d process %d finished arr %d total %d remain %d wait %d TA %d WTA %.2f\n",
-                       current_time, current_pcb->id, current_pcb->arrival_time,
-                       current_pcb->burst_time, *shm_remain_time,
-                       current_pcb->waiting_time,
-                       TA, WTA);
+                       current_time, current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time,
+                       *shm_remain_time, current_pcb->waiting_time, TA, WTA);
 
                 OutputFinishedProcesses(current_time, current_pcb->id, current_pcb->arrival_time,
-                                        current_pcb->burst_time, *shm_remain_time, current_pcb->waiting_time, TA,
-                                        WTA);
+                                        current_pcb->burst_time, *shm_remain_time, current_pcb->waiting_time, TA, WTA);
                 hashmap_delete(process_table, current_pcb);
                 p_count--;
                 current_pcb = NULL;
@@ -393,12 +401,12 @@ void SRTN() {
                 if (temp->priority < current_pcb->remaining_time) {
                     // swap and stop current process
                     kill(current_pcb->pid, SIGSTOP);
-                    printf("At time %d process %d stopped arr %d total %d remain %d wait %d\n",
-                           current_time, current_pcb->id, current_pcb->arrival_time,
-                           current_pcb->burst_time, current_pcb->remaining_time, current_pcb->waiting_time);
-                    fprintf(sch_log, "At time %d process %d stopped arr %d total %d remain %d wait %d\n",
-                            current_time, current_pcb->id, current_pcb->arrival_time,
-                            current_pcb->burst_time, current_pcb->remaining_time, current_pcb->waiting_time);
+                    printf("At time %d process %d stopped arr %d total %d remain %d wait %d\n", current_time,
+                           current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time,
+                           current_pcb->remaining_time, current_pcb->waiting_time);
+                    fprintf(sch_log, "At time %d process %d stopped arr %d total %d remain %d wait %d\n", current_time,
+                            current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time,
+                            current_pcb->remaining_time, current_pcb->waiting_time);
 
                     current_pcb->state = READY;                                  // back to Ready state
                     push(&sQueue, current_pcb->remaining_time,
@@ -436,7 +444,6 @@ void SRTN() {
                 fprintf(sch_log,"At time %d process %d started arr %d total %d remain %d wait %d\n",
                        current_time, current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time,
                        *shm_remain_time, current_pcb->waiting_time);
-
             }
                 // resumed after stopped
             else {
@@ -514,14 +521,11 @@ void HPF() {
                     float WTA = (float) TA / current_pcb->burst_time;
                     p_count--;
                     printf("At time %d process %d finished arr %d total %d remain %d wait %d TA %d WTA %.2f\n",
-                           current_clk, current_pcb->id,
-                           current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time,
-                           current_pcb->waiting_time,
-                           TA, WTA);
-                    OutputFinishedProcesses(current_clk, current_pcb->id,
-                                            current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time,
-                                            current_pcb->waiting_time,
-                                            TA, WTA);
+                           current_clk, current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time,
+                           *shm_remain_time, current_pcb->waiting_time, TA, WTA);
+                    OutputFinishedProcesses(current_clk, current_pcb->id, current_pcb->arrival_time,
+                                            current_pcb->burst_time, *shm_remain_time, current_pcb->waiting_time, TA,
+                                            WTA);
                     hashmap_delete(process_table, current_pcb);
                     process_is_currently_running = false;
                 }
@@ -547,11 +551,10 @@ void HPF() {
                 current_pcb->waiting_time = started_clk - current_pcb->arrival_time;
 
                 printf("At time %d process %d started arr %d total %d remain %d wait %d\n", started_clk,
-                       current_pcb->id,
-                       current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time, current_pcb->waiting_time);
+                       current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time,
+                       current_pcb->waiting_time);
                 fprintf(sch_log, "At time %d process %d started arr %d total %d remain %d wait %d\n", started_clk,
-                        current_pcb->id,
-                        current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time,
+                        current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time,
                         current_pcb->waiting_time);
                 pop(&hpf_queue);
             }
@@ -596,10 +599,8 @@ void
 OutputFinishedProcesses(int CurrTime, int ID, int ArrTime, int RunningTime, int RemainTime, int WaitingTime, int TA,
                         float WTA) {
     //printing in a file
-    fprintf(sch_log, "At time %d process %d finished arr %d total %d remain %d wait %d TA %d WTA %.2f\n",
-            CurrTime, ID, ArrTime,
-            RunningTime, RemainTime,
-            WaitingTime, TA, WTA);
+    fprintf(sch_log, "At time %d process %d finished arr %d total %d remain %d wait %d TA %d WTA %.2f\n", CurrTime, ID,
+            ArrTime, RunningTime, RemainTime, WaitingTime, TA, WTA);
 
     //update stats variables
     TotalRunTime += RunningTime;

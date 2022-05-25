@@ -1,2 +1,3 @@
 
-add_executable(atta_test atta_test.c)
+
+add_executable(buddy_core buddy_core.c)
