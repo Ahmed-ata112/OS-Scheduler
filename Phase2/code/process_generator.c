@@ -122,13 +122,13 @@ int NumOfProcesses(FILE *file) {
     }
     // note : do not count any line stating with #
     int count = 0;
-    int id, arrive, runtime, priority;
+    int id, arrive, runtime, priority,memsize;
     for (char ch = getc(file); ch != EOF; ch = getc(file)) {
         if (ch == '\n') {
             break;
         }
     }
-    while (fscanf(file, "%d %d %d %d", &id, &arrive, &runtime, &priority) == 4) {
+    while (fscanf(file, "%d %d %d %d", &id, &arrive, &runtime, &priority,&memsize) == 5) {
         count++;
     }
     return count;
@@ -140,7 +140,7 @@ void ReadProcessesData(FILE *file, struct process_struct Processes[], int Proces
     fseek(file, 0, SEEK_SET);
     // skip the first line because it is a comment
     char dummy[10];
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 5; i++) {
         fscanf(file, "%s", dummy);
     }
     for (int i = 0; i < ProcessesNum; i++) {
@@ -149,6 +149,7 @@ void ReadProcessesData(FILE *file, struct process_struct Processes[], int Proces
         fscanf(file, "%d", &Processes[i].arrival);
         fscanf(file, "%d", &Processes[i].runtime);
         fscanf(file, "%d", &Processes[i].priority);
+        fscanf(file, "%d", &Processes[i].memsize);
     }
 }
 
