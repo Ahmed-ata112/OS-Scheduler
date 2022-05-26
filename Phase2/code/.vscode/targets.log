@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat May 14 23:27:07 2022
+# Make data base, printed on Thu May 19 10:41:57 2022
 
 # Variables
 
@@ -49,11 +49,11 @@ CURDIR := /home/ahmedatta/Stud/OS/Repos/OSproject/Phase2/code
 # makefile
 SHELL = /bin/sh
 # environment
-SNAP_DATA = /var/snap/code/95
+SNAP_DATA = /var/snap/code/97
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:50276
+JOURNAL_STREAM = 8:51254
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -79,9 +79,9 @@ DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-_ = /snap/code/95/usr/share/code/code
+_ = /snap/code/97/usr/share/code/code
 # environment
-MANAGERPID = 1420
+MANAGERPID = 1526
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -89,7 +89,7 @@ LC_NAME = en_US.UTF-8
 # environment
 VSCODE_CWD = /home/ahmedatta
 # environment
-GSETTINGS_SCHEMA_DIR = /snap/code/95/usr/share/glib-2.0/schemas
+GSETTINGS_SCHEMA_DIR = /snap/code/97/usr/share/glib-2.0/schemas
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
@@ -97,15 +97,15 @@ NO_PROXY = 127.0.0.1
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/1802,unix/my-loly:/tmp/.ICE-unix/1802
+SESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/2038,unix/my-loly:/tmp/.ICE-unix/2038
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
 GDK_PIXBUF_MODULE_FILE = /home/ahmedatta/snap/code/common/.cache/gdk-pixbuf-loaders.cache
 # environment
-SNAP = /snap/code/95
+SNAP = /snap/code/97
 # environment
-SNAP_VERSION = 57fd6d01
+SNAP_VERSION = c3511e6c
 # environment
 XDG_MENU_PREFIX = gnome-
 # environment
@@ -115,9 +115,9 @@ DISABLE_WAYLAND = 1
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = ab0d2a55d45045858e4bd70c31eebf66
+INVOCATION_ID = e148c0e6f03842fc9dbea1e9e0465389
 # environment
-GDK_PIXBUF_MODULEDIR = /snap/code/95/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
+GDK_PIXBUF_MODULEDIR = /snap/code/97/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -127,7 +127,7 @@ XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 6320
+GIO_LAUNCHED_DESKTOP_FILE_PID = 5331
 # automatic
 %F = $(notdir $%)
 # environment
@@ -141,7 +141,7 @@ PWD = /home/ahmedatta/Stud/OS/Repos/OSproject/Phase2/code
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1772
+SSH_AGENT_PID = 2008
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -155,7 +155,7 @@ LESSCLOSE = /usr/bin/lesspipe %s %s
 # environment
 VSCODE_CLI = 1
 # environment
-VSCODE_CODE_CACHE_PATH = /home/ahmedatta/.config/Code/CachedData/57fd6d0195bb9b9d1b49f6da5db789060795de47
+VSCODE_CODE_CACHE_PATH = /home/ahmedatta/.config/Code/CachedData/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5
 # environment
 LOGNAME = ahmedatta
 # environment
@@ -189,19 +189,19 @@ MAKECMDGOALS := all
 # environment
 PATH = /home/ahmedatta/.local/bin:/home/ahmedatta/bin:/home/ahmedatta/.local/bin:/home/ahmedatta/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:QT_QPA_PLATFORMTHEME=gtk2:/home/ahmedatta/Downloads/clion-2022.1/bin
 # environment
-SNAP_USER_DATA = /home/ahmedatta/snap/code/95
+SNAP_USER_DATA = /home/ahmedatta/snap/code/97
 # environment
 SHLVL = 0
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-53e24df3-161f-4ac5-b51f-79bc178e4676.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-05b86139-cb47-4d27-b1b8-40009615ef38.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
 USER = ahmedatta
 # environment
-SNAP_REVISION = 95
+SNAP_REVISION = 97
 # environment
 LC_MONETARY = en_US.UTF-8
 # makefile
@@ -219,7 +219,7 @@ MAKE_COMMAND := make
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /run/user/1000/vscode-9c9b8c1f-1.67.0-main.sock
+VSCODE_IPC_HOOK = /run/user/1000/vscode-9c9b8c1f-1.67.2-main.sock
 # environment
 BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop
 # makefile
@@ -276,12 +276,12 @@ GJS_DEBUG_OUTPUT = stderr
 LC_ADDRESS = en_US.UTF-8
 # environment
 LANG = C
- 
 # environment
-VSCODE_PID = 6399
+VSCODE_PID = 5383
 # variable set hash-table stats:
 # Load=134/1024=13%, Rehash=0, Collisions=25/162=15%
 
+ 
 # Pattern-specific Variable Values
 
 # No pattern-specific variable values.
@@ -316,7 +316,7 @@ all: run
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-05 13:21:53.684973448
+#  Last modified 2022-05-15 00:57:28.172258495
 #  File has been updated.
 #  Successfully updated.
 
@@ -325,7 +325,7 @@ test: build
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 21):
-	./process_generator.out 1 7
+	./process_generator.out 1 1
 
 build:
 #  Implicit rule search has not been done.
@@ -385,7 +385,7 @@ run:
 # variable set hash-table stats:
 # Load=8/32=25%, Rehash=0, Collisions=1/11=9%
 #  recipe to execute (from 'Makefile', line 13):
-	./process_generator.out 1 4
+	./process_generator.out 1 1
 
 clean:
 #  Implicit rule search has not been done.
@@ -408,6 +408,6 @@ clean:
 # strcache performance: lookups = 62 / hit rate = 24%
 # hash-table stats:
 # Load=47/8192=1%, Rehash=0, Collisions=1/62=2%
-# Finished Make data base on Sat May 14 23:27:07 2022
+# Finished Make data base on Thu May 19 10:41:57 2022
 
  
