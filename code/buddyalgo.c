@@ -1,4 +1,3 @@
-#pragma once
 #include "linkedlist.h"
 #include "math.h"
 #include <stdio.h>
@@ -96,19 +95,20 @@ bool allocate(int size, pair* Indicies)
 	}
 }
 
-bool deallocate(pair Indicies)
+bool deallocate(int start_index, int end_index)
 {
 	//size of the block to be searched
-	int size = Indicies.EndIndex - Indicies.StartIndex + 1;
-	int Index = ceil(log(size)/log(2));
+	int size = end_index - start_index + 1;
+	int Index = ceil(log(size) / log(2));
 	//free the block
-	insertAtBeginning(&AllSizes[Index], Indicies);
-	printf("Memory from %d to %d freed\n", Indicies.StartIndex, Indicies.EndIndex);
-	int i, buddyNumber = Indicies.StartIndex/size, buddyAddress;
+	pair Deallocation_block = { .StartIndex = start_index ,.EndIndex = end_index };
+	insertAtBeginning(&AllSizes[Index], Deallocation_block);
+	printf("Memory from %d to %d freed\n", start_index, end_index);
+	int i, buddyNumber = start_index / size, buddyAddress;
 	if (buddyNumber % 2 != 0)
-		buddyAddress = Indicies.StartIndex - pow(2, Index);
+		buddyAddress = start_index - pow(2, Index);
 	else
-		buddyAddress = Indicies.StartIndex + pow(2, Index);
+		buddyAddress = start_index + pow(2, Index);
 
 	for (i = 0; i < length(AllSizes[Index]); i++)
 	{
@@ -121,15 +121,15 @@ bool deallocate(pair Indicies)
 			// them one large free memory block
 			if (buddyNumber % 2 == 0)
 			{
-				pair temp = { .StartIndex = Indicies.StartIndex ,.EndIndex = Indicies.StartIndex + 2 * (pow(2, Index) - 1) };
+				pair temp = { .StartIndex = start_index ,.EndIndex = start_index + 2 * (pow(2, Index) - 1) };
 				insertAtBeginning(&AllSizes[Index + 1], temp);
-				printf("Coalescing of blocks starting at %d and %d was done\n", Indicies.StartIndex, buddyAddress);
+				printf("Coalescing of blocks starting at %d and %d was done\n", start_index, buddyAddress);
 			}
 			else
 			{
-				pair temp = { .StartIndex = buddyAddress ,.EndIndex = buddyAddress + 2 * pow(2, Index)};
+				pair temp = { .StartIndex = buddyAddress ,.EndIndex = buddyAddress + 2 * pow(2, Index) };
 				insertAtBeginning(&AllSizes[Index + 1], temp);
-				printf("Coalescing of blocks starting at %d and %d was done\n", buddyAddress, Indicies.StartIndex);
+				printf("Coalescing of blocks starting at %d and %d was done\n", buddyAddress, start_index);
 
 			}
 			deleteFirstNode(&AllSizes[Index]);
@@ -147,14 +147,14 @@ int main()
 	pair temp3 = { .StartIndex = 0,.EndIndex = 0 };
 	pair temp4 = { .StartIndex = 125,.EndIndex = 200 };
 	initialize(128);
-	allocate(16,&temp1);
+	allocate(16, &temp1);
 	allocate(16, &temp2);
-	allocate(16, & temp3);
+	allocate(16, &temp3);
 	//allocate(16, & temp4);
-	deallocate(temp1);
-	deallocate(temp2);
-	deallocate(temp3);
-	deallocate(temp4);
+	deallocate(temp1.StartIndex,temp1.EndIndex);
+	deallocate(temp2.StartIndex,temp2.EndIndex);
+	deallocate(temp3.StartIndex,temp3.EndIndex);
+	deallocate(temp4.StartIndex,temp4.EndIndex);
 
 	return 0;
 
