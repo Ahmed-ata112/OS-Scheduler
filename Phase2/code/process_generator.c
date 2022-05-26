@@ -128,7 +128,7 @@ int NumOfProcesses(FILE *file) {
             break;
         }
     }
-    while (fscanf(file, "%d %d %d %d", &id, &arrive, &runtime, &priority,&memsize) == 5) {
+    while (fscanf(file, "%d %d %d %d %d", &id, &arrive, &runtime, &priority,&memsize) == 5) {
         count++;
     }
     return count;

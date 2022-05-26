@@ -12,12 +12,16 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb74cbae-2b8d-4ad0-b305-4f35558e8945" name="Changes" comment="Before changing Remaing Time">
+    <list default="true" id="eb74cbae-2b8d-4ad0-b305-4f35558e8945" name="Changes" comment=" changing Remaining Time">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/targets.log" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/targets.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/process_generator.c" beforeDir="false" afterPath="$PROJECT_DIR$/process_generator.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/processes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/processes.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scheduler.c" beforeDir="false" afterPath="$PROJECT_DIR$/scheduler.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scheduler.log" beforeDir="false" afterPath="$PROJECT_DIR$/scheduler.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scheduler.perf" beforeDir="false" afterPath="$PROJECT_DIR$/scheduler.perf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_generator.c" beforeDir="false" afterPath="$PROJECT_DIR$/test_generator.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,6 +90,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Git.Branch.Popup.ShowAllRemotes": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
@@ -97,6 +102,13 @@
     "structure.view.defaults.are.configured": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -113,7 +125,10 @@
       <workItem from="1651833951326" duration="8093000" />
       <workItem from="1651950945153" duration="1337000" />
       <workItem from="1652560242591" duration="1000" />
-      <workItem from="1652563360727" duration="5337000" />
+      <workItem from="1652563360727" duration="6374000" />
+      <workItem from="1652953668020" duration="793000" />
+      <workItem from="1652956405104" duration="7000" />
+      <workItem from="1653582405007" duration="1117000" />
     </task>
     <task id="LOCAL-00001" summary="new phase">
       <created>1651702962617</created>
@@ -185,7 +200,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652566926737</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary=" changing Remaining Time">
+      <created>1652569218486</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1652569218486</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -211,6 +233,7 @@
     <MESSAGE value="more tests passed" />
     <MESSAGE value="returned to correct version" />
     <MESSAGE value="Before changing Remaing Time" />
-    <option name="LAST_COMMIT_MESSAGE" value="Before changing Remaing Time" />
+    <MESSAGE value=" changing Remaining Time" />
+    <option name="LAST_COMMIT_MESSAGE" value=" changing Remaining Time" />
   </component>
 </project>

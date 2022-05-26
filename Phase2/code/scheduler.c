@@ -199,7 +199,7 @@ void RR2(int quantum)
             pcb.cum_runtime = 0;
             pcb.remaining_time = coming_process.runtime; // at the beginning
             pcb.burst_time = coming_process.runtime;     // at the beginning
-            pcb.mem_size = 300;
+            pcb.mem_size = coming_process.memsize;
             hashmap_set(process_table, &pcb); // this copies the content of the struct
             // circular_enQueue(&RRqueue, coming_process.id); // add this process to the end of the Queue
 
@@ -396,7 +396,7 @@ void SRTN()
             pcb.burst_time = coming_process.runtime;     // at the beginning
             pcb.remaining_time = coming_process.runtime; // at the beginning
             pcb.waiting_time = 0;
-            pcb.mem_size = 300;                           // at the beginning
+            pcb.mem_size = coming_process.mem_size;                           // at the beginning
             hashmap_set(process_table, &pcb);             // this copies the content of the struct
             pushQueue(&waiting_queue, coming_process.id); // add to the waiting list and will see if you can Run
 
