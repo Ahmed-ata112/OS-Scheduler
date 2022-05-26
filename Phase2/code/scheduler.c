@@ -399,7 +399,7 @@ void SRTN()
             pcb.burst_time = coming_process.runtime;     // at the beginning
             pcb.remaining_time = coming_process.runtime; // at the beginning
             pcb.waiting_time = 0;
-            pcb.mem_size = coming_process.mem_size;                           // at the beginning
+            pcb.mem_size = coming_process.memsize;                           // at the beginning
             hashmap_set(process_table, &pcb);             // this copies the content of the struct
             pushQueue(&waiting_queue, coming_process.id); // add to the waiting list and will see if you can Run
 
@@ -589,12 +589,13 @@ void HPF()
             pcb.remaining_time = coming_process.runtime; // at the beginning
             pcb.burst_time = coming_process.runtime;
             pcb.state = READY;
-            pcb.mem_size =  300;
+            pcb.mem_size = coming_process.memsize;
+
             hashmap_set(process_table, &pcb);                             // this copies the content of the struct
             push(&hpf_queue, coming_process.priority, coming_process.id); // add this process to the priority queue
             printf("Received process with priority %d and id %d at time %d \n", coming_process.priority,
                    coming_process.id, getClk());
-            // printf("Front of the queue is %d\n", peek(&hpf_queue)->priority);
+
             num_messages--;
         }
         if (!is_empty(&hpf_queue) || process_is_currently_running)
