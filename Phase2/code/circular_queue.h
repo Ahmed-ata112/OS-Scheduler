@@ -23,7 +23,6 @@ void circular_init_queue(struct c_queue *q)
 void circular_enQueue(struct c_queue *q, int value)
 {
     struct cq_node *temp = (struct cq_node *)malloc(sizeof(struct cq_node));
-    ;
     temp->data = value;
     if (q->front == NULL)
         q->front = temp;
