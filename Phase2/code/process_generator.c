@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
     while (FalseInput)
     {
         printf("Determination of Algorithm : \n RR : press 1 \n HPF : press 2 \n SRTN : press 3\n your input : ");
-        scanf("%d",&Initializer.algo);
+        scanf("%hd",&Initializer.algo);
         if (Initializer.algo >= 1 && Initializer.algo <= 3 )
         {
             if (Initializer.algo == 1) //RR
@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
             printf("you entered wrong input please recheck it again\n");
         }
     }
-    system("cls");
+    system("clear");
     Initializer.NumOfProcesses = ProcessesNum;
     Initializer.mtype = ALGO_TYPE;
     int sch_pid, clk_pid, stat_loc;
