@@ -10,7 +10,7 @@ clean:
 
 
 run:
-	./process_generator.out
+	./process_generator.out 1 1
 all: run
 
 generate:
@@ -18,7 +18,7 @@ generate:
 	./test_generator.out
 
 test: build
-	./process_generator.out
+	./process_generator.out 3 1
 
 
 buddy:
