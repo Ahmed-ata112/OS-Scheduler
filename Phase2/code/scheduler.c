@@ -288,7 +288,7 @@ void RR2(int quantum)
                 printf(CYN "At time %d allocated %d bytes for process %d from %d to %d\n" RESET, curr, _pcb->mem_size,
                        id, ret.start_ind, ret.end_ind);
                 
-                fprintf(mem_log, "At time %d allocated %d bytes for process %d from %d to %d\n" RESET, curr, _pcb->mem_size,
+                fprintf(mem_log,"At time %d allocated %d bytes for process %d from %d to %d\n", curr, _pcb->mem_size,
                        id, ret.start_ind, ret.end_ind);
             }
             else
@@ -668,7 +668,7 @@ void HPF()
                         current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, current_pcb->remaining_time,//*shm_remain_time,
                         current_pcb->waiting_time);
 
-                fprintf(mem_log, "At time %d allocated %d bytes for process %d from %d to %d\n" RESET, current_clk, current_pcb->mem_size,
+                fprintf(mem_log, "At time %d allocated %d bytes for process %d from %d to %d\n", current_clk, current_pcb->mem_size,
                        current_pcb->id, ret.start_ind, ret.end_ind);
                 pop(&hpf_queue);
             }
