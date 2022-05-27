@@ -243,6 +243,8 @@ void RR2(int quantum)
                 p_count--;
                 circular_deQueue(&RRqueue); // auto advance the queue
                 buddy_deallocate(current_pcb->memory_start_ind, current_pcb->memory_end_ind);
+                fprintf(mem_log,"At time %d freed %d byted for process %d from %d to %d\n",
+                       current_clk, current_pcb->mem_size,current_pcb->id,current_pcb->memory_start_ind,current_pcb->memory_end_ind);
                 
                 hashmap_delete(process_table, current_pcb);
                 process_is_currently_running = false;
@@ -441,6 +443,8 @@ void SRTN()
                                         current_pcb->burst_time, *shm_remain_time, current_pcb->waiting_time, TA, WTA);
                 hashmap_delete(process_table, current_pcb);
                 buddy_deallocate(current_pcb->memory_start_ind, current_pcb->memory_end_ind);
+                fprintf(mem_log,"At time %d freed %d byted for process %d from %d to %d\n",
+                       current_clk, current_pcb->mem_size,current_pcb->id,current_pcb->memory_start_ind,current_pcb->memory_end_ind);
                 p_count--;
                 current_pcb = NULL;
                 process_has_finished = true;
@@ -690,7 +694,7 @@ void memory_log() {
     if (mem_log == NULL) {
         printf("error has been occured while creation or opening memory.log\n");
     } else {
-        fprintf(mem_log, "#At time x allocated y bytes for processz from i to j\n");
+        fprintf(mem_log, "#At time x allocated y bytes for process z from i to j\n");
     }
 }
 
