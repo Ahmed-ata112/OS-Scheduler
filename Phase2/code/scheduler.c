@@ -244,7 +244,7 @@ void RR2(int quantum)
                 circular_deQueue(&RRqueue); // auto advance the queue
                 buddy_deallocate(current_pcb->memory_start_ind, current_pcb->memory_end_ind);
                 fprintf(mem_log,"At time %d freed %d byted for process %d from %d to %d\n",
-                       current_clk, current_pcb->mem_size,current_pcb->id,current_pcb->memory_start_ind,current_pcb->memory_end_ind);
+                       curr, current_pcb->mem_size,current_pcb->id,current_pcb->memory_start_ind,current_pcb->memory_end_ind);
                 
                 hashmap_delete(process_table, current_pcb);
                 process_is_currently_running = false;
