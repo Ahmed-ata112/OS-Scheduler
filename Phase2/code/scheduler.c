@@ -243,7 +243,9 @@ void RR2(int quantum)
                 p_count--;
                 circular_deQueue(&RRqueue); // auto advance the queue
                 buddy_deallocate(current_pcb->memory_start_ind, current_pcb->memory_end_ind);
-                
+                fprintf(mem_log,"At time %d freed %d byted for process %d from %d to %d\n",
+                       curr, current_pcb->mem_size,current_pcb->id,current_pcb->memory_start_ind,current_pcb->memory_end_ind);
+               
                 hashmap_delete(process_table, current_pcb);
                 process_is_currently_running = false;
                 process_has_finished = true;
@@ -286,7 +288,7 @@ void RR2(int quantum)
                 printf(CYN "At time %d allocated %d bytes for process %d from %d to %d\n" RESET, curr, _pcb->mem_size,
                        id, ret.start_ind, ret.end_ind);
                 
-                fprintf(mem_log, "At time %d allocated %d bytes for process %d from %d to %d\n" RESET, curr, _pcb->mem_size,
+                fprintf(mem_log,"At time %d allocated %d bytes for process %d from %d to %d\n", curr, _pcb->mem_size,
                        id, ret.start_ind, ret.end_ind);
             }
             else
@@ -441,6 +443,8 @@ void SRTN()
                                         current_pcb->burst_time, *shm_remain_time, current_pcb->waiting_time, TA, WTA);
                 hashmap_delete(process_table, current_pcb);
                 buddy_deallocate(current_pcb->memory_start_ind, current_pcb->memory_end_ind);
+                fprintf(mem_log,"At time %d freed %d byted for process %d from %d to %d\n",
+                       current_time, current_pcb->mem_size,current_pcb->id,current_pcb->memory_start_ind,current_pcb->memory_end_ind);
                 p_count--;
                 current_pcb = NULL;
                 process_has_finished = true;
@@ -664,7 +668,7 @@ void HPF()
                         current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, current_pcb->remaining_time,//*shm_remain_time,
                         current_pcb->waiting_time);
 
-                fprintf(mem_log, "At time %d allocated %d bytes for process %d from %d to %d\n" RESET, current_clk, current_pcb->mem_size,
+                fprintf(mem_log, "At time %d allocated %d bytes for process %d from %d to %d\n", current_clk, current_pcb->mem_size,
                        current_pcb->id, ret.start_ind, ret.end_ind);
                 pop(&hpf_queue);
             }
