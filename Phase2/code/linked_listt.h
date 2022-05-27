@@ -77,7 +77,7 @@ int lkl_length(struct lkl_node **head) {
 
 bool free_linked_list(struct lkl_node **head) {
     //if empty
-    if (!head)return true;
+    if (!(*head))return true;
     while (*head) {
         struct lkl_node *temp = (*head)->next;
         free(*head);
@@ -94,7 +94,7 @@ struct lkl_node *delete_by_start_id(struct lkl_node **head, int start_ind) {
     struct lkl_node *previous = NULL;
 
     //if list is empty
-    if (head == NULL) {
+    if (*head == NULL) {
         return NULL;
     }
 

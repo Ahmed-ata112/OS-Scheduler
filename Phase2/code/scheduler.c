@@ -186,7 +186,6 @@ void RR2(int quantum)
             // take it out
             // add it to both the RRqueue and its PCB to the processTable
             process_struct coming_process;
-
             msgrcv(process_msg_queue, &coming_process, sizeof(coming_process) - sizeof(coming_process.mtype), 1,
                    !IPC_NOWAIT);
             printf("\nrecv process with id: %d at time %d\n", coming_process.id, getClk());
@@ -243,9 +242,9 @@ void RR2(int quantum)
                 p_count--;
                 circular_deQueue(&RRqueue); // auto advance the queue
                 buddy_deallocate(current_pcb->memory_start_ind, current_pcb->memory_end_ind);
-                fprintf(mem_log,"At time %d freed %d byted for process %d from %d to %d\n",
+                fprintf(mem_log,"At time %d freed %d bytes for process %d from %d to %d\n",
                        curr, current_pcb->mem_size,current_pcb->id,current_pcb->memory_start_ind,current_pcb->memory_end_ind);
-                
+
                 hashmap_delete(process_table, current_pcb);
                 process_is_currently_running = false;
                 process_has_finished = true;
@@ -287,7 +286,7 @@ void RR2(int quantum)
                 circular_enQueue(&RRqueue, id);
                 printf(CYN "At time %d allocated %d bytes for process %d from %d to %d\n" RESET, curr, _pcb->mem_size,
                        id, ret.start_ind, ret.end_ind);
-                
+
                 fprintf(mem_log, "At time %d allocated %d bytes for process %d from %d to %d\n" RESET, curr, _pcb->mem_size,
                        id, ret.start_ind, ret.end_ind);
             }
@@ -438,7 +437,7 @@ void SRTN()
                 printf("At time %d process %d finished arr %d total %d remain %d wait %d TA %d WTA %.2f\n",
                        current_time, current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time,
                        *shm_remain_time, current_pcb->waiting_time, TA, WTA);
-                
+
                 OutputFinishedProcesses(current_time, current_pcb->id, current_pcb->arrival_time,
                                         current_pcb->burst_time, *shm_remain_time, current_pcb->waiting_time, TA, WTA);
                 hashmap_delete(process_table, current_pcb);
@@ -527,7 +526,7 @@ void SRTN()
                 printf("At time %d process %d started arr %d total %d remain %d wait %d\n",
                        current_time, current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time,
                        *shm_remain_time, current_pcb->waiting_time);
-              
+
                 fprintf(sch_log,"At time %d process %d started arr %d total %d remain %d wait %d\n",
                        current_time, current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time,
                        *shm_remain_time, current_pcb->waiting_time);
@@ -546,7 +545,7 @@ void SRTN()
                 printf("At time %d process %d resumed arr %d total %d remain %d wait %d\n",
                        current_time, current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time,
                        *shm_remain_time, current_pcb->waiting_time);
-              
+
                 fprintf(sch_log, "At time %d process %d resumed arr %d total %d remain %d wait %d\n",
                         current_time, current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time,
                         *shm_remain_time, current_pcb->waiting_time);
@@ -647,7 +646,7 @@ void HPF()
                     // printf("Create process: %d with priority: %d\n", peek(&hpf_queue)->data, peek(&hpf_queue)->priority);
                     execl("./process.out", "./process.out", NULL);
                 }
-                pair_t ret; 
+                pair_t ret;
                 buddy_allocate(current_pcb->mem_size, &ret);
                 started_clk = current_clk;
                 process_is_currently_running = true;
