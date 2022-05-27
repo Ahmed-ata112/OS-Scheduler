@@ -147,6 +147,19 @@ int main(int argc, char *argv[])
     destroyClk(true);
 }
 
+struct PCB set_process(process_struct coming_process ){
+     struct PCB pcb;
+            pcb.id = coming_process.id;
+            pcb.pid = 0;
+            pcb.priority = coming_process.priority;
+            pcb.arrival_time = coming_process.arrival;
+            pcb.cum_runtime = 0;
+            pcb.remaining_time = coming_process.runtime; // at the beginning
+            pcb.burst_time = coming_process.runtime;     // at the beginning
+            pcb.mem_size = coming_process.memsize;
+            return pcb;
+
+}
 void RR2(int quantum)
 {
     /**
@@ -191,15 +204,15 @@ void RR2(int quantum)
                    !IPC_NOWAIT);
             printf("\nrecv process with id: %d at time %d\n", coming_process.id, getClk());
             //  you have that struct Now
-            struct PCB pcb;
-            pcb.id = coming_process.id;
-            pcb.pid = 0;
-            pcb.priority = coming_process.priority;
-            pcb.arrival_time = coming_process.arrival;
-            pcb.cum_runtime = 0;
-            pcb.remaining_time = coming_process.runtime; // at the beginning
-            pcb.burst_time = coming_process.runtime;     // at the beginning
-            pcb.mem_size = coming_process.memsize;
+            struct PCB pcb= set_process(coming_process);
+            // pcb.id = coming_process.id;
+            // pcb.pid = 0;
+            // pcb.priority = coming_process.priority;
+            // pcb.arrival_time = coming_process.arrival;
+            // pcb.cum_runtime = 0;
+            // pcb.remaining_time = coming_process.runtime; // at the beginning
+            // pcb.burst_time = coming_process.runtime;     // at the beginning
+            // pcb.mem_size = coming_process.memsize;
             hashmap_set(process_table, &pcb); // this copies the content of the struct
             // circular_enQueue(&RRqueue, coming_process.id); // add this process to the end of the Queue
 
@@ -388,18 +401,18 @@ void SRTN()
                    coming_process.priority);
 
             //  you have that struct Now
-            PCB pcb;
-            pcb.id = coming_process.id;
-            pcb.pid = 0;
-            // pcb.arrival_time = coming_process.arrival;
-            pcb.arrival_time = current_time;
-            pcb.priority = coming_process.priority;
-            pcb.state = READY;
-            pcb.cum_runtime = 0;
-            pcb.burst_time = coming_process.runtime;     // at the beginning
-            pcb.remaining_time = coming_process.runtime; // at the beginning
-            pcb.waiting_time = 0;
-            pcb.mem_size = coming_process.memsize;                           // at the beginning
+            struct PCB pcb= set_process(coming_process);
+            // pcb.id = coming_process.id;
+            // pcb.pid = 0;
+            // // pcb.arrival_time = coming_process.arrival;
+            // pcb.arrival_time = current_time;
+            // pcb.priority = coming_process.priority;
+            // pcb.state = READY;
+            // pcb.cum_runtime = 0;
+            // pcb.burst_time = coming_process.runtime;     // at the beginning
+            // pcb.remaining_time = coming_process.runtime; // at the beginning
+            // pcb.waiting_time = 0;
+            // pcb.mem_size = coming_process.memsize;                           // at the beginning
             hashmap_set(process_table, &pcb);             // this copies the content of the struct
             pushQueue(&waiting_queue, coming_process.id); // add to the waiting list and will see if you can Run
 
@@ -580,16 +593,16 @@ void HPF()
             msgrcv(process_msg_queue, &coming_process, sizeof(coming_process) - sizeof(coming_process.mtype), 0,
                    !IPC_NOWAIT);
             // you have that struct Now
-            struct PCB pcb;
-            pcb.id = coming_process.id;
-            pcb.pid = 0;
-            pcb.priority = coming_process.priority;
-            pcb.arrival_time = coming_process.arrival;
-            pcb.cum_runtime = 0;
-            pcb.remaining_time = coming_process.runtime; // at the beginning
-            pcb.burst_time = coming_process.runtime;
-            pcb.state = READY;
-            pcb.mem_size = coming_process.memsize;
+            struct PCB pcb= set_process(coming_process);
+            // pcb.id = coming_process.id;
+            // pcb.pid = 0;
+            // pcb.priority = coming_process.priority;
+            // pcb.arrival_time = coming_process.arrival;
+            // pcb.cum_runtime = 0;
+            // pcb.remaining_time = coming_process.runtime; // at the beginning
+            // pcb.burst_time = coming_process.runtime;
+            // pcb.state = READY;
+            // pcb.mem_size = coming_process.memsize;
 
             hashmap_set(process_table, &pcb);                             // this copies the content of the struct
             push(&hpf_queue, coming_process.priority, coming_process.id); // add this process to the priority queue
