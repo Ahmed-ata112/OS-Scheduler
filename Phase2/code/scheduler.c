@@ -665,7 +665,6 @@ void HPF()
                     execl("./process.out", "./process.out", NULL);
                 }
                 pair_t ret; 
-                printf("current_pcb mem start %d end %d\n",current_pcb->memory_start_ind,current_pcb->memory_end_ind);
                 buddy_allocate(current_pcb->mem_size, &ret);
                 printf("hh\n");   
                 started_clk = current_clk;
@@ -676,7 +675,7 @@ void HPF()
                 current_pcb->waiting_time = current_clk - current_pcb->arrival_time;
                 current_pcb->memory_start_ind = ret.start_ind;
                 current_pcb->memory_end_ind = ret.end_ind;
-                // circular_enQueue(&RRqueue, id);
+                printf("current_pcb mem start %d end %d\n",current_pcb->memory_start_ind,current_pcb->memory_end_ind);
                 printf(CYN "At time %d allocated %d bytes for process %d from %d to %d\n" RESET, current_clk, current_pcb->mem_size,
                        current_pcb->id, ret.start_ind, ret.end_ind);
 
