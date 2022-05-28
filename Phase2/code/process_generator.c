@@ -111,10 +111,10 @@ int main(int argc, char *argv[]) {
     }
 
 
-    printf("From Gen: Done Send process\n");
     kill(sch_pid, SIGUSR1); //sent all
     int st;
     // wait for clk and scheduler
+    printf("From Gen: Done Send process\n");
     wait(&st);
     wait(&st);
 }
