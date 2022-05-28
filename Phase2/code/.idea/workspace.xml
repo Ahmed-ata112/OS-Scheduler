@@ -12,10 +12,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb74cbae-2b8d-4ad0-b305-4f35558e8945" name="Changes" comment="after Merge">
+    <list default="true" id="eb74cbae-2b8d-4ad0-b305-4f35558e8945" name="Changes" comment="fixed some Bugs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/processes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/processes.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scheduler.c" beforeDir="false" afterPath="$PROJECT_DIR$/scheduler.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scheduler.log" beforeDir="false" afterPath="$PROJECT_DIR$/scheduler.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scheduler.perf" beforeDir="false" afterPath="$PROJECT_DIR$/scheduler.perf" afterDir="false" />
     </list>
@@ -98,13 +97,6 @@
     &quot;structure.view.defaults.are.configured&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -127,7 +119,9 @@
       <workItem from="1653582405007" duration="2572000" />
       <workItem from="1653673405201" duration="11868000" />
       <workItem from="1653687584058" duration="3847000" />
-      <workItem from="1653721249854" duration="4999000" />
+      <workItem from="1653721249854" duration="5486000" />
+      <workItem from="1653735419407" duration="4830000" />
+      <workItem from="1653741516439" duration="1000" />
     </task>
     <task id="LOCAL-00001" summary="new phase">
       <created>1651702962617</created>
@@ -234,7 +228,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653723337140</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="fixed some Bugs">
+      <created>1653733518741</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1653733518741</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -265,6 +266,7 @@
     <MESSAGE value="merged fady" />
     <MESSAGE value="before changing RR" />
     <MESSAGE value="after Merge" />
-    <option name="LAST_COMMIT_MESSAGE" value="after Merge" />
+    <MESSAGE value="fixed some Bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed some Bugs" />
   </component>
 </project>
