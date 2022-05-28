@@ -608,13 +608,13 @@ void HPF()
             // printf("REC MEM %d\n",pcb.mem_size);
             hashmap_set(process_table, &pcb);                             // this copies the content of the struct
             push(&hpf_queue, coming_process.priority, coming_process.id); // add this process to the priority queue
-                        printf("queue after push %d\n",is_empty(&hpf_queue));
+                        // printf("queue after push %d\n",is_empty(&hpf_queue));
 
             printf("Received process with priority %d and id %d at time %d \n", coming_process.priority,
                    coming_process.id, getClk());
 
             num_messages--;
-            printf("End of recieving \n");
+            // printf("End of recieving \n");
         }
         if (!is_empty(&hpf_queue) || process_is_currently_running)
         {
@@ -645,7 +645,7 @@ void HPF()
                                             WTA);
                     hashmap_delete(process_table, current_pcb);
                     process_is_currently_running = false;
-                    printf("hena\n");
+                    // printf("hena\n");
                 }
                 // printf("AAAa\n");
             }
@@ -666,7 +666,7 @@ void HPF()
                 }
                 pair_t ret; 
                 buddy_allocate(current_pcb->mem_size, &ret);
-                printf("hh\n");   
+                // printf("hh\n");   
                 started_clk = current_clk;
                 process_is_currently_running = true;
                 // parent take the pid to the hashmap
@@ -689,7 +689,7 @@ void HPF()
                 fprintf(mem_log, "At time %d allocated %d bytes for process %d from %d to %d\n" RESET, current_clk, current_pcb->mem_size,
                        current_pcb->id, ret.start_ind, ret.end_ind);
                 pop(&hpf_queue);
-                printf("hena aho\n");
+                // printf("hena aho\n");
             }
         }
     }
