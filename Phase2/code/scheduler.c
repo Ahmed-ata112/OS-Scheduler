@@ -391,11 +391,11 @@ void SRTN() {
                 float WTA = (float) TA / current_pcb->burst_time;
 
                 OutputFinishedProcesses(current_time, current_pcb, TA, WTA);
-
-
-                hashmap_delete(process_table, current_pcb);
-                buddy_deallocate(current_pcb->memory_start_ind, current_pcb->memory_end_ind);
                 print(current_time, current_pcb, NULL, 'd');
+
+
+                buddy_deallocate(current_pcb->memory_start_ind, current_pcb->memory_end_ind);
+                hashmap_delete(process_table, current_pcb);
                 p_count--;
                 current_pcb = NULL;
             }
@@ -409,6 +409,7 @@ void SRTN() {
                 node *temp = pop(&waiting_queue);
                 PCB *_pcb = hashmap_get(process_table, &(PCB){.id = temp->data});
                 pair_t ret;
+                //printf("mem size %d\n",_pcb->mem_size);
                 can_insert = buddy_allocate(_pcb->mem_size, &ret);
                 if (can_insert)
                 {
@@ -416,10 +417,7 @@ void SRTN() {
                     _pcb->memory_start_ind = ret.start_ind;
                     _pcb->memory_end_ind = ret.end_ind;
                     push(&sQueue, _pcb->remaining_time, _pcb->id); // add this process to the end of the Queue
-                    printf(CYN "At time %d allocated %d bytes for process %d from %d to %d\n" RESET, current_time, _pcb->mem_size,
-                           temp->data, ret.start_ind, ret.end_ind);
-                    fprintf(mem_log, "At time %d allocated %d bytes for process %d from %d to %d\n", current_time, _pcb->mem_size,
-                            temp->data, ret.start_ind, ret.end_ind);
+                    print(current_time, _pcb, &ret, 'a');
                 }
                 else
                 {
@@ -450,24 +448,6 @@ void SRTN() {
                     current_pcb = NULL;
                 }
             }
-        }
-
-        while (!isEmptyQueue(&waiting_queue) && (process_has_finished || can_insert)) {
-            int id = front(&waiting_queue);
-            PCB *_pcb = hashmap_get(process_table, &(PCB) {.id = id});
-            pair_t ret;
-            can_insert = buddy_allocate(_pcb->mem_size, &ret);
-            if (can_insert) {
-                popQueue(&waiting_queue);
-                _pcb->state = READY; // allocated and in ready Queue
-                _pcb->memory_start_ind = ret.start_ind;
-                _pcb->memory_end_ind = ret.end_ind;
-                //circular_enQueue(&RRqueue, id);
-                push(&sQueue, _pcb->remaining_time, _pcb->id); // add this process to the end of the Queue
-                heapify(&sQueue, 0);
-                print(current_time, _pcb, &ret, 'a');
-            } else
-                break;
         }
         if (current_pcb == NULL && !is_empty(&sQueue)) {
 
