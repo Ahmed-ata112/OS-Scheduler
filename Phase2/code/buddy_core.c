@@ -88,7 +88,7 @@ bool buddy_allocate(int size, pair_t *returned) {
     }
     if (higher_size == MAX_PLACES) {
         // Sorry : no upper sizes to split
-        printf("\ncouldn't allocate: no space\n'");
+        //printf("\ncouldn't allocate: no space\n'");
         return false;
     }
 
