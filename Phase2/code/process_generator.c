@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
             printf("you entered wrong input please recheck it again\n");
         }
     }
-    system("cls");
+    system("clear");
     Initializer.NumOfProcesses = ProcessesNum;
     Initializer.mtype = ALGO_TYPE;
     int sch_pid, clk_pid, stat_loc;
