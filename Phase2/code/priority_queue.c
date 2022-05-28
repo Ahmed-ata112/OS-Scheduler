@@ -3,12 +3,11 @@
 /*
     Function to initialize the min heap with size = 0
 */
-minHeap init_min_heap()
-{
-    minHeap hp;
-    hp.size = 0;
-    hp.arrival = 0;
-    return hp;
+minHeap init_min_heap() {
+    minHeap hp ;
+    hp.size = 0 ;
+    hp.arrival =0;
+    return hp ;
 }
 
 /*
@@ -27,32 +26,27 @@ void swap(node *n1, node *n2)
     may be violated. In such cases, heapify function can be called to make sure that
     heap property is never violated
 */
-void heapify(minHeap *hp, int i)
-{
-    int smallest; // = (LCHILD(i) < hp->size && hp->elem[LCHILD(i)].priority < hp->elem[i].priority) ? LCHILD(i) : i;
-    if (LCHILD(i) < hp->size && hp->elem[LCHILD(i)].priority <= hp->elem[i].priority)
-    {
-        if (hp->elem[LCHILD(i)].priority == hp->elem[i].priority)
-        {
+void heapify(minHeap *hp, int i) {
+   int smallest;// = (LCHILD(i) < hp->size && hp->elem[LCHILD(i)].priority < hp->elem[i].priority) ? LCHILD(i) : i;
+    if (LCHILD(i) < hp->size && hp->elem[LCHILD(i)].priority <= hp->elem[i].priority) {
+        if (hp->elem[LCHILD(i)].priority == hp->elem[i].priority) {
             if (hp->elem[LCHILD(i)].arrival < hp->elem[i].arrival)
                 smallest = LCHILD(i);
-            else
-                smallest = i;
+            else smallest = i;
         }
-        else
-            smallest = LCHILD(i);
+        else smallest = LCHILD(i);
+
+
     }
-    else
-        smallest = i;
-    if (RCHILD(i) < hp->size && hp->elem[RCHILD(i)].priority <= hp->elem[smallest].priority)
-    {
-        if (hp->elem[RCHILD(i)].priority == hp->elem[smallest].priority)
-        {
+    else smallest = i;
+    if(RCHILD(i) < hp->size && hp->elem[RCHILD(i)].priority <= hp->elem[smallest].priority) {
+        if (hp->elem[RCHILD(i)].priority == hp->elem[smallest].priority) {
             if (hp->elem[RCHILD(i)].arrival < hp->elem[smallest].arrival)
                 smallest = RCHILD(i);
+
         }
-        else
-            smallest = RCHILD(i);
+        else smallest = RCHILD(i);
+            
     }
     if (smallest != i)
     {
@@ -81,15 +75,15 @@ void push(minHeap *hp, int priority, int data)
     nd.data = data;
     nd.arrival = (hp->arrival)++;
     // printf("add node with arrival %d\n",nd.arrival) ;
-
-    int i = (hp->size)++;
-    while (i && nd.priority < hp->elem[PARENT(i)].priority)
-    {
+	
+    int i = (hp->size)++ ;
+    while(i && nd.priority < hp->elem[PARENT(i)].priority) {
         hp->elem[i] = hp->elem[PARENT(i)];
-        i = PARENT(i);
+        i = PARENT(i) ;
     }
-    hp->elem[i] = nd;
+    hp->elem[i] = nd ;
     // printf("add hp elem with arrival %d\n",hp->elem[i].arrival) ;
+
 }
 
 int is_empty(minHeap *hp)
@@ -111,9 +105,9 @@ node *pop(minHeap *hp)
         temp->data = hp->elem[0].data;
         temp->priority = hp->elem[0].priority;
         temp->arrival = hp->elem[0].arrival;
-        hp->elem[0] = hp->elem[--(hp->size)];
-        hp->elem = realloc(hp->elem, hp->size * sizeof(node));
-        heapify(hp, 0);
+        hp->elem[0] = hp->elem[--(hp->size)] ;
+        hp->elem = realloc(hp->elem, hp->size * sizeof(node)) ;
+        heapify(hp, 0) ;
         return temp;
     }
     else
@@ -131,7 +125,7 @@ struct node *peek(minHeap *hp)
         struct node *temp = &n;
         temp->data = hp->elem[0].data;
         temp->priority = hp->elem[0].priority;
-        temp->arrival = hp->elem[0].arrival;
+        temp ->arrival = hp->elem[0].arrival;
         return temp;
     }
     else
