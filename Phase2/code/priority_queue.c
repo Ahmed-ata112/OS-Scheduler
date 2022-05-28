@@ -1,5 +1,6 @@
 #include "priority_queue.h"
 
+
 /*
     Function to initialize the min heap with size = 0
 */
@@ -10,15 +11,16 @@ minHeap init_min_heap() {
     return hp ;
 }
 
+
 /*
     Function to swap priority within two nodes of the min heap using pointers
 */
-void swap(node *n1, node *n2)
-{
-    node temp = *n1;
-    *n1 = *n2;
-    *n2 = temp;
+void swap(node *n1, node *n2) {
+    node temp = *n1 ;
+    *n1 = *n2 ;
+    *n2 = temp ;
 }
+
 
 /*
     Heapify function is used to make sure that the heap property is never violated
@@ -48,30 +50,26 @@ void heapify(minHeap *hp, int i) {
         else smallest = RCHILD(i);
             
     }
-    if (smallest != i)
-    {
-        swap(&(hp->elem[i]), &(hp->elem[smallest]));
-        heapify(hp, smallest);
+    if(smallest != i) {
+        swap(&(hp->elem[i]), &(hp->elem[smallest])) ;
+        heapify(hp, smallest) ;
     }
 }
+
 
 /*
     Function to insert a node into the min heap, by allocating space for that node in the
     heap and also making sure that the heap property and shape propety are never violated.
 */
-void push(minHeap *hp, int priority, int data)
-{
-    if (hp->size)
-    {
-        hp->elem = realloc(hp->elem, (hp->size + 1) * sizeof(node));
-    }
-    else
-    {
-        hp->elem = malloc(sizeof(node));
+void push(minHeap *hp, int priority, int data) {
+    if(hp->size) {
+        hp->elem = realloc(hp->elem, (hp->size + 1) * sizeof(node)) ;
+    } else {
+        hp->elem = malloc(sizeof(node)) ;
     }
 
-    node nd;
-    nd.priority = priority;
+    node nd ;
+    nd.priority = priority ;
     nd.data = data;
     nd.arrival = (hp->arrival)++;
     // printf("add node with arrival %d\n",nd.arrival) ;
@@ -88,7 +86,7 @@ void push(minHeap *hp, int priority, int data)
 
 int is_empty(minHeap *hp)
 {
-    return hp->size == 0;
+  return hp->size == 0;
 }
 /*
     Function to delete a node from the min heap
@@ -96,12 +94,10 @@ int is_empty(minHeap *hp)
     and then call heapify function to make sure that the heap property
     is never violated
 */
-node *pop(minHeap *hp)
-{
-    if (hp->size)
-    {
+node* pop(minHeap *hp) {
+    if(hp->size) {
         struct node n;
-        struct node *temp = &n;
+        struct node* temp = &n;
         temp->data = hp->elem[0].data;
         temp->priority = hp->elem[0].priority;
         temp->arrival = hp->elem[0].arrival;
@@ -109,25 +105,22 @@ node *pop(minHeap *hp)
         hp->elem = realloc(hp->elem, hp->size * sizeof(node)) ;
         heapify(hp, 0) ;
         return temp;
-    }
-    else
-    {
-        free(hp->elem);
+    } else {
+        free(hp->elem) ;
         return NULL;
     }
 }
 
-struct node *peek(minHeap *hp)
+struct node* peek(minHeap *hp)
 {
-    if (hp->size)
-    {
+    if(hp->size) {
         struct node n;
-        struct node *temp = &n;
+        struct node* temp = &n;
         temp->data = hp->elem[0].data;
         temp->priority = hp->elem[0].priority;
         temp ->arrival = hp->elem[0].arrival;
         return temp;
     }
-    else
+    else 
         return NULL;
 }
