@@ -376,11 +376,11 @@ void SRTN() {
                 float WTA = (float) TA / current_pcb->burst_time;
 
                 OutputFinishedProcesses(current_time, current_pcb, TA, WTA);
-
-
-                hashmap_delete(process_table, current_pcb);
-                buddy_deallocate(current_pcb->memory_start_ind, current_pcb->memory_end_ind);
                 print(current_time, current_pcb, NULL, 'd');
+
+
+                buddy_deallocate(current_pcb->memory_start_ind, current_pcb->memory_end_ind);
+                hashmap_delete(process_table, current_pcb);
                 p_count--;
                 current_pcb = NULL;
             }
@@ -394,7 +394,7 @@ void SRTN() {
                 node *temp = pop(&waiting_queue);
                 PCB *_pcb = hashmap_get(process_table, &(PCB){.id = temp->data});
                 pair_t ret;
-                printf("mem size %d\n",_pcb->mem_size);
+                //printf("mem size %d\n",_pcb->mem_size);
                 can_insert = buddy_allocate(_pcb->mem_size, &ret);
                 if (can_insert)
                 {
@@ -406,7 +406,7 @@ void SRTN() {
                 }
                 else
                 {
-                    push(&tempQueue, temp->priority, temp->data);
+                    push(&tempQueue, _pcb->remaining_time, _pcb->id);
                 }
             }
         }
