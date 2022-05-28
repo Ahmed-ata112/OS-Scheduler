@@ -138,7 +138,7 @@ int main(int argc, char *argv[]) {
     destroyClk(true);
 }
 
-struct PCB set_process(process_struct coming_process ){
+PCB set_process(process_struct coming_process ){
      struct PCB pcb;
             pcb.id = coming_process.id;
             pcb.pid = 0;
@@ -148,6 +148,9 @@ struct PCB set_process(process_struct coming_process ){
             pcb.remaining_time = coming_process.runtime; // at the beginning
             pcb.burst_time = coming_process.runtime;     // at the beginning
             pcb.mem_size = coming_process.memsize;
+            pcb.waiting_time = 0;
+
+
             return pcb;
 
 }
@@ -195,15 +198,6 @@ void RR2(int quantum)
             printf("\nrecv process with id: %d at time %d\n", coming_process.id, getClk());
             //  you have that struct Now
             PCB pcb= set_process(coming_process);
-            // pcb.id = coming_process.id;
-            // pcb.pid = 0;
-            // pcb.priority = coming_process.priority;
-            // pcb.arrival_time = coming_process.arrival;
-            // pcb.cum_runtime = 0;
-            // pcb.remaining_time = coming_process.runtime; // at the beginning
-            // pcb.burst_time = coming_process.runtime;     // at the beginning
-            // pcb.mem_size = coming_process.memsize;
-            // circular_enQueue(&RRqueue, coming_process.id); // add this process to the end of the Queue
 
             pushQueue(&waiting_queue, coming_process.id); // add to the waiting list and will see if you can Run
             hashmap_set(process_table, &pcb); // this copies the content of the struct
@@ -245,7 +239,7 @@ void RR2(int quantum)
 
             if (curr - curr_q_start >= current_pcb->remaining_time) { // that process will be finished
                 int st;
-                //*shm_remain_time = 0;
+
                 current_pcb->remaining_time = 0;
                 current_pcb->cum_runtime = current_pcb->burst_time;
                 int ret = wait(&st);
