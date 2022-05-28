@@ -1,9 +1,9 @@
 #At time x allocated y bytes for processz from i to j
-At time 3 allocated 1024 bytes for process 1 from 0 to 1023
-[0mAt time 13 freed 1024 byted for process 1 from 0 to 1023
-At time 13 allocated 113 bytes for process 2 from 0 to 127
-[0mAt time 17 freed 113 byted for process 2 from 0 to 127
-At time 17 allocated 194 bytes for process 3 from 0 to 255
-[0mAt time 22 freed 194 byted for process 3 from 0 to 255
-At time 22 allocated 95 bytes for process 4 from 0 to 127
-[0mAt time 30 freed 95 byted for process 4 from 0 to 127
+At time 1 allocated 10 bytes for process 1 from 0 to 15
+[0mAt time 11 freed 10 byted for process 1 from 0 to 15
+At time 11 allocated 113 bytes for process 2 from 0 to 127
+[0mAt time 15 freed 113 byted for process 2 from 0 to 127
+At time 15 allocated 194 bytes for process 3 from 0 to 255
+[0mAt time 20 freed 194 byted for process 3 from 0 to 255
+At time 20 allocated 95 bytes for process 4 from 0 to 127
+[0mAt time 28 freed 95 byted for process 4 from 0 to 127

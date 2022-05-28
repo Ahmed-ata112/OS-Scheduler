@@ -7,6 +7,7 @@
 minHeap init_min_heap() {
     minHeap hp ;
     hp.size = 0 ;
+    hp.arrival =0;
     return hp ;
 }
 
@@ -70,7 +71,8 @@ void push(minHeap *hp, int priority, int data) {
     node nd ;
     nd.priority = priority ;
     nd.data = data;
-    nd.arrival = arrival++;
+    nd.arrival = (hp->arrival)++;
+    // printf("add node with arrival %d\n",nd.arrival) ;
 	
     int i = (hp->size)++ ;
     while(i && nd.priority < hp->elem[PARENT(i)].priority) {
@@ -78,6 +80,8 @@ void push(minHeap *hp, int priority, int data) {
         i = PARENT(i) ;
     }
     hp->elem[i] = nd ;
+    // printf("add hp elem with arrival %d\n",hp->elem[i].arrival) ;
+
 }
 
 int is_empty(minHeap *hp)
@@ -96,6 +100,7 @@ node* pop(minHeap *hp) {
         struct node* temp = &n;
         temp->data = hp->elem[0].data;
         temp->priority = hp->elem[0].priority;
+        temp->arrival = hp->elem[0].arrival;
         hp->elem[0] = hp->elem[--(hp->size)] ;
         hp->elem = realloc(hp->elem, hp->size * sizeof(node)) ;
         heapify(hp, 0) ;
@@ -113,6 +118,7 @@ struct node* peek(minHeap *hp)
         struct node* temp = &n;
         temp->data = hp->elem[0].data;
         temp->priority = hp->elem[0].priority;
+        temp ->arrival = hp->elem[0].arrival;
         return temp;
     }
     else 
