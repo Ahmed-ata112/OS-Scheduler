@@ -693,7 +693,7 @@ void print(int CurrentTime, PCB *current_pcb, pair_t *Index, char type) {
             printf("At time %d freed %d bytes for process %d from %d to %d\n",
                    CurrentTime, current_pcb->mem_size, current_pcb->id, current_pcb->memory_start_ind,
                    current_pcb->memory_end_ind);
-            fprintf(mem_log, "At time %d freed %d byted for process %d from %d to %d\n",
+            fprintf(mem_log, "At time %d freed %d bytes for process %d from %d to %d\n",
                     CurrentTime, current_pcb->mem_size, current_pcb->id, current_pcb->memory_start_ind,
                     current_pcb->memory_end_ind);
             break;
