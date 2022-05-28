@@ -310,7 +310,9 @@ void SRTN() {
     minHeap sQueue;
     sQueue = init_min_heap();
 
-    queue waiting_queue = initQueue(); // to receive in it
+    minHeap waiting_queue;
+    waiting_queue = init_min_heap();
+    //queue waiting_queue = initQueue(); // to receive in it
 
     PCB *current_pcb = NULL;
     int p_count = TotalNumberOfProcesses;
@@ -354,47 +356,66 @@ void SRTN() {
             pcb.waiting_time = 0;
             pcb.mem_size = coming_process.memsize;                           // at the beginning
             hashmap_set(process_table, &pcb);             // this copies the content of the struct
-            pushQueue(&waiting_queue, coming_process.id); // add to the waiting list and will see if you can Run
-
-            // push(&sQueue, pcb.remaining_time, pcb.id);   // add this process to the end of the Queue
-            // heapify(&sQueue, 0);
+            push(&waiting_queue, pcb.remaining_time, pcb.id); // add this process to the end of the Queue
             num_messages--;
         }
 
-        bool process_has_finished = false;
-        if (current_pcb != NULL) {
-            //*shm_remain_time -= (current_time -(current_pcb->arrival_time + current_pcb->cum_runtime + current_pcb->waiting_time));
-            current_pcb->remaining_time -= (current_time - (current_pcb->arrival_time + current_pcb->cum_runtime +
-                                                            current_pcb->waiting_time));
-            // if(current_pcb->id == 3){
-            //     printf("remaining time %d %d\n",current_time,current_pcb->waiting_time);
-            // }
-            // if(current_time == 20 || current_time == 21 || current_time ==22 || current_time == 23 || current_time == 24)
-            // {
-            //     printf("time %d  id %d remaining time -- waiting %d %d\n",current_time,current_pcb->id, *shm_remain_time, current_pcb->waiting_time);
-            // }
-            //current_pcb->remaining_time = *shm_remain_time;
+        if (current_pcb != NULL)
+        {
+            current_pcb->remaining_time -= (current_time - (current_pcb->arrival_time + current_pcb->cum_runtime + current_pcb->waiting_time));
             current_pcb->cum_runtime = current_pcb->burst_time - current_pcb->remaining_time;
-            //
-            if (current_pcb->remaining_time <= 0) {
-                //*shm_remain_time = 0;
+            if (current_pcb->remaining_time <= 0)
+            {
                 current_pcb->remaining_time = 0;
                 current_pcb->cum_runtime = current_pcb->burst_time;
                 // kill and out new data
                 int dum;
                 int ret = wait(&dum);
                 int TA = current_time - current_pcb->arrival_time;
+
                 float WTA = (float) TA / current_pcb->burst_time;
 
                 OutputFinishedProcesses(current_time, current_pcb, TA, WTA);
+
 
                 hashmap_delete(process_table, current_pcb);
                 buddy_deallocate(current_pcb->memory_start_ind, current_pcb->memory_end_ind);
                 print(current_time, current_pcb, NULL, 'd');
                 p_count--;
                 current_pcb = NULL;
-                process_has_finished = true;
             }
+        }
+        minHeap tempQueue;
+        tempQueue = init_min_heap();
+        if (!is_empty(&waiting_queue))
+        {
+            while (!is_empty(&waiting_queue))
+            {
+                node *temp = pop(&waiting_queue);
+                PCB *_pcb = hashmap_get(process_table, &(PCB){.id = temp->data});
+                pair_t ret;
+                can_insert = buddy_allocate(_pcb->mem_size, &ret);
+                if (can_insert)
+                {
+                    _pcb->state = READY; // allocated and in ready Queue
+                    _pcb->memory_start_ind = ret.start_ind;
+                    _pcb->memory_end_ind = ret.end_ind;
+                    push(&sQueue, _pcb->remaining_time, _pcb->id); // add this process to the end of the Queue
+                    printf(CYN "At time %d allocated %d bytes for process %d from %d to %d\n" RESET, current_time, _pcb->mem_size,
+                           temp->data, ret.start_ind, ret.end_ind);
+                    fprintf(mem_log, "At time %d allocated %d bytes for process %d from %d to %d\n", current_time, _pcb->mem_size,
+                            temp->data, ret.start_ind, ret.end_ind);
+                }
+                else
+                {
+                    push(&tempQueue, _pcb->remaining_time, _pcb->id);
+                }
+            }
+        }
+        while (!is_empty(&tempQueue))
+        {
+            node *temp = pop(&tempQueue);
+            push(&waiting_queue, temp->priority, temp->data);
         }
         // 3 cases
         // first is first start process or there is gap between processes -> Done
@@ -410,12 +431,12 @@ void SRTN() {
                     current_pcb->state = READY; // back to Ready state
                     push(&sQueue, current_pcb->remaining_time,
                          current_pcb->id); // add this process to the end of the Queue
-                    heapify(&sQueue, 0);
 
                     current_pcb = NULL;
                 }
             }
         }
+
         while (!isEmptyQueue(&waiting_queue) && (process_has_finished || can_insert)) {
             int id = front(&waiting_queue);
             PCB *_pcb = hashmap_get(process_table, &(PCB) {.id = id});
@@ -434,8 +455,8 @@ void SRTN() {
                 break;
         }
         if (current_pcb == NULL && !is_empty(&sQueue)) {
+
             node *temp = pop(&sQueue);
-            heapify(&sQueue, 0);
             PCB get_process = {.id = temp->data};
             current_pcb = hashmap_get(process_table, &get_process);
             *shm_remain_time = current_pcb->remaining_time;
@@ -448,7 +469,6 @@ void SRTN() {
                 }
 
                 // continue scheduler
-                // int curr = current_time;
                 current_pcb->pid = pid; // update Pid of existing process
                 current_pcb->state = RUNNING;
                 current_pcb->waiting_time = current_time - current_pcb->arrival_time;
@@ -461,10 +481,12 @@ void SRTN() {
                 // continue scheduler
                 current_pcb->state = RUNNING;
                 current_pcb->waiting_time = current_time - (current_pcb->arrival_time + current_pcb->cum_runtime);
+
                 // if(current_pcb->id == 3){
                 //     printf("current %d arrivl %d -- cum %d -- waiting time %d\n", current_time, current_pcb->arrival_time, current_pcb->cum_runtime, current_pcb->waiting_time);
                 // }
                 print(current_time, current_pcb, NULL, 'r');
+
             }
         }
     }
