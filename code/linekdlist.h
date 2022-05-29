@@ -21,6 +21,10 @@ void insertAtBeginning(Node** head_ref, pair new_data) {
 	// Allocate memory to a node
 	Node* new_node = (Node*)malloc(sizeof(Node));
 
+	if (new_node == NULL)	//there is insufficient space, malloc returns null
+	{
+		return;
+	}
 	// insert the data
 	new_node->data = new_data;
 
@@ -30,24 +34,15 @@ void insertAtBeginning(Node** head_ref, pair new_data) {
 	(*head_ref) = new_node;
 }
 
-// Insert a node after a node
-void insertAfter(Node* prev_node, pair new_data) {
-	if (prev_node == NULL) {
-		printf("the given previous node cannot be NULL");
-		return;
-	}
-
-	Node* new_node = (Node*)malloc(sizeof(Node));
-	new_node->data = new_data;
-	new_node->next = prev_node->next;
-	prev_node->next = new_node;
-}
-
 // Insert the the end
 void insertAtEnd(Node** head_ref, pair new_data) {
 	Node* new_node = (Node*)malloc(sizeof(Node));
 	Node* last = *head_ref; /* used in step 5*/
 
+	if (new_node == NULL)	//there is insufficient space , malloc returns null
+	{
+		return;
+	}
 	new_node->data = new_data;
 	new_node->next = NULL;
 
