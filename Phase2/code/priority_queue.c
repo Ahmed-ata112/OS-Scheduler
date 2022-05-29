@@ -32,7 +32,7 @@ void heapify(minHeap *hp, int i) {
    int smallest;// = (LCHILD(i) < hp->size && hp->elem[LCHILD(i)].priority < hp->elem[i].priority) ? LCHILD(i) : i;
     if (LCHILD(i) < hp->size && hp->elem[LCHILD(i)].priority <= hp->elem[i].priority) {
         if (hp->elem[LCHILD(i)].priority == hp->elem[i].priority) {
-            if (hp->elem[LCHILD(i)].arrival < hp->elem[i].arrival)
+            if (hp->elem[LCHILD(i)].my_arrival < hp->elem[i].my_arrival)
                 smallest = LCHILD(i);
             else smallest = i;
         }
@@ -43,7 +43,7 @@ void heapify(minHeap *hp, int i) {
     else smallest = i;
     if(RCHILD(i) < hp->size && hp->elem[RCHILD(i)].priority <= hp->elem[smallest].priority) {
         if (hp->elem[RCHILD(i)].priority == hp->elem[smallest].priority) {
-            if (hp->elem[RCHILD(i)].arrival < hp->elem[smallest].arrival)
+            if (hp->elem[RCHILD(i)].my_arrival < hp->elem[smallest].my_arrival)
                 smallest = RCHILD(i);
 
         }
@@ -71,7 +71,7 @@ void push(minHeap *hp, int priority, int data) {
     node nd ;
     nd.priority = priority ;
     nd.data = data;
-    nd.arrival = (hp->arrival)++;
+    nd.my_arrival = (hp->arrival)++;
     // printf("add node with arrival %d\n",nd.arrival) ;
 	
     int i = (hp->size)++ ;
@@ -100,7 +100,7 @@ node* pop(minHeap *hp) {
         struct node* temp = &n;
         temp->data = hp->elem[0].data;
         temp->priority = hp->elem[0].priority;
-        temp->arrival = hp->elem[0].arrival;
+        temp->my_arrival = hp->elem[0].my_arrival;
         hp->elem[0] = hp->elem[--(hp->size)] ;
         hp->elem = realloc(hp->elem, hp->size * sizeof(node)) ;
         heapify(hp, 0) ;
@@ -118,7 +118,7 @@ struct node* peek(minHeap *hp)
         struct node* temp = &n;
         temp->data = hp->elem[0].data;
         temp->priority = hp->elem[0].priority;
-        temp ->arrival = hp->elem[0].arrival;
+        temp ->my_arrival = hp->elem[0].my_arrival;
         return temp;
     }
     else 
