@@ -83,6 +83,7 @@ bool free_linked_list(struct lkl_node **head) {
         free(*head);
         *head = temp;
     }
+    return true;
 }
 
 

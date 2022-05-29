@@ -162,8 +162,6 @@ void RR2(int quantum)
      * this is when i quit
      * All the processes that in the circular queue are in the process_table
      * when finished -> u delete from both
-     * @bug: if the process gen sends a SIGUSR1 immediately after sending Processes -> it finishes too
-     *       @solution -> make Process gen sleep for a 1 sec or st after sending all
      **/
     struct c_queue RRqueue;
     circular_init_queue(&RRqueue);
@@ -182,7 +180,6 @@ void RR2(int quantum)
         struct count_msg c = {.count = 0};
         if (more_processes_coming || need_to_receive > 0)
             msgrcv(process_msg_queue, &c, sizeof(int), 10, !IPC_NOWAIT);
-
 
         int num_messages = c.count;
         need_to_receive -= c.count;
@@ -321,8 +318,6 @@ void SRTN() {
 
     minHeap waiting_queue;
     waiting_queue = init_min_heap();
-    //queue waiting_queue = initQueue(); // to receive in it
-
     PCB *current_pcb = NULL;
     int p_count = TotalNumberOfProcesses;
     int need_to_receive = TotalNumberOfProcesses;
@@ -511,16 +506,6 @@ void HPF() {
                    !IPC_NOWAIT);
             // you have that struct Now
              PCB pcb =set_process(coming_process);
-            // pcb.id = coming_process.id;
-            // pcb.pid = 0;
-            // pcb.priority = coming_process.priority;
-            // pcb.arrival_time = coming_process.arrival;
-            // pcb.cum_runtime = 0;
-            // pcb.remaining_time = coming_process.runtime; // at the beginning
-            // pcb.burst_time = coming_process.runtime;
-            // pcb.state = READY;
-            // pcb.mem_size = coming_process.memsize;
-            // printf("REC MEM %d\n",pcb.mem_size);
             hashmap_set(process_table, &pcb);                             // this copies the content of the struct
             push(&hpf_queue, coming_process.priority, coming_process.id); // add this process to the priority queue
                         // printf("queue after push %d\n",is_empty(&hpf_queue));
