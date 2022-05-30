@@ -93,7 +93,6 @@ int main(int argc, char *argv[])
     // create and open files
     scheduler_log();
 
-    initClk();
 
     int remain_time_shmid = shmget(REMAIN_TIME_SHMKEY, 4, IPC_CREAT | 0644);
     if (remain_time_shmid == -1)
@@ -115,6 +114,7 @@ int main(int argc, char *argv[])
     WeightedTA = (int *)malloc(sizeof(int) * TotalNumberOfProcesses);
 
     printf("\nChosen Algo is %d\n", coming.algo);
+    initClk();
 
     switch (coming.algo)
     {
