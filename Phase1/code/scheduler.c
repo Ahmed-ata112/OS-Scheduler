@@ -464,6 +464,7 @@ void HPF() {
     bool process_is_currently_running = false;
     int started_clk, current_clk;
     int p_count = TotalNumberOfProcesses;
+    int current_id;
 
     while (!is_empty(&hpf_queue) || p_count > 0 || process_is_currently_running) {
 
@@ -498,6 +499,8 @@ void HPF() {
         }
         if (!is_empty(&hpf_queue) || process_is_currently_running) {
             if (process_is_currently_running) {
+                pcb_s get_process = {.id = current_id};
+                current_pcb = hashmap_get(process_table, &get_process);
 
                 current_clk = getClk();
 
@@ -541,7 +544,7 @@ void HPF() {
                 current_pcb->pid = pid; // update Pid of existing process
                 current_pcb->state = RUNNING;
                 current_pcb->waiting_time = started_clk - current_pcb->arrival_time;
-
+                current_id = current_pcb->id;
                 printf("At time %d process %d started arr %d total %d remain %d wait %d\n", started_clk,
                        current_pcb->id,
                        current_pcb->arrival_time, current_pcb->burst_time, *shm_remain_time, current_pcb->waiting_time);
