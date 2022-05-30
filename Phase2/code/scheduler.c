@@ -438,13 +438,12 @@ int SRTN() {
                     current_pcb->state = READY; // back to Ready state
                     push(&sQueue, current_pcb->remaining_time,
                          current_pcb->id); // add this process to the end of the Queue
-
                     current_pcb = NULL;
                 }
             }
         }
         if (current_pcb == NULL && !is_empty(&sQueue)) {
-
+            printf("here %d \n",current_time);
             node *temp = pop(&sQueue);
             PCB get_process = {.id = temp->data};
             current_pcb = hashmap_get(process_table, &get_process);
