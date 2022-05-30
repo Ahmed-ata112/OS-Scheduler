@@ -342,9 +342,12 @@ int SRTN()
     bool process_is_currently_running = false;
     bool can_insert = true;
     int current_time = 0;
+    int current_id = -1;
+
 
     // if the Queue is empty then check if there is no more processes that will come
     // the main loop for the scheduler
+
     while (!is_empty(&sQueue) || p_count > 0)
     {
         // First check if any process has come
@@ -355,8 +358,10 @@ int SRTN()
         current_time = getClk();
         int num_messages = c.count;
         need_to_receive -= c.count;
+
         while (num_messages > 0)
         {
+
             // while still a process in the queue
             // take it out
             // add it to both the Prority Queue (sQueue) and its PCB to the processTable
@@ -384,13 +389,27 @@ int SRTN()
             push(&waiting_queue, pcb.remaining_time, pcb.id); // add this process to the end of the Queue
             num_messages--;
         }
-
+        if (current_pcb != NULL && current_id != -1)
+        {
+            /* code */
+            PCB get_process = {.id = current_id};
+            current_pcb = hashmap_get(process_table, &get_process);
+            //printf("Here id %d   time %d \n", current_pcb->id, current_time);
+        }
         if (current_pcb != NULL)
         {
+
+            //printf("Here id %d   time %d \n", current_pcb->id, current_time);
             current_pcb->remaining_time -= (current_time - (current_pcb->arrival_time + current_pcb->cum_runtime + current_pcb->waiting_time));
             current_pcb->cum_runtime = current_pcb->burst_time - current_pcb->remaining_time;
             if (current_pcb->remaining_time <= 0)
             {
+                // if (current_pcb->id == 2)
+                // {
+                //     node *temp = peek(&sQueue);
+                //     //printf("Here id %d -- top queue %d", current_pcb->id, temp->data);
+                //     //break;
+                // }
                 current_pcb->remaining_time = 0;
                 current_pcb->cum_runtime = current_pcb->burst_time;
                 // kill and out new data
@@ -460,15 +479,15 @@ int SRTN()
                 }
             }
         }
-        hashmap_scan(process_table, process_iter, NULL);
-        if (current_pcb == NULL && !is_empty(&sQueue))
-        {
+        //hashmap_scan(process_table, process_iter, NULL);
+        if (current_pcb == NULL && !is_empty(&sQueue)) {
             node *temp = pop(&sQueue);
-            printf("here %d \n", temp->data);
+            //printf("here %d \n",temp->data);
             PCB get_process = {.id = temp->data};
 
             current_pcb = hashmap_get(process_table, &get_process);
-            printf("here %d \n", current_pcb->id);
+            //printf("here %d \n",current_pcb->id);
+
             *shm_remain_time = current_pcb->remaining_time;
 
             //  first time
@@ -501,7 +520,9 @@ int SRTN()
                 // }
                 print(current_time, current_pcb, NULL, 'r');
             }
+            current_id = current_pcb->id;
         }
+        //printf("Here id %d   time %d \n", current_pcb->id, current_time);
     }
     printf("\nOut at time %d\n", current_time);
     return current_time;
