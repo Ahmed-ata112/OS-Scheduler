@@ -328,16 +328,18 @@ void SRTN() {
     int need_to_receive = TotalNumberOfProcesses;
     bool process_is_currently_running = false;
     bool can_insert = true;
+    int current_time = 0;
 
-    // if the Queue is empty then check if there is no more processes that will come
-    // the main loop for the scheduler
-    while (!is_empty(&sQueue) || p_count > 0) {
+        // if the Queue is empty then check if there is no more processes that will come
+        // the main loop for the scheduler
+        while (!is_empty(&sQueue) || p_count > 0)
+    {
         // First check if any process has come
         count_msg c = {.count = 0};
         if (more_processes_coming || need_to_receive > 0)
             msgrcv(process_msg_queue, &c, sizeof(int), 10, !IPC_NOWAIT);
 
-        int current_time = getClk();
+        current_time = getClk();
         int num_messages = c.count;
         need_to_receive -= c.count;
         while (num_messages > 0) {
@@ -479,7 +481,8 @@ void SRTN() {
             }
         }
     }
-    printf("\nOut at time %d\n", getClk());
+    printf("\nOut at time %d\n", current_time);
+    return current_time;
 }
 
 void HPF() {
