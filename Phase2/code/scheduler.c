@@ -48,7 +48,7 @@ void FinishPrinting();
 
 int RR2(int quantum);
 
-void SRTN();
+int SRTN();
 
 int HPF();
 
@@ -312,7 +312,7 @@ int RR2(int quantum)
 
 
 //----------------------------------------------------------------
-void SRTN() {
+int SRTN() {
     printf("Entering SRTN \n");
     // intialize the priority queue
     minHeap sQueue;
