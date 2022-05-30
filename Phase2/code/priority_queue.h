@@ -11,7 +11,7 @@ typedef struct node
 {
     int priority;
     int data;
-    int arrival;
+    int my_arrival;
 } node;
 
 typedef struct minHeap

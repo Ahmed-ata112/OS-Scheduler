@@ -138,7 +138,7 @@ int main(int argc, char *argv[]) {
     destroyClk(true);
 }
 
-struct PCB set_process(process_struct coming_process ){
+PCB set_process(process_struct coming_process ){
      struct PCB pcb;
             pcb.id = coming_process.id;
             pcb.pid = 0;
@@ -148,6 +148,9 @@ struct PCB set_process(process_struct coming_process ){
             pcb.remaining_time = coming_process.runtime; // at the beginning
             pcb.burst_time = coming_process.runtime;     // at the beginning
             pcb.mem_size = coming_process.memsize;
+            pcb.waiting_time = 0;
+
+
             return pcb;
 
 }
@@ -195,15 +198,6 @@ void RR2(int quantum)
             printf("\nrecv process with id: %d at time %d\n", coming_process.id, getClk());
             //  you have that struct Now
             PCB pcb= set_process(coming_process);
-            // pcb.id = coming_process.id;
-            // pcb.pid = 0;
-            // pcb.priority = coming_process.priority;
-            // pcb.arrival_time = coming_process.arrival;
-            // pcb.cum_runtime = 0;
-            // pcb.remaining_time = coming_process.runtime; // at the beginning
-            // pcb.burst_time = coming_process.runtime;     // at the beginning
-            // pcb.mem_size = coming_process.memsize;
-            // circular_enQueue(&RRqueue, coming_process.id); // add this process to the end of the Queue
 
             pushQueue(&waiting_queue, coming_process.id); // add to the waiting list and will see if you can Run
             hashmap_set(process_table, &pcb); // this copies the content of the struct
@@ -245,7 +239,7 @@ void RR2(int quantum)
 
             if (curr - curr_q_start >= current_pcb->remaining_time) { // that process will be finished
                 int st;
-                //*shm_remain_time = 0;
+
                 current_pcb->remaining_time = 0;
                 current_pcb->cum_runtime = current_pcb->burst_time;
                 int ret = wait(&st);
@@ -517,25 +511,12 @@ void HPF() {
                    !IPC_NOWAIT);
             // you have that struct Now
              PCB pcb =set_process(coming_process);
-            // pcb.id = coming_process.id;
-            // pcb.pid = 0;
-            // pcb.priority = coming_process.priority;
-            // pcb.arrival_time = coming_process.arrival;
-            // pcb.cum_runtime = 0;
-            // pcb.remaining_time = coming_process.runtime; // at the beginning
-            // pcb.burst_time = coming_process.runtime;
-            // pcb.state = READY;
-            // pcb.mem_size = coming_process.memsize;
-            // printf("REC MEM %d\n",pcb.mem_size);
             hashmap_set(process_table, &pcb);                             // this copies the content of the struct
             push(&hpf_queue, coming_process.priority, coming_process.id); // add this process to the priority queue
-                        // printf("queue after push %d\n",is_empty(&hpf_queue));
-
             printf("Received process with priority %d and id %d at time %d \n", coming_process.priority,
                    coming_process.id, getClk());
 
             num_messages--;
-            // printf("End of recieving \n");
         }
         if (!is_empty(&hpf_queue) || process_is_currently_running) {
             if (process_is_currently_running) {
@@ -543,7 +524,6 @@ void HPF() {
 
                 if (current_clk - started_clk == current_pcb->remaining_time) {
                     int st;
-                    // (*shm_remain_time) = 0;
                     int ret = wait(&st);
                     int TA = current_clk - current_pcb->arrival_time;
                     current_pcb->remaining_time = 0;
@@ -556,11 +536,8 @@ void HPF() {
 
                     hashmap_delete(process_table, current_pcb);
                     process_is_currently_running = false;
-                    // printf("hena\n");
                 }
-                // printf("AAAa\n");
             }
-            // printf("queue %d process is currently running %d\n",is_empty(&hpf_queue),process_is_currently_running);
             if (!process_is_currently_running && !is_empty(&hpf_queue))
             {
                 pcb_s get_process = {.id = peek(&hpf_queue)->data};
@@ -571,12 +548,10 @@ void HPF() {
                 int pid = fork();
                 if (pid == 0) {
                     // child
-                    // printf("Create process: %d with priority: %d\n", peek(&hpf_queue)->data, peek(&hpf_queue)->priority);
                     execl("./process.out", "./process.out", NULL);
                 }
                 pair_t ret;
                 buddy_allocate(current_pcb->mem_size, &ret);
-                // printf("hh\n");   
                 started_clk = current_clk;
                 process_is_currently_running = true;
                 // parent take the pid to the hashmap
@@ -585,24 +560,9 @@ void HPF() {
                 current_pcb->waiting_time = current_clk - current_pcb->arrival_time;
                 current_pcb->memory_start_ind = ret.start_ind;
                 current_pcb->memory_end_ind = ret.end_ind;
-                // printf("current_pcb mem start %d end %d\n",current_pcb->memory_start_ind,current_pcb->memory_end_ind);
-                // printf(CYN "At time %d allocated %d bytes for process %d from %d to %d\n" RESET, current_clk, current_pcb->mem_size,
-                //        current_pcb->id, ret.start_ind, ret.end_ind);
-
-                // printf("At time %d process %d started arr %d total %d remain %d wait %d\n", current_clk,
-                //        current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, current_pcb->remaining_time,//*shm_remain_time,
-                //        current_pcb->waiting_time);
-                // fprintf(sch_log, "At time %d process %d started arr %d total %d remain %d wait %d\n", current_clk,
-                //         current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, current_pcb->remaining_time,//*shm_remain_time,
-                //         current_pcb->waiting_time);
-
-                // fprintf(mem_log, "At time %d allocated %d bytes for process %d from %d to %d\n" RESET, current_clk, current_pcb->mem_size,
-                //        current_pcb->id, ret.start_ind, ret.end_ind);
-                // // circular_enQueue(&RRqueue, id);
                 print(current_clk, current_pcb, &ret, 'a');
                 print(current_clk, current_pcb, NULL, 's');
                 pop(&hpf_queue);
-                // printf("hena aho\n");
             }
         }
     }
