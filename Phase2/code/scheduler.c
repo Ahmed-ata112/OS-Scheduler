@@ -42,15 +42,15 @@ void memory_log();
 
 float CalcStdWTA(float AvgWTA);
 
-void scheduler_perf(int ProcessCount);
+void scheduler_perf(int ProcessCount , int FT);
 
 void FinishPrinting();
 
-void RR2(int quantum);
+int RR2(int quantum);
 
-void SRTN();
+int SRTN();
 
-void HPF();
+int HPF();
 
 // 3 functions related to the hashmap
 int process_compare(const void *a, const void *b, void *udata) {
@@ -92,7 +92,6 @@ int main(int argc, char *argv[]) {
     // create and open files
     scheduler_log();
     memory_log();
-    initClk();
     buddy_init();
 
     int remain_time_shmid = shmget(REMAIN_TIME_SHMKEY, 4, IPC_CREAT | 0644);
@@ -113,24 +112,26 @@ int main(int argc, char *argv[]) {
     WeightedTA = (int *) malloc(sizeof(int) * TotalNumberOfProcesses);
 
     printf("\nchosen Algo is %d\n", coming.algo);
+    initClk();
 
+    int finish_time = 0;
     switch (coming.algo) {
         case 1:
             printf("RR with q=%d at time: %d\n", coming.arg, getClk());
-            RR2(coming.arg);
+            finish_time = RR2(coming.arg);
             break;
 
         case 2:
             printf("HPF\n");
-            HPF();
+            finish_time = HPF();
             break;
         case 3:
             printf("SRTN\n");
-            SRTN();
+            finish_time = SRTN();
             break;
     }
     printf("DONE scheduler\n");
-    scheduler_perf(TotalNumberOfProcesses);
+    scheduler_perf(TotalNumberOfProcesses , finish_time);
     FinishPrinting();
     // upon termination release the clock resources.
     hashmap_free(process_table);
@@ -154,7 +155,7 @@ PCB set_process(process_struct coming_process ){
             return pcb;
 
 }
-void RR2(int quantum)
+int RR2(int quantum)
 {
     /**
      * i loop all the time
@@ -162,8 +163,6 @@ void RR2(int quantum)
      * this is when i quit
      * All the processes that in the circular queue are in the process_table
      * when finished -> u delete from both
-     * @bug: if the process gen sends a SIGUSR1 immediately after sending Processes -> it finishes too
-     *       @solution -> make Process gen sleep for a 1 sec or st after sending all
      **/
     struct c_queue RRqueue;
     circular_init_queue(&RRqueue);
@@ -175,7 +174,7 @@ void RR2(int quantum)
     int p_count = TotalNumberOfProcesses;
     int need_to_receive = TotalNumberOfProcesses;
     bool process_is_currently_running = false;
-
+    int curr = 0;
     while (!circular_is_empty(&RRqueue) || p_count > 0) {
 
         // First check if any process has come
@@ -183,10 +182,9 @@ void RR2(int quantum)
         if (more_processes_coming || need_to_receive > 0)
             msgrcv(process_msg_queue, &c, sizeof(int), 10, !IPC_NOWAIT);
 
-
         int num_messages = c.count;
         need_to_receive -= c.count;
-        int curr = getClk();
+        curr = getClk();
 
         while (num_messages > 0) {
             // while still a process in the queue
@@ -293,6 +291,7 @@ void RR2(int quantum)
                 current_pcb->waiting_time = curr - current_pcb->arrival_time;
                 print(curr, current_pcb, NULL, 's');
 
+
             } else {
 
                 kill(current_pcb->pid, SIGCONT);
@@ -308,12 +307,13 @@ void RR2(int quantum)
         // if the current's quantum finished and only one left -> no switch
         // if the current terminated and no other in the Queue -> no switching
     }
-    printf("\nOut at time %d\n", getClk());
+    printf("\nOut at time %d\n", curr);
+    return curr;
 }
 
 
 //----------------------------------------------------------------
-void SRTN() {
+int SRTN() {
     printf("Entering SRTN \n");
     // intialize the priority queue
     minHeap sQueue;
@@ -321,8 +321,6 @@ void SRTN() {
 
     minHeap waiting_queue;
     waiting_queue = init_min_heap();
-    //queue waiting_queue = initQueue(); // to receive in it
-
     PCB *current_pcb = NULL;
     int p_count = TotalNumberOfProcesses;
     int need_to_receive = TotalNumberOfProcesses;
@@ -485,12 +483,12 @@ void SRTN() {
     return current_time;
 }
 
-void HPF() {
+int HPF() {
     minHeap hpf_queue = init_min_heap();
 
     pcb_s *current_pcb;
     bool process_is_currently_running = false;
-    int started_clk, current_clk;
+    int started_clk, current_clk=0;
     int need_to_receive = TotalNumberOfProcesses;
 
     int p_count = TotalNumberOfProcesses;
@@ -569,7 +567,8 @@ void HPF() {
             }
         }
     }
-    printf("\nOut at time %d\n", getClk());
+    printf("\nOut at time %d\n", current_clk);
+    return current_clk;
 }
 
 void scheduler_log() {
@@ -590,12 +589,12 @@ void memory_log() {
     }
 }
 
-void scheduler_perf(int ProcessesCount) {
+void scheduler_perf(int ProcessesCount , int FT) {
     sch_perf = fopen("scheduler.perf", "w");
     if (sch_perf == NULL) {
         printf("error has been occured while creation or opening scheduler.perf\n");
     } else {
-        float CPU_Utilization = ((float) TotalRunTime / getClk()) * 100;
+        float CPU_Utilization = ((float) TotalRunTime / FT) * 100;
         fprintf(sch_perf, "CPU utilization = %.2f %%\n", CPU_Utilization);
         fprintf(sch_perf, "Avg WTA = %.2f\n", ((float) TotalWTA) / ProcessesCount);
         fprintf(sch_perf, "Avg Waiting = %.2f\n", ((float) TotalWaitingTime) / ProcessesCount);

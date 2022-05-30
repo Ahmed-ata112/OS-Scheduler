@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
     system("clear");
     Initializer.NumOfProcesses = ProcessesNum;
     Initializer.mtype = ALGO_TYPE;
-    int sch_pid, clk_pid, stat_loc;
+    int sch_pid, clk_pid;
     Create_Scheduler_Clk(&sch_pid, &clk_pid);
     // 4. Use this function after creating the clock process to initialize clock
     initClk();
@@ -87,7 +87,7 @@ int main(int argc, char *argv[]) {
     // secondly, sending processes in the appropriate time
     int ProcessIterator = 0;
     int prevClk = -1;
-//    printf("from Gen: sent message to scheduler at %d\n", getClk());
+    printf("from Gen: sent message to scheduler at %d\n", getClk());
     while (ProcessIterator < ProcessesNum) {
         prevClk = getClk();
         //get number of processes to be sent to the scheduler
@@ -181,11 +181,11 @@ void ReadProcessesData(FILE *file, struct process_struct Processes[], int Proces
         {
             if (Processes[i].runtime == 0)
             {
-                printf(RED"!!! Warning: Process with id = %d has been excluded because its runtime = 0\n"RESET,Processes[i].id);
+                printf(YEL "!!! Warning: Process with id = %d has been excluded because its runtime = 0\n"RESET,Processes[i].id);
             }
             else
             {
-                printf(RED"!!! Warning: Process with id = %d has been excluded because its memsize = 0\n"RESET,Processes[i].id);
+                printf(YEL"!!! Warning: Process with id = %d has been excluded because its memsize = 0\n"RESET,Processes[i].id);
             }
         }
     }
