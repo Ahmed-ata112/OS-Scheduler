@@ -46,11 +46,11 @@ void scheduler_perf(int ProcessCount);
 
 void FinishPrinting();
 
-void RR2(int quantum);
+int RR2(int quantum);
 
-void SRTN();
+int SRTN();
 
-void HPF();
+int HPF();
 
 // 3 functions related to the hashmap
 int process_compare(const void *a, const void *b, void *udata) {
@@ -154,7 +154,7 @@ PCB set_process(process_struct coming_process ){
             return pcb;
 
 }
-void RR2(int quantum)
+int RR2(int quantum)
 {
     /**
      * i loop all the time
@@ -162,8 +162,6 @@ void RR2(int quantum)
      * this is when i quit
      * All the processes that in the circular queue are in the process_table
      * when finished -> u delete from both
-     * @bug: if the process gen sends a SIGUSR1 immediately after sending Processes -> it finishes too
-     *       @solution -> make Process gen sleep for a 1 sec or st after sending all
      **/
     struct c_queue RRqueue;
     circular_init_queue(&RRqueue);
@@ -175,18 +173,17 @@ void RR2(int quantum)
     int p_count = TotalNumberOfProcesses;
     int need_to_receive = TotalNumberOfProcesses;
     bool process_is_currently_running = false;
-
+    int curr = 0;
     while (!circular_is_empty(&RRqueue) || p_count > 0) {
-
+        printf("\n in loop \n");
         // First check if any process has come
         struct count_msg c = {.count = 0};
         if (more_processes_coming || need_to_receive > 0)
             msgrcv(process_msg_queue, &c, sizeof(int), 10, !IPC_NOWAIT);
 
-
         int num_messages = c.count;
         need_to_receive -= c.count;
-        int curr = getClk();
+        curr = getClk();
 
         while (num_messages > 0) {
             // while still a process in the queue
@@ -293,6 +290,7 @@ void RR2(int quantum)
                 current_pcb->waiting_time = curr - current_pcb->arrival_time;
                 print(curr, current_pcb, NULL, 's');
 
+
             } else {
 
                 kill(current_pcb->pid, SIGCONT);
@@ -308,12 +306,13 @@ void RR2(int quantum)
         // if the current's quantum finished and only one left -> no switch
         // if the current terminated and no other in the Queue -> no switching
     }
-    printf("\nOut at time %d\n", getClk());
+    printf("\nOut at time %d\n", curr);
+    return curr;
 }
 
 
 //----------------------------------------------------------------
-void SRTN() {
+int SRTN() {
     printf("Entering SRTN \n");
     // intialize the priority queue
     minHeap sQueue;
@@ -321,23 +320,23 @@ void SRTN() {
 
     minHeap waiting_queue;
     waiting_queue = init_min_heap();
-    //queue waiting_queue = initQueue(); // to receive in it
-
     PCB *current_pcb = NULL;
     int p_count = TotalNumberOfProcesses;
     int need_to_receive = TotalNumberOfProcesses;
     bool process_is_currently_running = false;
     bool can_insert = true;
+    int current_time = 0;
 
-    // if the Queue is empty then check if there is no more processes that will come
-    // the main loop for the scheduler
-    while (!is_empty(&sQueue) || p_count > 0) {
+        // if the Queue is empty then check if there is no more processes that will come
+        // the main loop for the scheduler
+        while (!is_empty(&sQueue) || p_count > 0)
+    {
         // First check if any process has come
         count_msg c = {.count = 0};
         if (more_processes_coming || need_to_receive > 0)
             msgrcv(process_msg_queue, &c, sizeof(int), 10, !IPC_NOWAIT);
 
-        int current_time = getClk();
+        current_time = getClk();
         int num_messages = c.count;
         need_to_receive -= c.count;
         while (num_messages > 0) {
@@ -479,15 +478,16 @@ void SRTN() {
             }
         }
     }
-    printf("\nOut at time %d\n", getClk());
+    printf("\nOut at time %d\n", current_time);
+    return current_time;
 }
 
-void HPF() {
+int HPF() {
     minHeap hpf_queue = init_min_heap();
 
     pcb_s *current_pcb;
     bool process_is_currently_running = false;
-    int started_clk, current_clk;
+    int started_clk, current_clk=0;
     int need_to_receive = TotalNumberOfProcesses;
 
     int p_count = TotalNumberOfProcesses;
@@ -566,7 +566,8 @@ void HPF() {
             }
         }
     }
-    printf("\nOut at time %d\n", getClk());
+    printf("\nOut at time %d\n", current_clk);
+    return current_clk;
 }
 
 void scheduler_log() {
