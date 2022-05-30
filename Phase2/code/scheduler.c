@@ -501,8 +501,8 @@ int SRTN() {
                 print(current_time, current_pcb, NULL, 'r');
 
             }
+            current_id = current_pcb->id;
         }
-        current_id = current_pcb->id;
         //printf("Here id %d   time %d \n", current_pcb->id, current_time);
     }
     printf("\nOut at time %d\n", current_time);
