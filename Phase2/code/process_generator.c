@@ -25,6 +25,11 @@ int main(int argc, char *argv[]) {
     // strcpy(FileName, argv[1]);
     FILE *file = fopen(FileName, "r");
     int ProcessesNum = NumOfProcesses(file);
+    if (ProcessesNum == 0)
+    {
+        perror("there are no process\n");
+        exit(-1);
+    }
     // make an array of processes and store data of each process in it
     struct process_struct Processes[ProcessesNum];
     ReadProcessesData(file, Processes, ProcessesNum);
@@ -137,13 +142,18 @@ int NumOfProcesses(FILE *file) {
     // note : do not count any line stating with #
     int count = 0;
     int id, arrive, runtime, priority,memsize;
-    for (char ch = getc(file); ch != EOF; ch = getc(file)) {
-        if (ch == '\n') {
-            break;
-        }
+
+    // skip the first line because it is a comment
+    char dummy[10];
+    for (int i = 0; i < 5; i++) {
+        fscanf(file, "%s", dummy);
     }
+
     while (fscanf(file, "%d %d %d %d %d", &id, &arrive, &runtime, &priority,&memsize) == 5) {
-        count++;
+        if (runtime != 0 && memsize != 0)
+        {
+            count++;
+        }
     }
     return count;
 }
@@ -157,13 +167,27 @@ void ReadProcessesData(FILE *file, struct process_struct Processes[], int Proces
     for (int i = 0; i < 5; i++) {
         fscanf(file, "%s", dummy);
     }
-    for (int i = 0; i < ProcessesNum; i++) {
+    
+    int i = 0;
+    while (i<ProcessesNum)
+    {
         Processes[i].mtype = 1;
-        fscanf(file, "%d", &Processes[i].id);
-        fscanf(file, "%d", &Processes[i].arrival);
-        fscanf(file, "%d", &Processes[i].runtime);
-        fscanf(file, "%d", &Processes[i].priority);
-        fscanf(file, "%d", &Processes[i].memsize);
+        fscanf(file, "%d %d %d %d %d", &Processes[i].id, &Processes[i].arrival, &Processes[i].runtime, &Processes[i].priority,&Processes[i].memsize);
+        if (Processes[i].runtime != 0 && Processes[i].memsize != 0)
+        {
+            i++;
+        }
+        else
+        {
+            if (Processes[i].runtime == 0)
+            {
+                printf(RED"!!! Warning: Process with id = %d has been excluded because its runtime = 0\n"RESET,Processes[i].id);
+            }
+            else
+            {
+                printf(RED"!!! Warning: Process with id = %d has been excluded because its memsize = 0\n"RESET,Processes[i].id);
+            }
+        }
     }
 }
 
