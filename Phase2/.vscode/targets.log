@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri May 27 19:28:04 2022
+# Make data base, printed on Sun May 29 21:53:01 2022
 
 # Variables
 
@@ -34,6 +32,8 @@ XDG_SESSION_TYPE = x11
 VSCODE_LOG_NATIVE = false
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
+# environment
+IM_CONFIG_PHASE = 1
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
 # environment
@@ -53,7 +53,7 @@ VTE_VERSION = 6003
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:61557
+JOURNAL_STREAM = 8:51798
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -65,7 +65,7 @@ MAKEFILE_LIST :=
 # automatic
 @F = $(notdir $@)
 # environment
-IM_CONFIG_PHASE = 1
+GIO_LAUNCHED_DESKTOP_FILE = /var/lib/snapd/desktop/applications/code_code.desktop
 # environment
 USERNAME = ahmed
 # environment
@@ -73,11 +73,11 @@ MAKELEVEL := 0
 # environment
 XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
 # environment
-DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus,guid=9e19e3c4b174908019e345876290efee
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus,guid=4667f15440c7820ea8b116f86293b1d8
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-MANAGERPID = 1831
+MANAGERPID = 1858
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -93,7 +93,7 @@ PATH = /home/ahmed/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/ahmed-L:@/tmp/.ICE-unix/2057,unix/ahmed-L:/tmp/.ICE-unix/2057
+SESSION_MANAGER = local/ahmed-L:@/tmp/.ICE-unix/2084,unix/ahmed-L:/tmp/.ICE-unix/2084
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -111,7 +111,7 @@ DISABLE_WAYLAND = 1
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 400651ec28ee4f07a9560edc6401d85f
+INVOCATION_ID = f919ef10e74f4141be9c4539197bacc6
 # environment
 GDK_PIXBUF_MODULEDIR = /snap/code/97/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
@@ -122,6 +122,8 @@ LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:
 XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
+# environment
+GIO_LAUNCHED_DESKTOP_FILE_PID = 17377
 # automatic
 %F = $(notdir $%)
 # environment
@@ -135,7 +137,7 @@ PWD = /home/ahmed/OS-Project/OSProject/OSproject/Phase2
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 2021
+SSH_AGENT_PID = 2048
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -189,7 +191,7 @@ SHLVL = 1
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-6ad0bbd4-5905-43a0-947d-2e6903d30ce6.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-de3ad201-ad07-4b4c-a2c4-9de42ccd6864.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -214,6 +216,8 @@ MAKE_COMMAND := make
 *F = $(notdir $*)
 # environment
 VSCODE_IPC_HOOK = /run/user/1000/vscode-1d73c802-1.67.2-main.sock
+# environment
+BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop
 # makefile
 MAKEFLAGS = pqrR
 # environment
@@ -226,6 +230,10 @@ MFLAGS = -pqrR
 GDK_BACKEND = x11
 # environment
 LC_PAPER = en_GB.UTF-8
+# environment
+NO_AT_BRIDGE = 1
+# environment
+LC_IDENTIFICATION = en_GB.UTF-8
 # environment
 QT_ACCESSIBILITY = 1
 # default
@@ -245,11 +253,13 @@ LC_ALL = C
 # environment
 DBUS_STARTER_BUS_TYPE = session
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/0637b45b_4f7c_4227_b8f4_d60cdf0e2652
+GJS_DEBUG_TOPICS = JS ERROR;JS LOG
+# environment
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/d982c95c_5cdf_47c0_838e_72d9f5bbb88f
 # automatic
 ^F = $(notdir $^)
 # environment
-GNOME_TERMINAL_SERVICE = :1.121
+GNOME_TERMINAL_SERVICE = :1.600
 # default
 SUFFIXES := 
 # environment
@@ -261,7 +271,7 @@ WINDOWPATH = 2
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
 # environment
-LC_IDENTIFICATION = en_GB.UTF-8
+GJS_DEBUG_OUTPUT = stderr
 # default
 .RECIPEPREFIX := 
 # environment
@@ -271,15 +281,17 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 4102
+VSCODE_PID = 17428
 # environment
-DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=9e19e3c4b174908019e345876290efee
+DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=4667f15440c7820ea8b116f86293b1d8
+ 
+make: *** No rule to make target 'all'.  Stop.
+
 # variable set hash-table stats:
-# Load=131/1024=13%, Rehash=0, Collisions=19/153=12%
+# Load=137/1024=13%, Rehash=0, Collisions=22/159=14%
 
 # Pattern-specific Variable Values
 
- 
 # No pattern-specific variable values.
 
 # Directories
@@ -342,6 +354,6 @@ GNUmakefile:
 # strcache performance: lookups = 17 / hit rate = 17%
 # hash-table stats:
 # Load=14/8192=0%, Rehash=0, Collisions=1/17=6%
-# Finished Make data base on Fri May 27 19:28:04 2022
+# Finished Make data base on Sun May 29 21:53:01 2022
 
  
