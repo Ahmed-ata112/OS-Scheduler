@@ -42,7 +42,7 @@ void memory_log();
 
 float CalcStdWTA(float AvgWTA);
 
-void scheduler_perf(int ProcessCount);
+void scheduler_perf(int ProcessCount , int FT);
 
 void FinishPrinting();
 
@@ -113,24 +113,25 @@ int main(int argc, char *argv[]) {
     WeightedTA = (int *) malloc(sizeof(int) * TotalNumberOfProcesses);
 
     printf("\nchosen Algo is %d\n", coming.algo);
-
+    
+    int finish_time = 0;
     switch (coming.algo) {
         case 1:
             printf("RR with q=%d at time: %d\n", coming.arg, getClk());
-            RR2(coming.arg);
+            finish_time = RR2(coming.arg);
             break;
 
         case 2:
             printf("HPF\n");
-            HPF();
+            finish_time = HPF();
             break;
         case 3:
             printf("SRTN\n");
-            SRTN();
+            finish_time = SRTN();
             break;
     }
     printf("DONE scheduler\n");
-    scheduler_perf(TotalNumberOfProcesses);
+    scheduler_perf(TotalNumberOfProcesses , finish_time);
     FinishPrinting();
     // upon termination release the clock resources.
     hashmap_free(process_table);
@@ -588,12 +589,12 @@ void memory_log() {
     }
 }
 
-void scheduler_perf(int ProcessesCount) {
+void scheduler_perf(int ProcessesCount , int FT) {
     sch_perf = fopen("scheduler.perf", "w");
     if (sch_perf == NULL) {
         printf("error has been occured while creation or opening scheduler.perf\n");
     } else {
-        float CPU_Utilization = ((float) TotalRunTime / getClk()) * 100;
+        float CPU_Utilization = ((float) TotalRunTime / FT) * 100;
         fprintf(sch_perf, "CPU utilization = %.2f %%\n", CPU_Utilization);
         fprintf(sch_perf, "Avg WTA = %.2f\n", ((float) TotalWTA) / ProcessesCount);
         fprintf(sch_perf, "Avg Waiting = %.2f\n", ((float) TotalWaitingTime) / ProcessesCount);
