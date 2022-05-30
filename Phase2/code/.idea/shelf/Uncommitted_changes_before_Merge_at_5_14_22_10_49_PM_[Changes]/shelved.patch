@@ -1,0 +1,285 @@
+Index: .vscode/targets.log
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>make all --print-data-base --no-builtin-variables --no-builtin-rules --question\n# GNU Make 4.2.1\n# Built for x86_64-pc-linux-gnu\n# Copyright (C) 1988-2016 Free Software Foundation, Inc.\n# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n# This is free software: you are free to change and redistribute it.\n# There is NO WARRANTY, to the extent permitted by law.\n\n# Make data base, printed on Fri May  6 12:45:45 2022\n\n# Variables\n\n# 'override' directive\nGNUMAKEFLAGS := \n# automatic\n<D = $(patsubst %/,%,$(dir $<))\n# automatic\n?F = $(notdir $?)\n# environment\nPAPERSIZE = letter\n# environment\nDESKTOP_SESSION = ubuntu\n# default\n.SHELLFLAGS := -c\n# environment\nXDG_SESSION_CLASS = user\n# environment\nSNAP_COMMON = /var/snap/code/common\n# environment\nXDG_SESSION_TYPE = x11\n# environment\nVSCODE_LOG_NATIVE = false\n# automatic\n?D = $(patsubst %/,%,$(dir $?))\n# environment\nIM_CONFIG_PHASE = 1\n# environment\nPLATFORMIO_IDE = 2.4.3\n# automatic\n@D = $(patsubst %/,%,$(dir $@))\n# environment\nXAUTHORITY = /run/user/1000/gdm/Xauthority\n# environment\nGDMSESSION = ubuntu\n# environment\nXMODIFIERS = @im=ibus\n# makefile\nCURDIR := /home/ahmedatta/Stud/OS/Repos/OSproject/Phase2/code\n# makefile\nSHELL = /bin/sh\n# environment\nSNAP_DATA = /var/snap/code/94\n# environment\nVSCODE_NLS_CONFIG = {\"locale\":\"en-us\",\"availableLanguages\":{},\"_languagePackSupport\":true}\n# environment\nJOURNAL_STREAM = 8:53340\n# environment\nXDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg\n# environment\nSNAP_INSTANCE_NAME = code\n# environment\nSNAP_ARCH = amd64\n# makefile (from 'Makefile', line 1)\nMAKEFILE_LIST :=  Makefile\n# automatic\n@F = $(notdir $@)\n# environment\nGIO_LAUNCHED_DESKTOP_FILE = /var/lib/snapd/desktop/applications/code_code.desktop\n# environment\nQT_IM_MODULE = ibus\n# environment\nUSERNAME = ahmedatta\n# environment\nMAKELEVEL := 0\n# environment\nXDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop\n# environment\nDBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus\n# environment\nVSCODE_VERBOSE_LOGGING = true\n# environment\n_ = /snap/code/94/usr/share/code/code\n# environment\nMANAGERPID = 1479\n# environment\nLESSOPEN = | /usr/bin/lesspipe %s\n# environment\nLC_NAME = en_US.UTF-8\n# environment\nVSCODE_CWD = /home/ahmedatta\n# environment\nGSETTINGS_SCHEMA_DIR = /snap/code/94/usr/share/glib-2.0/schemas\n# default\nMAKE_HOST := x86_64-pc-linux-gnu\n# environment\nNO_PROXY = 127.0.0.1\n# environment\nGPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1\n# environment\nSESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/1994,unix/my-loly:/tmp/.ICE-unix/1994\n# environment\nXDG_RUNTIME_DIR = /run/user/1000\n# environment\nGDK_PIXBUF_MODULE_FILE = /home/ahmedatta/snap/code/common/.cache/gdk-pixbuf-loaders.cache\n# environment\nSNAP = /snap/code/94\n# environment\nSNAP_VERSION = dfd34e82\n# environment\nXDG_MENU_PREFIX = gnome-\n# environment\nVSCODE_LOG_STACK = false\n# environment\nDISABLE_WAYLAND = 1\n# environment\nELECTRON_RUN_AS_NODE = 1\n# environment\nINVOCATION_ID = 1ab731ddf1b14f29b741395dc8e81d82\n# environment\nGDK_PIXBUF_MODULEDIR = /snap/code/94/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders\n# default\n.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load\n# environment\nLS_COLORS = \n# environment\nXDG_SESSION_DESKTOP = ubuntu\n# environment\nSSH_AUTH_SOCK = /run/user/1000/keyring/ssh\n# environment\nGIO_LAUNCHED_DESKTOP_FILE_PID = 3949\n# automatic\n%F = $(notdir $%)\n# environment\nDISPLAY = :0\n# environment\nVSCODE_PIPE_LOGGING = true\n# environment\nSNAP_INSTANCE_KEY = \n# environment\nPWD = /home/ahmedatta/Stud/OS/Repos/OSproject/Phase2/code\n# default\n.LOADED := \n# environment\nSSH_AGENT_PID = 1964\n# environment\nORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME\n# environment\nGTK_MODULES = gail:atk-bridge\n# environment\nVSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess\n# environment\nHOME = /home/ahmedatta\n# environment\nLESSCLOSE = /usr/bin/lesspipe %s %s\n# environment\nVSCODE_CLI = 1\n# environment\nVSCODE_CODE_CACHE_PATH = /home/ahmedatta/.config/Code/CachedData/dfd34e8260c270da74b5c2d86d61aee4b6d56977\n# environment\nLOGNAME = ahmedatta\n# environment\nAPPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1\n# environment\nSNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void\n# environment\nSNAP_CONTEXT = yb0erkWABSzYyvKls8TEdno3KrSdAuf0K2pVYXTKmWpEW4hszoVx\n# automatic\n+F = $(notdir $+)\n# environment\nELECTRON_NO_ATTACH_CONSOLE = 1\n# environment\nSNAP_USER_COMMON = /home/ahmedatta/snap/code/common\n# environment\nVSCODE_HANDLES_UNCAUGHT_ERRORS = true\n# environment\nGNOME_DESKTOP_SESSION_ID = this-is-deprecated\n# automatic\n^D = $(patsubst %/,%,$(dir $^))\n# environment\nLC_TIME = en_US.UTF-8\n# environment\nSNAP_REAL_HOME = /home/ahmedatta\n# environment\nPLATFORMIO_PATH = /home/ahmedatta/.platformio/python3/bin:/home/ahmedatta/.local/bin:/home/ahmedatta/bin:/home/ahmedatta/.local/bin:/home/ahmedatta/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:QT_QPA_PLATFORMTHEME=gtk2:/home/ahmedatta/Downloads/clion-2022.1/bin\n# default\nMAKE = $(MAKE_COMMAND)\n# default\nMAKECMDGOALS := all\n# environment\nPATH = /home/ahmedatta/.local/bin:/home/ahmedatta/bin:/home/ahmedatta/.local/bin:/home/ahmedatta/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:QT_QPA_PLATFORMTHEME=gtk2:/home/ahmedatta/Downloads/clion-2022.1/bin\n# environment\nSNAP_USER_DATA = /home/ahmedatta/snap/code/94\n# environment\nSHLVL = 0\n# environment\nGNOME_SHELL_SESSION_MODE = ubuntu\n# environment\nVSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-e266bbe1-446e-4a93-a571-c1f07a39bfd2.sock\n# default\nMAKE_VERSION := 4.2.1\n# environment\nUSER = ahmedatta\n# environment\nSNAP_REVISION = 94\n# environment\nLC_MONETARY = en_US.UTF-8\n# makefile\n.DEFAULT_GOAL := build\n# environment\nXDG_CURRENT_DESKTOP = Unity\n# automatic\n%D = $(patsubst %/,%,$(dir $%))\n# environment\nLC_TELEPHONE = en_US.UTF-8\n# default\nMAKE_COMMAND := make\n# default\n.VARIABLES := \n# automatic\n*F = $(notdir $*)\n# environment\nVSCODE_IPC_HOOK = /run/user/1000/vscode-9c9b8c1f-1.66.2-main.sock\n# environment\nBAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop\n# makefile\nMAKEFLAGS = pqrR\n# environment\nMFLAGS = -pqrR\n# automatic\n*D = $(patsubst %/,%,$(dir $*))\n# automatic\n+D = $(patsubst %/,%,$(dir $+))\n# environment\nGDK_BACKEND = x11\n# environment\nLC_PAPER = en_US.UTF-8\n# environment\nLC_IDENTIFICATION = en_US.UTF-8\n# environment\nQT_ACCESSIBILITY = 1\n# default\nMAKEFILES := \n# environment\nSNAP_COOKIE = yb0erkWABSzYyvKls8TEdno3KrSdAuf0K2pVYXTKmWpEW4hszoVx\n# environment\nLC_NUMERIC = en_US.UTF-8\n# automatic\n<F = $(notdir $<)\n# environment\nPLATFORMIO_CALLER = vscode\n# environment\nLC_MEASUREMENT = en_US.UTF-8\n# environment\nSNAP_NAME = code\n# environment\nLC_ALL = C\n# environment\nGJS_DEBUG_TOPICS = JS ERROR;JS LOG\n# automatic\n^F = $(notdir $^)\n# default\nSUFFIXES := \n# environment\nSNAP_REEXEC = \n# environment\nCHROME_DESKTOP = code-url-handler.desktop\n# environment\nWINDOWPATH = 2\n# default\n.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include\n# environment\nGJS_DEBUG_OUTPUT = stderr\n# default\n.RECIPEPREFIX := \n# environment\nLC_ADDRESS = en_US.UTF-8\n# environment\nLANG = C\n# environment\nVSCODE_PID = 4001\n# variable set hash-table stats:\n \n# Load=134/1024=13%, Rehash=0, Collisions=25/162=15%\n\n# Pattern-specific Variable Values\n\n# No pattern-specific variable values.\n\n# Directories\n\n# . (device 66307, inode 2491816): 36 files, no impossibilities.\n\n# 36 files, no impossibilities in 1 directories.\n\n# Implicit Rules\n\n# No implicit rules.\n\n# Files\n\nall: run\n#  Command line target.\n#  Implicit rule search has been done.\n#  File does not exist.\n#  File has been updated.\n#  Needs to be updated (-q is set).\n# variable set hash-table stats:\n# Load=0/32=0%, Rehash=0, Collisions=0/3=0%\n\n# Not a target:\n.SUFFIXES:\n#  Implicit rule search has not been done.\n#  Modification time never checked.\n#  File has not been updated.\n\n# Not a target:\nMakefile:\n#  Implicit rule search has been done.\n#  Last modified 2022-05-05 13:21:53.684973448\n#  File has been updated.\n#  Successfully updated.\n\ntest: build\n#  Implicit rule search has not been done.\n#  Modification time never checked.\n#  File has not been updated.\n#  recipe to execute (from 'Makefile', line 21):\n\t./process_generator.out 1 7\n\nbuild:\n#  Implicit rule search has not been done.\n#  Modification time never checked.\n#  File has not been updated.\n#  recipe to execute (from 'Makefile', line 2):\n\tgcc process_generator.c -o process_generator.out\n\tgcc clk.c -o clk.out\n\tgcc scheduler.c hashmap.c queue.c -lm priority_queue.c -o scheduler.out\n\tgcc process.c -o process.out\n\tgcc test_generator.c -o test_generator.out\n\ngenerate:\n#  Implicit rule search has not been done.\n#  Modification time never checked.\n#  File has not been updated.\n#  recipe to execute (from 'Makefile', line 17):\n\tgcc test_generator.c -o test_generator.out\n\t./test_generator.out\n\nbuddy:\n#  Implicit rule search has not been done.\n#  Modification time never checked.\n#  File has not been updated.\n#  recipe to execute (from 'Makefile', line 25):\n\tgcc -o hey -g  buddy_core.c -lm\n\t./hey\n\n# Not a target:\n.DEFAULT:\n#  Implicit rule search has not been done.\n#  Modification time never checked.\n#  File has not been updated.\n\nrun:\n#  Implicit rule search has not been done.\n#  Implicit/static pattern stem: ''\n#  File does not exist.\n#  File has been updated.\n#  Needs to be updated (-q is set).\n# automatic\n# @ := run\n# automatic\n# % := \n# automatic\n# * := \n# automatic\n# + := \n# automatic\n# | := \n# automatic\n# < := \n# automatic\n# ^ := \n# automatic\n# ? := \n# variable set hash-table stats:\n# Load=8/32=25%, Rehash=0, Collisions=1/11=9%\n#  recipe to execute (from 'Makefile', line 13):\n\t./process_generator.out 1 4\n\nclean:\n#  Implicit rule search has not been done.\n#  Modification time never checked.\n#  File has not been updated.\n#  recipe to execute (from 'Makefile', line 9):\n\trm -f *.out  processes.txt\n\n# files hash-table stats:\n# Load=10/1024=1%, Rehash=0, Collisions=0/24=0%\n# VPATH Search Paths\n\n# No 'vpath' search paths.\n\n# No general ('VPATH' variable) search path.\n\n# strcache buffers: 1 (0) / strings = 47 / storage = 518 B / avg = 11 B\n# current buf: size = 8162 B / used = 518 B / count = 47 / avg = 11 B\n\n# strcache performance: lookups = 62 / hit rate = 24%\n# hash-table stats:\n# Load=47/8192=1%, Rehash=0, Collisions=1/62=2%\n# Finished Make data base on Fri May  6 12:45:45 2022\n\n \n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.vscode/targets.log b/.vscode/targets.log
+--- a/.vscode/targets.log	(revision 4c6d78f2bc33a349eff68b23653409573d4e4901)
++++ b/.vscode/targets.log	(date 1652561340346)
+@@ -6,7 +6,7 @@
+ # This is free software: you are free to change and redistribute it.
+ # There is NO WARRANTY, to the extent permitted by law.
+ 
+-# Make data base, printed on Fri May  6 12:45:45 2022
++# Make data base, printed on Sat May  7 21:16:04 2022
+ 
+ # Variables
+ 
+@@ -49,11 +49,11 @@
+ # makefile
+ SHELL = /bin/sh
+ # environment
+-SNAP_DATA = /var/snap/code/94
++SNAP_DATA = /var/snap/code/95
+ # environment
+ VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+ # environment
+-JOURNAL_STREAM = 8:53340
++JOURNAL_STREAM = 8:42947
+ # environment
+ XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
+ # environment
+@@ -79,9 +79,9 @@
+ # environment
+ VSCODE_VERBOSE_LOGGING = true
+ # environment
+-_ = /snap/code/94/usr/share/code/code
++_ = /snap/code/95/usr/share/code/code
+ # environment
+-MANAGERPID = 1479
++MANAGERPID = 1496
+ # environment
+ LESSOPEN = | /usr/bin/lesspipe %s
+ # environment
+@@ -89,7 +89,7 @@
+ # environment
+ VSCODE_CWD = /home/ahmedatta
+ # environment
+-GSETTINGS_SCHEMA_DIR = /snap/code/94/usr/share/glib-2.0/schemas
++GSETTINGS_SCHEMA_DIR = /snap/code/95/usr/share/glib-2.0/schemas
+ # default
+ MAKE_HOST := x86_64-pc-linux-gnu
+ # environment
+@@ -97,15 +97,15 @@
+ # environment
+ GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
+ # environment
+-SESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/1994,unix/my-loly:/tmp/.ICE-unix/1994
++SESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/1928,unix/my-loly:/tmp/.ICE-unix/1928
+ # environment
+ XDG_RUNTIME_DIR = /run/user/1000
+ # environment
+ GDK_PIXBUF_MODULE_FILE = /home/ahmedatta/snap/code/common/.cache/gdk-pixbuf-loaders.cache
+ # environment
+-SNAP = /snap/code/94
++SNAP = /snap/code/95
+ # environment
+-SNAP_VERSION = dfd34e82
++SNAP_VERSION = 57fd6d01
+ # environment
+ XDG_MENU_PREFIX = gnome-
+ # environment
+@@ -115,9 +115,9 @@
+ # environment
+ ELECTRON_RUN_AS_NODE = 1
+ # environment
+-INVOCATION_ID = 1ab731ddf1b14f29b741395dc8e81d82
++INVOCATION_ID = 07e8225eb7a849c09122ac0f0df0ee80
+ # environment
+-GDK_PIXBUF_MODULEDIR = /snap/code/94/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
++GDK_PIXBUF_MODULEDIR = /snap/code/95/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
+ # default
+ .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
+ # environment
+@@ -127,7 +127,7 @@
+ # environment
+ SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
+ # environment
+-GIO_LAUNCHED_DESKTOP_FILE_PID = 3949
++GIO_LAUNCHED_DESKTOP_FILE_PID = 8918
+ # automatic
+ %F = $(notdir $%)
+ # environment
+@@ -141,7 +141,7 @@
+ # default
+ .LOADED := 
+ # environment
+-SSH_AGENT_PID = 1964
++SSH_AGENT_PID = 1898
+ # environment
+ ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
+ # environment
+@@ -155,7 +155,7 @@
+ # environment
+ VSCODE_CLI = 1
+ # environment
+-VSCODE_CODE_CACHE_PATH = /home/ahmedatta/.config/Code/CachedData/dfd34e8260c270da74b5c2d86d61aee4b6d56977
++VSCODE_CODE_CACHE_PATH = /home/ahmedatta/.config/Code/CachedData/57fd6d0195bb9b9d1b49f6da5db789060795de47
+ # environment
+ LOGNAME = ahmedatta
+ # environment
+@@ -189,19 +189,19 @@
+ # environment
+ PATH = /home/ahmedatta/.local/bin:/home/ahmedatta/bin:/home/ahmedatta/.local/bin:/home/ahmedatta/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:QT_QPA_PLATFORMTHEME=gtk2:/home/ahmedatta/Downloads/clion-2022.1/bin
+ # environment
+-SNAP_USER_DATA = /home/ahmedatta/snap/code/94
++SNAP_USER_DATA = /home/ahmedatta/snap/code/95
+ # environment
+ SHLVL = 0
+ # environment
+ GNOME_SHELL_SESSION_MODE = ubuntu
+ # environment
+-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-e266bbe1-446e-4a93-a571-c1f07a39bfd2.sock
++VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-023ee981-207f-4325-bb13-6261d301833f.sock
+ # default
+ MAKE_VERSION := 4.2.1
+ # environment
+ USER = ahmedatta
+ # environment
+-SNAP_REVISION = 94
++SNAP_REVISION = 95
+ # environment
+ LC_MONETARY = en_US.UTF-8
+ # makefile
+@@ -219,7 +219,7 @@
+ # automatic
+ *F = $(notdir $*)
+ # environment
+-VSCODE_IPC_HOOK = /run/user/1000/vscode-9c9b8c1f-1.66.2-main.sock
++VSCODE_IPC_HOOK = /run/user/1000/vscode-9c9b8c1f-1.67.0-main.sock
+ # environment
+ BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop
+ # makefile
+@@ -277,9 +277,8 @@
+ # environment
+ LANG = C
+ # environment
+-VSCODE_PID = 4001
++VSCODE_PID = 8964
+ # variable set hash-table stats:
+- 
+ # Load=134/1024=13%, Rehash=0, Collisions=25/162=15%
+ 
+ # Pattern-specific Variable Values
+@@ -325,6 +324,7 @@
+ #  Modification time never checked.
+ #  File has not been updated.
+ #  recipe to execute (from 'Makefile', line 21):
++ 
+ 	./process_generator.out 1 7
+ 
+ build:
+@@ -408,6 +408,6 @@
+ # strcache performance: lookups = 62 / hit rate = 24%
+ # hash-table stats:
+ # Load=47/8192=1%, Rehash=0, Collisions=1/62=2%
+-# Finished Make data base on Fri May  6 12:45:45 2022
++# Finished Make data base on Sat May  7 21:16:04 2022
+ 
+  
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"CMakeSettings\">\n    <configurations>\n      <configuration PROFILE_NAME=\"Debug\" ENABLED=\"true\" CONFIG_NAME=\"Debug\" />\n    </configurations>\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"eb74cbae-2b8d-4ad0-b305-4f35558e8945\" name=\"Changes\" comment=\"some tests and passed\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/processes.txt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/processes.txt\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/scheduler.c\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/scheduler.c\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/scheduler.log\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/scheduler.log\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/scheduler.perf\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/scheduler.perf\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"ClangdSettings\">\n    <option name=\"formatViaClangd\" value=\"false\" />\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$/../..\" />\n  </component>\n  <component name=\"MakefileLocalSettings\">\n    <option name=\"projectSyncType\">\n      <map>\n        <entry key=\"$PROJECT_DIR$\" value=\"RE_IMPORT\" />\n      </map>\n    </option>\n  </component>\n  <component name=\"MakefilesProjectLoadingState\">\n    <option name=\"doClean\" value=\"false\" />\n  </component>\n  <component name=\"MarkdownSettingsMigration\">\n    <option name=\"stateVersion\" value=\"1\" />\n  </component>\n  <component name=\"ProjectApplicationVersion\">\n    <option name=\"ide\" value=\"CLion\" />\n    <option name=\"majorVersion\" value=\"2022\" />\n    <option name=\"minorVersion\" value=\"1\" />\n  </component>\n  <component name=\"ProjectId\" id=\"28iaeKe0W5RiQB3GpPOuj0kNKuE\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\n    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,\n    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\n    &quot;structure.view.defaults.are.configured&quot;: &quot;true&quot;\n  }\n}</component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"eb74cbae-2b8d-4ad0-b305-4f35558e8945\" name=\"Changes\" comment=\"\" />\n      <created>1651701954964</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1651701954964</updated>\n      <workItem from=\"1651701956794\" duration=\"2891000\" />\n      <workItem from=\"1651741541771\" duration=\"7000\" />\n      <workItem from=\"1651741795977\" duration=\"8000\" />\n      <workItem from=\"1651741912093\" duration=\"1001000\" />\n      <workItem from=\"1651746733229\" duration=\"3286000\" />\n      <workItem from=\"1651833951326\" duration=\"7964000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"new phase\">\n      <created>1651702962617</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1651702962617</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"before main changes\">\n      <created>1651747442807</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1651747442807</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"started buddy\">\n      <created>1651750011140</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1651750011140</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"initial tests buddy\">\n      <created>1651839280574</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1651839280574</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"some tests and passed\">\n      <created>1651839929289</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1651839929289</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"6\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"new phase\" />\n    <MESSAGE value=\"before main changes\" />\n    <MESSAGE value=\"started buddy\" />\n    <MESSAGE value=\"initial tests buddy\" />\n    <MESSAGE value=\"some tests and passed\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"some tests and passed\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 4c6d78f2bc33a349eff68b23653409573d4e4901)
++++ b/.idea/workspace.xml	(date 1652561348795)
+@@ -3,18 +3,20 @@
+   <component name="AutoImportSettings">
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
++  <component name="CMakeRunConfigurationManager">
++    <generated />
++  </component>
+   <component name="CMakeSettings">
+     <configurations>
+       <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+     </configurations>
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="eb74cbae-2b8d-4ad0-b305-4f35558e8945" name="Changes" comment="some tests and passed">
++    <list default="true" id="eb74cbae-2b8d-4ad0-b305-4f35558e8945" name="Changes" comment="more tests passed">
++      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/processes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/processes.txt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.vscode/targets.log" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/targets.log" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/scheduler.c" beforeDir="false" afterPath="$PROJECT_DIR$/scheduler.c" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/scheduler.log" beforeDir="false" afterPath="$PROJECT_DIR$/scheduler.log" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/scheduler.perf" beforeDir="false" afterPath="$PROJECT_DIR$/scheduler.perf" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -23,11 +25,41 @@
+   </component>
+   <component name="ClangdSettings">
+     <option name="formatViaClangd" value="false" />
++  </component>
++  <component name="ExternalProjectsData">
++    <projectState path="$PROJECT_DIR$">
++      <ProjectState />
++    </projectState>
+   </component>
+   <component name="Git.Settings">
++    <option name="RECENT_BRANCH_BY_REPOSITORY">
++      <map>
++        <entry key="$PROJECT_DIR$/../.." value="atta" />
++      </map>
++    </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+   </component>
+   <component name="MakefileLocalSettings">
++    <option name="availableProjects">
++      <map>
++        <entry>
++          <key>
++            <ExternalProjectPojo>
++              <option name="name" value="code" />
++              <option name="path" value="$PROJECT_DIR$" />
++            </ExternalProjectPojo>
++          </key>
++          <value>
++            <list>
++              <ExternalProjectPojo>
++                <option name="name" value="code" />
++                <option name="path" value="$PROJECT_DIR$" />
++              </ExternalProjectPojo>
++            </list>
++          </value>
++        </entry>
++      </map>
++    </option>
+     <option name="projectSyncType">
+       <map>
+         <entry key="$PROJECT_DIR$" value="RE_IMPORT" />
+@@ -76,7 +108,9 @@
+       <workItem from="1651741795977" duration="8000" />
+       <workItem from="1651741912093" duration="1001000" />
+       <workItem from="1651746733229" duration="3286000" />
+-      <workItem from="1651833951326" duration="7964000" />
++      <workItem from="1651833951326" duration="8093000" />
++      <workItem from="1651950945153" duration="1337000" />
++      <workItem from="1652560242591" duration="1000" />
+     </task>
+     <task id="LOCAL-00001" summary="new phase">
+       <created>1651702962617</created>
+@@ -113,7 +147,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1651839929289</updated>
+     </task>
+-    <option name="localTasksCounter" value="6" />
++    <task id="LOCAL-00006" summary="more tests passed">
++      <created>1651842015623</created>
++      <option name="number" value="00006" />
++      <option name="presentableId" value="LOCAL-00006" />
++      <option name="project" value="LOCAL" />
++      <updated>1651842015623</updated>
++    </task>
++    <option name="localTasksCounter" value="7" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -136,6 +177,7 @@
+     <MESSAGE value="started buddy" />
+     <MESSAGE value="initial tests buddy" />
+     <MESSAGE value="some tests and passed" />
+-    <option name="LAST_COMMIT_MESSAGE" value="some tests and passed" />
++    <MESSAGE value="more tests passed" />
++    <option name="LAST_COMMIT_MESSAGE" value="more tests passed" />
+   </component>
+ </project>
+\ No newline at end of file
