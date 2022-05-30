@@ -1,6 +1,6 @@
-make --dry-run --keep-going --print-directory
-make: Entering directory '/home/ahmedatta/Stud/OS/Repos/OSproject'
-make: Leaving directory '/home/ahmedatta/Stud/OS/Repos/OSproject'
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/ahmed/OS-Project/OSProject/OSproject'
+make: Leaving directory '/home/ahmed/OS-Project/OSProject/OSproject'
  
 make: *** No targets specified and no makefile found.  Stop.
 
