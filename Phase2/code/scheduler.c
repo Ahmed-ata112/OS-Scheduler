@@ -325,16 +325,18 @@ void SRTN() {
     int need_to_receive = TotalNumberOfProcesses;
     bool process_is_currently_running = false;
     bool can_insert = true;
+    int current_time = 0;
 
-    // if the Queue is empty then check if there is no more processes that will come
-    // the main loop for the scheduler
-    while (!is_empty(&sQueue) || p_count > 0) {
+        // if the Queue is empty then check if there is no more processes that will come
+        // the main loop for the scheduler
+        while (!is_empty(&sQueue) || p_count > 0)
+    {
         // First check if any process has come
         count_msg c = {.count = 0};
         if (more_processes_coming || need_to_receive > 0)
             msgrcv(process_msg_queue, &c, sizeof(int), 10, !IPC_NOWAIT);
 
-        int current_time = getClk();
+        current_time = getClk();
         int num_messages = c.count;
         need_to_receive -= c.count;
         while (num_messages > 0) {
@@ -476,7 +478,8 @@ void SRTN() {
             }
         }
     }
-    printf("\nOut at time %d\n", getClk());
+    printf("\nOut at time %d\n", current_time);
+    return current_time;
 }
 
 int HPF() {
@@ -510,13 +513,10 @@ int HPF() {
              PCB pcb =set_process(coming_process);
             hashmap_set(process_table, &pcb);                             // this copies the content of the struct
             push(&hpf_queue, coming_process.priority, coming_process.id); // add this process to the priority queue
-                        // printf("queue after push %d\n",is_empty(&hpf_queue));
-
             printf("Received process with priority %d and id %d at time %d \n", coming_process.priority,
                    coming_process.id, getClk());
 
             num_messages--;
-            // printf("End of recieving \n");
         }
         if (!is_empty(&hpf_queue) || process_is_currently_running) {
             if (process_is_currently_running) {
@@ -524,7 +524,6 @@ int HPF() {
 
                 if (current_clk - started_clk == current_pcb->remaining_time) {
                     int st;
-                    // (*shm_remain_time) = 0;
                     int ret = wait(&st);
                     int TA = current_clk - current_pcb->arrival_time;
                     current_pcb->remaining_time = 0;
@@ -537,11 +536,8 @@ int HPF() {
 
                     hashmap_delete(process_table, current_pcb);
                     process_is_currently_running = false;
-                    // printf("hena\n");
                 }
-                // printf("AAAa\n");
             }
-            // printf("queue %d process is currently running %d\n",is_empty(&hpf_queue),process_is_currently_running);
             if (!process_is_currently_running && !is_empty(&hpf_queue))
             {
                 pcb_s get_process = {.id = peek(&hpf_queue)->data};
@@ -552,12 +548,10 @@ int HPF() {
                 int pid = fork();
                 if (pid == 0) {
                     // child
-                    // printf("Create process: %d with priority: %d\n", peek(&hpf_queue)->data, peek(&hpf_queue)->priority);
                     execl("./process.out", "./process.out", NULL);
                 }
                 pair_t ret;
                 buddy_allocate(current_pcb->mem_size, &ret);
-                // printf("hh\n");   
                 started_clk = current_clk;
                 process_is_currently_running = true;
                 // parent take the pid to the hashmap
@@ -566,24 +560,9 @@ int HPF() {
                 current_pcb->waiting_time = current_clk - current_pcb->arrival_time;
                 current_pcb->memory_start_ind = ret.start_ind;
                 current_pcb->memory_end_ind = ret.end_ind;
-                // printf("current_pcb mem start %d end %d\n",current_pcb->memory_start_ind,current_pcb->memory_end_ind);
-                // printf(CYN "At time %d allocated %d bytes for process %d from %d to %d\n" RESET, current_clk, current_pcb->mem_size,
-                //        current_pcb->id, ret.start_ind, ret.end_ind);
-
-                // printf("At time %d process %d started arr %d total %d remain %d wait %d\n", current_clk,
-                //        current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, current_pcb->remaining_time,//*shm_remain_time,
-                //        current_pcb->waiting_time);
-                // fprintf(sch_log, "At time %d process %d started arr %d total %d remain %d wait %d\n", current_clk,
-                //         current_pcb->id, current_pcb->arrival_time, current_pcb->burst_time, current_pcb->remaining_time,//*shm_remain_time,
-                //         current_pcb->waiting_time);
-
-                // fprintf(mem_log, "At time %d allocated %d bytes for process %d from %d to %d\n" RESET, current_clk, current_pcb->mem_size,
-                //        current_pcb->id, ret.start_ind, ret.end_ind);
-                // // circular_enQueue(&RRqueue, id);
                 print(current_clk, current_pcb, &ret, 'a');
                 print(current_clk, current_pcb, NULL, 's');
                 pop(&hpf_queue);
-                // printf("hena aho\n");
             }
         }
     }
