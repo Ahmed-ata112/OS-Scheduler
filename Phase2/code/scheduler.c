@@ -92,7 +92,6 @@ int main(int argc, char *argv[]) {
     // create and open files
     scheduler_log();
     memory_log();
-    initClk();
     buddy_init();
 
     int remain_time_shmid = shmget(REMAIN_TIME_SHMKEY, 4, IPC_CREAT | 0644);
@@ -113,7 +112,8 @@ int main(int argc, char *argv[]) {
     WeightedTA = (int *) malloc(sizeof(int) * TotalNumberOfProcesses);
 
     printf("\nchosen Algo is %d\n", coming.algo);
-    
+    initClk();
+
     int finish_time = 0;
     switch (coming.algo) {
         case 1:
@@ -176,7 +176,7 @@ int RR2(int quantum)
     bool process_is_currently_running = false;
     int curr = 0;
     while (!circular_is_empty(&RRqueue) || p_count > 0) {
-        printf("\n in loop \n");
+
         // First check if any process has come
         struct count_msg c = {.count = 0};
         if (more_processes_coming || need_to_receive > 0)
