@@ -62,7 +62,7 @@ int process_compare(const void *a, const void *b, void *udata) {
 bool process_iter(const void *item, void *udata) {
     const struct PCB *process = item;
     printf("process: (id=%d) (arrivalTime=%d) (runTime=%d) (priority=%d) (pid=%d) (state=%d) (remainingTime=%d) (mem_size=%d) (memory_start=%d) (memory_end_ind=%d)\n",
-           process->pid, process->arrival_time, process->cum_runtime, process->priority, process->pid, process->state,
+           process->id, process->arrival_time, process->cum_runtime, process->priority, process->pid, process->state,
            process->remaining_time, process->mem_size, process->memory_start_ind, process->memory_end_ind);
     return true;
 }
@@ -352,18 +352,18 @@ int SRTN() {
                    coming_process.priority);
 
             //  you have that struct Now
-            PCB pcb= set_process(coming_process);
-            // pcb.id = coming_process.id;
-            // pcb.pid = 0;
-            // // pcb.arrival_time = coming_process.arrival;
-            // pcb.arrival_time = current_time;
-            // pcb.priority = coming_process.priority;
-            // pcb.state = READY;
-            // pcb.cum_runtime = 0;
-            // pcb.burst_time = coming_process.runtime;     // at the beginning
-            // pcb.remaining_time = coming_process.runtime; // at the beginning
-            // pcb.waiting_time = 0;
-            // pcb.mem_size = coming_process.memsize;                           // at the beginning
+            PCB pcb; // = set_process(coming_process);
+             pcb.id = coming_process.id;
+             pcb.pid = 0;
+             // pcb.arrival_time = coming_process.arrival;
+             pcb.arrival_time = current_time;
+             pcb.priority = coming_process.priority;
+             pcb.state = READY;
+             pcb.cum_runtime = 0;
+             pcb.burst_time = coming_process.runtime;     // at the beginning
+             pcb.remaining_time = coming_process.runtime; // at the beginning
+             pcb.waiting_time = 0;
+             pcb.mem_size = coming_process.memsize;                           // at the beginning
             hashmap_set(process_table, &pcb);             // this copies the content of the struct
             push(&waiting_queue, pcb.remaining_time, pcb.id); // add this process to the end of the Queue
             num_messages--;
@@ -442,12 +442,16 @@ int SRTN() {
                 }
             }
         }
+        hashmap_scan(process_table, process_iter, NULL);
         if (current_pcb == NULL && !is_empty(&sQueue)) {
-            printf("here %d \n",current_time);
             node *temp = pop(&sQueue);
+            printf("here %d \n",temp->data);
             PCB get_process = {.id = temp->data};
+
             current_pcb = hashmap_get(process_table, &get_process);
+            printf("here %d \n",current_pcb->id);
             *shm_remain_time = current_pcb->remaining_time;
+
             //  first time
             if (current_pcb->pid == 0) {
                 int pid = fork();
