@@ -31,13 +31,27 @@ int main(int argc, char *argv[]) {
     fclose(file);
 
     // 2. Ask the user for the chosen scheduling algorithm and its parameters, if there are any.
-    struct chosen_algorithm Initializer;
-    Initializer.algo = atoi(argv[1]);
-    Initializer.arg = 6;
-    if (Initializer.algo == 1) //RR
+       struct chosen_algorithm Initializer;
+    bool FalseInput = true;
+    while (FalseInput)
     {
-        Initializer.arg = atoi(argv[2]);
+        printf("Determination of Algorithm : \n RR : press 1 \n HPF : press 2 \n SRTN : press 3\n your input : ");
+        scanf("%hd",&Initializer.algo);
+        if (Initializer.algo >= 1 && Initializer.algo <= 3 )
+        {
+            if (Initializer.algo == 1) //RR
+            {
+                printf("Specify the argument of RR algorithm (Time Slot) : ");
+                scanf("%d",&Initializer.arg);  
+            }
+            FalseInput = false;
+        }
+        else
+        {
+            printf("you entered wrong input please recheck it again\n");
+        }
     }
+    system("clear");
     Initializer.NumOfProcesses = ProcessesNum;
     Initializer.mtype = ALGO_TYPE;
     int sch_pid, clk_pid, stat_loc;
