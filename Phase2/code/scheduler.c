@@ -179,6 +179,7 @@ int RR2(int quantum)
     int p_count = TotalNumberOfProcesses;
     int need_to_receive = TotalNumberOfProcesses;
     bool process_is_currently_running = false;
+    bool can_check_memory = true;
     int curr = 0;
     while (!circular_is_empty(&RRqueue) || p_count > 0)
     {
@@ -206,6 +207,7 @@ int RR2(int quantum)
 
             pushQueue(&waiting_queue, coming_process.id); // add to the waiting list and will see if you can Run
             hashmap_set(process_table, &pcb);             // this copies the content of the struct
+            can_check_memory = true;
             num_messages--;
         }
 
@@ -215,7 +217,7 @@ int RR2(int quantum)
         // if there is a running process -> see if it can be finished or not
 
         //        hashmap_scan(process_table, process_iter, NULL);
-        if (!isEmptyQueue(&waiting_queue))
+        if (!isEmptyQueue(&waiting_queue) && can_check_memory)
         {
             int n_loops = waiting_queue.size;
             while (n_loops--)
@@ -238,6 +240,7 @@ int RR2(int quantum)
                     pushQueue(&waiting_queue, id);
                 }
             }
+            can_check_memory = false;
         }
 
         if (process_is_currently_running)
@@ -268,6 +271,7 @@ int RR2(int quantum)
 
                 hashmap_delete(process_table, current_pcb);
                 process_is_currently_running = false;
+                can_check_memory = true;
 
                 // if its multiple of q finished and there are some other in the Q waiting
             }
@@ -309,9 +313,9 @@ int RR2(int quantum)
             else
             {
 
+                *shm_remain_time = current_pcb->remaining_time;
                 kill(current_pcb->pid, SIGCONT);
                 current_pcb->waiting_time = curr - current_pcb->arrival_time - current_pcb->cum_runtime;
-                *shm_remain_time = current_pcb->remaining_time;
                 print(curr, current_pcb, NULL, 'r');
             }
             current_pcb->state = RUNNING;
