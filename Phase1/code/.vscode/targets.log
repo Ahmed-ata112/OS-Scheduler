@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon May 30 20:17:37 2022
+# Make data base, printed on Tue May 31 10:19:17 2022
 
 # Variables
 
@@ -55,7 +53,7 @@ SNAP_DATA = /var/snap/code/97
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:42648
+JOURNAL_STREAM = 8:41313
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # environment
@@ -77,13 +75,15 @@ MAKELEVEL := 0
 # environment
 XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
 # environment
-DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus,guid=13546e53967aa01b15b5cca36294cf71
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-MANAGERPID = 1451
+_ = /snap/code/97/usr/share/code/code
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-bbdc035c-d2af-4e85-9afc-f6b953172b95.sock
+MANAGERPID = 1356
+# environment
+LESSOPEN = | /usr/bin/lesspipe %s
 # environment
 LC_NAME = en_US.UTF-8
 # environment
@@ -97,7 +97,7 @@ NO_PROXY = 127.0.0.1
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/2010,unix/my-loly:/tmp/.ICE-unix/2010
+SESSION_MANAGER = local/my-loly:@/tmp/.ICE-unix/1608,unix/my-loly:/tmp/.ICE-unix/1608
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -115,17 +115,19 @@ DISABLE_WAYLAND = 1
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 9277898eb4f041cf87ac8b48a64d4218
+INVOCATION_ID = 18726dfe34794c4d80ca73b3a249f6b2
 # environment
 GDK_PIXBUF_MODULEDIR = /snap/code/97/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
+LS_COLORS = 
+# environment
 XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 3127
+GIO_LAUNCHED_DESKTOP_FILE_PID = 3544
 # automatic
 %F = $(notdir $%)
 # environment
@@ -139,7 +141,7 @@ PWD = /home/ahmedatta/Stud/OS/Repos/OSproject/Phase1/code
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 1980
+SSH_AGENT_PID = 1562
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -149,7 +151,7 @@ VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 HOME = /home/ahmedatta
 # environment
-INSIDE_NAUTILUS_PYTHON = 
+LESSCLOSE = /usr/bin/lesspipe %s %s
 # environment
 VSCODE_CLI = 1
 # environment
@@ -179,19 +181,21 @@ LC_TIME = en_US.UTF-8
 # environment
 SNAP_REAL_HOME = /home/ahmedatta
 # environment
-PLATFORMIO_PATH = /home/ahmedatta/.platformio/python3/bin:/home/ahmedatta/.local/bin:/home/ahmedatta/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:QT_QPA_PLATFORMTHEME=gtk2:/home/ahmedatta/Downloads/clion-2022.1/bin
+PLATFORMIO_PATH = /home/ahmedatta/.platformio/python3/bin:/home/ahmedatta/.local/bin:/home/ahmedatta/bin:/home/ahmedatta/.local/bin:/home/ahmedatta/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:QT_QPA_PLATFORMTHEME=gtk2:/home/ahmedatta/Downloads/clion-2022.1/bin
 # default
 MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # environment
-PATH = /home/ahmedatta/.local/bin:/home/ahmedatta/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:QT_QPA_PLATFORMTHEME=gtk2:/home/ahmedatta/Downloads/clion-2022.1/bin
+PATH = /home/ahmedatta/.local/bin:/home/ahmedatta/bin:/home/ahmedatta/.local/bin:/home/ahmedatta/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:QT_QPA_PLATFORMTHEME=gtk2:/home/ahmedatta/Downloads/clion-2022.1/bin
 # environment
 SNAP_USER_DATA = /home/ahmedatta/snap/code/97
 # environment
 SHLVL = 0
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
+# environment
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-0ec88a57-a8b7-4ba4-8753-887bd3655de4.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -231,8 +235,6 @@ GDK_BACKEND = x11
 # environment
 LC_PAPER = en_US.UTF-8
 # environment
-NO_AT_BRIDGE = 1
-# environment
 LC_IDENTIFICATION = en_US.UTF-8
 # environment
 QT_ACCESSIBILITY = 1
@@ -252,8 +254,6 @@ LC_MEASUREMENT = en_US.UTF-8
 SNAP_NAME = code
 # environment
 LC_ALL = C
-# environment
-DBUS_STARTER_BUS_TYPE = session
 # environment
 GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # automatic
@@ -277,13 +277,14 @@ LC_ADDRESS = en_US.UTF-8
 # environment
 LANG = C
 # environment
-VSCODE_PID = 3174
-# environment
-DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=13546e53967aa01b15b5cca36294cf71
+VSCODE_PID = 3594
 # variable set hash-table stats:
-# Load=134/1024=13%, Rehash=0, Collisions=23/159=14%
+# Load=134/1024=13%, Rehash=0, Collisions=25/159=16%
 
 # Pattern-specific Variable Values
+
+ 
+make: *** No rule to make target 'all'.  Stop.
 
 # No pattern-specific variable values.
 
@@ -309,7 +310,6 @@ all:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
- 
 #  Last modified 2022-05-04 21:20:10.258545236
 #  File has been updated.
 #  Successfully updated.
@@ -382,6 +382,6 @@ clean:
 # strcache performance: lookups = 56 / hit rate = 19%
 # hash-table stats:
 # Load=45/8192=1%, Rehash=0, Collisions=1/56=2%
-# Finished Make data base on Mon May 30 20:17:37 2022
+# Finished Make data base on Tue May 31 10:19:17 2022
 
  

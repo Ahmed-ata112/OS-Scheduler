@@ -193,8 +193,8 @@ int RR2(int quantum)
             pcb.remaining_time = coming_process.runtime; // at the beginning
             pcb.waiting_time = 0;
             circular_enQueue(&RRqueue, coming_process.id);
-            
-            hashmap_set(process_table, &pcb);             // this copies the content of the struct
+
+            hashmap_set(process_table, &pcb); // this copies the content of the struct
             num_messages--;
         }
 
@@ -204,7 +204,6 @@ int RR2(int quantum)
         // if there is a running process -> see if it can be finished or not
 
         //        hashmap_scan(process_table, process_iter, NULL);
-       
 
         if (process_is_currently_running)
         {
@@ -488,15 +487,13 @@ int HPF()
             // printf("Front of the queue is %d\n", peek(&hpf_queue)->priority);
             num_messages--;
         }
-
+        current_clk = getClk();
         if (!is_empty(&hpf_queue) || process_is_currently_running)
         {
             if (process_is_currently_running)
             {
                 pcb_s get_process = {.id = current_id};
                 current_pcb = hashmap_get(process_table, &get_process);
-
-                current_clk = getClk();
 
                 if (current_clk - started_clk == current_pcb->remaining_time)
                 {
@@ -527,7 +524,7 @@ int HPF()
                     execl("./process.out", "./process.out", NULL);
                 }
 
-                started_clk = getClk();
+                started_clk = current_clk;
                 process_is_currently_running = true;
                 // parent take the pid to the hashmap
                 current_pcb->pid = pid; // update Pid of existing process
