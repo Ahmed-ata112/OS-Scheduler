@@ -65,6 +65,11 @@ bool buddy_allocate(int size, pair_t *returned) {
 
     // the actual size to alloc is ceil(log2(size))
     int up_size = ceil(log2(size));
+
+    if(up_size < 3){
+        up_size =3; // minimum of 8
+    }
+
     if (!lkl_isEmpty(&sizes_arr[up_size])) {
         // there is a perfect place
         //  TODO see what would u do with the returned
