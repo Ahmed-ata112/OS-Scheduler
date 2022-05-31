@@ -181,11 +181,11 @@ void ReadProcessesData(FILE *file, struct process_struct Processes[], int Proces
         {
             if (Processes[i].runtime == 0)
             {
-                printf(RED"!!! Warning: Process with id = %d has been excluded because its runtime = 0\n"RESET,Processes[i].id);
+                printf(YEL "!!! Warning: Process with id = %d has been excluded because its runtime = 0\n"RESET,Processes[i].id);
             }
             else
             {
-                printf(RED"!!! Warning: Process with id = %d has been excluded because its memsize = 0\n"RESET,Processes[i].id);
+                printf(YEL"!!! Warning: Process with id = %d has been excluded because its memsize = 0\n"RESET,Processes[i].id);
             }
         }
     }
